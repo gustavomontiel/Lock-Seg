@@ -61,7 +61,7 @@ class AuthController extends Controller
     /**
      * Register
      *
-     * @bodyParam name string optional - The name
+     * @bodyParam nombre string optional - Nombre y apellido
      * @bodyParam username string required -  The username
      * @bodyParam email string required - The email
      * @bodyParam password string required - The password
@@ -72,13 +72,13 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-        $name = $request->input('name');
+        $nombre = $request->input('nombre');
         $username = $request->input('username');
         $email = $request->input('email');
         $password = $request->input('password');
         $idCliente = $request->input('id_cliente');
         
-        $user = User::createFromValues($name, $username, $email, $password);
+        $user = User::createFromValues($nombre, $username, $email, $password);
 
         $user->cliente()->attach($idCliente);
 
