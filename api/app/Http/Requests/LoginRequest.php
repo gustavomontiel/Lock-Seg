@@ -11,7 +11,7 @@ class LoginRequest extends RequestAbstract
     */
     protected function prepareForValidation()
     {
-        $this->merge(['username' => strtoLower($this->input('username'))]);
+        $this->merge(['email' => strtoLower($this->input('email'))]);
     }
 
     /**
@@ -32,7 +32,7 @@ class LoginRequest extends RequestAbstract
     public function rules()
     {
         return [
-            'username' => 'required',
+            'email' => 'required',
             'password' => 'required',
         ];
     }

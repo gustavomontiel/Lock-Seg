@@ -24,7 +24,7 @@ use Validator;
  */
 class AuthController extends Controller
 {
-    protected $username = 'username';
+    // protected $username = 'username';
 
     /**
      * Current User
@@ -47,7 +47,7 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        $credentials = $request->only('username', 'password');
+        $credentials = $request->only('email', 'password');
 
         $token = Auth::attempt($credentials);
 
