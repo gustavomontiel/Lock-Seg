@@ -1,0 +1,52 @@
+<nav class="sidebar sidebar-offcanvas">
+    <ul class="nav">
+      <!--
+      <li class="nav-item nav-profile">
+        <div class="nav-link">
+
+          <div class="user-wrapper">
+            <div class="profile-image">
+              <img src="assets/images/faces/face1.jpg" alt="profile image">
+            </div>
+
+            <div class="text-wrapper">
+              <p class="profile-name">Cristobal Colón</p>
+              <div>
+                <small class="designation text-muted">Gerente</small>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </li>
+      -->
+      <li class="nav-item">
+        <a routerLink="/usuarios" class="nav-link">
+          <i class="menu-icon fas fa-bell text-danger"></i>
+          <span class="menu-title">Botón de Pánico</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a routerLink="/usuarios" class="nav-link">
+          <i class="menu-icon fas fa-users text-primary"></i>
+          <span class="menu-title">Usuarios</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a routerLink="/usuarios" class="nav-link">
+          <i class="menu-icon fab fa-whmcs text-success"></i>
+          <span class="menu-title">Configuraciones</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a (click)="logout()" class="nav-link cursor">
+          <i class="menu-icon fa fa-sign-out-alt text-warning"></i>
+          <span class="menu-title">Cerrar sesión</span>
+        </a>
+      </li>
+
+    </ul>
+  </nav>

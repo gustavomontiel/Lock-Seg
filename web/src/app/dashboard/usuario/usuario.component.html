@@ -1,0 +1,58 @@
+<mat-tab-group>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      Datos de la cuenta <!--
+      <i class="far fa-address-card"></i>&nbsp;Datos del cliente
+      -->
+    </ng-template>
+    <div class="card card-primary mt-2">
+      <!-- form start -->
+      <form role="form" ngNativeValidate [formGroup]="formUsuario" (ngSubmit)="actualizarUsuario()" action="" method="post">
+        <div class="card-body form-row">
+          <div class="form-group col-md-12">
+            <label for="exampleInputEmail1">Nombre completo</label>
+            <input formControlName="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre completo">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="exampleInputPassword1">Nombre de usuario</label>
+            <input formControlName="username" name="username" type="text" class="form-control" placeholder="nombre de usuario">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="exampleInputPassword1">E-mail</label>
+            <input formControlName="email" name="email" type="email" class="form-control" placeholder="e-mail">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="exampleInputPassword1">Teléfono</label>
+            <input formControlName="telefono" name="telefono" type="text" class="form-control" placeholder="Teléfono">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="rol">Rol</label>
+            <select class="custom-select" (change)="cambioRol($event)" formControlName="rol">
+              <option value="" disabled>Seleccionar un rol</option>
+              <option value="administrador">Administrador</option>
+              <option value="cliente">Cliente</option>
+           </select>
+            <!--
+            <input formControlName="rol" name="rol" type="text" class="form-control" placeholder="Rol">
+            -->
+          </div>
+        </div>
+        <!-- /.card-body -->
+
+        <div class="card-footer">
+          <button type="submit" class="btn btn-primary float-right">Guardar</button>
+        </div>
+      </form>
+    </div>
+
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      Mensajes Push
+    </ng-template>
+
+    Mensajes enviados
+  </mat-tab>
+</mat-tab-group>
+
+
