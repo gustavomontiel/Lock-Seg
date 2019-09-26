@@ -68,12 +68,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @param $password
      * @return User|bool
      */
-    public static function createFromValues($nombre, $username, $email, $password)
+    public static function createFromValues($nombre, $email, $password)
     {
         $user = new static;
 
         $user->nombre = $nombre;
-        $user->username = $username;
         $user->email = $email;
         $user->password = Hash::make($password);
         $user->verification_token = Str::random(64);

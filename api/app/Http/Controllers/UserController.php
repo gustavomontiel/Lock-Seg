@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CsvImportRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -154,5 +155,34 @@ class UserController extends Controller
         $user->save();
 
         return response()->json(['error' => 'false', 'message' => 'Contraseña actualizada correctamente.']);
+    }
+
+    /**
+     * Importar clientes de un csv exportado desde el ERP de la empresa.
+     *
+     * @param  CsvImportRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function importarclientes(CsvImportRequest $request)
+    {
+        $path = $request->file('csv_file')->getRealPath();
+        $data = array_map(function ($v) {
+            return str_getcsv($v, ";");
+        }, file($path));
+        $cabecera = $data[0];
+        $datos = array_slice($data, 1);
+        User::truncate();
+        User::createFromValues('Administrador', 'admin@admin.com', 'password')->assignRole('administrador');
+        foreach ($datos as $row) {
+            $user = new User();
+            for ($i = 0; $i < count($cabecera); $i++) {
+                if ($cabecera[$i] != 'rol') $user->{trim($cabecera[$i])} = utf8_encode(trim($row[$i]));
+            }
+            $user->password = Hash::make('123456');
+            $user->save();
+            $user->verify();
+            $user->assignRole($row[3]);
+        }
+        return response()->json(['error' => 'false', 'message' => 'Usuarios importados correctamente.']);
     }
 }

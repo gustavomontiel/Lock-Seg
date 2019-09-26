@@ -84,6 +84,11 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
             'uses' => 'UserController@actualizarPassword'
         ]);
 
+        $router->post('/importarclientes', [
+            'as' => 'users.importarclientes',
+            'uses' => 'UserController@importarclientes'
+        ]);
+
     });
 
 });

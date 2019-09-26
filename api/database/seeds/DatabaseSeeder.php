@@ -15,6 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesSeeder::class,
         ]);
-        User::createFromValues('Administrador', 'admin', 'admin@admin.com', 'password')->assignRole('administrador');
+        User::createFromValues('Administrador', 'admin@admin.com', 'password')->assignRole('administrador');
     }
 }
