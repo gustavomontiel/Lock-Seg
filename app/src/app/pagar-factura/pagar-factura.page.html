@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-toolbar class="lock-color">
+      <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+      </ion-buttons>
+    <ion-title>Pagar factura</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div>
+        <ion-img class="ion-align-self-center" src="/assets/imagenes/lock_logo.png"></ion-img>
+    </div>
+    <div padding>
+        <ion-button class="lock-button" expand="block" (click)="openWithInAppBrowser('https://pagomiscuentas.com/')">Pago mis cuentas</ion-button>
+        <ion-button class="lock-button" expand="block" (click)="openWithInAppBrowser('https://www.rapipago.com.ar/')">Rapipago</ion-button>
+        <ion-button class="lock-button" expand="block" (click)="openWithInAppBrowser('https://www.e-pagofacil.com/')">Pago Fácil</ion-button>
+        <ion-button class="lock-button" expand="block" (click)="openWithInAppBrowser('https://www.macro.com.ar/bancainternet/#')">Banco Macro</ion-button>
+        <ion-button class="lock-button" expand="block" (click)="openWithInAppBrowser('https://www.bancogalicia.com/banca/online/web/Personas')">Banco Galicia</ion-button>
+        <ion-button class="lock-button" expand="block" (click)="openWithInAppBrowser('https://www.bbva.com.ar/')">Banco Francés</ion-button>
+        <ion-button class="lock-button" expand="block" (click)="openWithInAppBrowser('hik.intent.action.iVMS-4500://')">Adherirse al débito automático</ion-button>
+    </div>
+    
+
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar class="lock-footer">
+      <p>www.lock-seguridad.com.ar</p>
+      <p>(0376) 4433870 / 4441054</p>
+    </ion-toolbar>
+  </ion-footer>

@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-toolbar class="lock-color">
+      <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+      </ion-buttons>
+    <ion-title>gps</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <button ion-button (click)="openWithSystemBrowser('https://www.techiediaries.com')">Open with System browser</button>
+  <button ion-button (click)="openWithInAppBrowser('https://www.techiediaries.com')">Open with In App browser</button>
+  <button ion-button (click)="openWithCordovaBrowser('https://www.techiediaries.com')">Open with Cordova browser</button>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="lock-footer">
+    <p>www.lock-seguridad.com.ar</p>
+    <p>(0376) 4433870 / 4441054</p>
+  </ion-toolbar>
+</ion-footer>

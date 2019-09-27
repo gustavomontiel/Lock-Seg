@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar class="lock-color">
+      <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+      </ion-buttons>
+    <ion-title>facturas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-img class="ion-align-self-center" src="/assets/imagenes/lock_logo.png"></ion-img>
+  </div>
+  <ion-grid>
+    <ion-row class="ion-align-items-center ion-justify-content-center">
+      <ion-col size="4" class="ion-padding-horizontal ion-align-self-center">
+        <div class="ion-text-center">
+          <a target="_blank" rel="noopener" href="https://clientes.axoft.com/">
+            <ion-img class="ion-align-self-center" src="/assets/imagenes/9.png"></ion-img>  
+          </a>
+          <ion-label>Ver Factura</ion-label>
+        </div>
+      </ion-col>
+      <ion-col size="4" class="ion-padding-horizontal ion-align-self-center">
+          <div class="ion-text-center">
+            <a [routerLink]="['/pagar-factura']">
+              <ion-img src="/assets/imagenes/10.png"></ion-img>
+            </a>
+            <ion-label>Pagar Factura</ion-label>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="lock-footer">
+    <p>www.lock-seguridad.com.ar</p>
+    <p>(0376) 4433870 / 4441054</p>
+  </ion-toolbar>
+</ion-footer>

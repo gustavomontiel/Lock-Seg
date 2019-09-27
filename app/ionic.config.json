@@ -1,0 +1,7 @@
+{
+  "name": "lock",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

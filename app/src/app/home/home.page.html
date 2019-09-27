@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar class="lock-color">
+    <ion-title>
+      Lock Seguridad
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-img class="ion-align-self-center" src="/assets/imagenes/lock_logo.png"></ion-img>
+  </div>
+  <ion-grid>
+    <ion-row class="ion-align-items-center ion-justify-content-center">
+      <ion-col size="4" class="ion-padding-horizontal ion-align-self-center">
+        <div class="ion-text-center">
+          <a rel="noopener" [routerLink]="['/mi-alarma']">
+            <ion-img class="ion-align-self-center" src="/assets/imagenes/1.png"></ion-img>   
+          </a>
+          <ion-label>Alarma</ion-label>
+        </div>
+      </ion-col>
+      <ion-col size="4" class="ion-padding-horizontal ion-align-self-center">
+          <div class="ion-text-center">
+            <a rel="noopener" (click)="openWithInAppBrowser('hik.intent.action.iVMS-4500://')">
+              <ion-img src="/assets/imagenes/2.png"></ion-img>
+            </a>
+            <ion-label>Cámaras</ion-label>   
+        </div>
+      </ion-col>
+      <ion-col size="4" class="ion-padding-horizontal ion-align-self-center">
+         <div class="ion-text-center">
+           <a rel="noopener" (click)="openWithInAppBrowser('http://www.pmldigital.com/html5tags/test/bykom.html')">
+             <ion-img src="/assets/imagenes/3.png"></ion-img>
+           </a>
+           <ion-label>GPS</ion-label>  
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center ion-justify-content-center">
+      <ion-col size="4" class="ion-padding-horizontal ion-align-self-center">
+          <div class="ion-text-center">
+              <a rel="noopener" [routerLink]="['/facturas']">
+                <ion-img src="/assets/imagenes/4.png"></ion-img>
+              </a> 
+              <ion-label>Facturas</ion-label> 
+        </div>
+      </ion-col>
+      <ion-col size="4" class="ion-padding-horizontal ion-align-self-center">
+          <div class="ion-text-center">
+            <a rel="noopener" [routerLink]="['/soporte']">
+              <ion-img src="/assets/imagenes/5.png"></ion-img>
+            </a>
+            <ion-label>Soporte</ion-label>
+        </div>
+      </ion-col>
+      <ion-col size="4" class="ion-padding-horizontal ion-align-self-center">
+          <div class="ion-text-center">
+            <a rel="noopener" [routerLink]="['/promoiones']">
+              <ion-img src="/assets/imagenes/6.png"></ion-img>
+            </a>  
+            <ion-label>Promociones</ion-label>  
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center ion-justify-content-center">
+        <ion-col  size="4" class="ion-padding-horizontal ion-align-self-center">
+            <div class="ion-text-center">
+                <a rel="noopener" [routerLink]="['/facturas']">
+                  <ion-img src="/assets/imagenes/8.png"></ion-img>
+                </a> 
+                <ion-label>Botón de Pánico</ion-label> 
+          </div>
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar class="lock-footer">
+      <p>www.lock-seguridad.com.ar</p>
+      <p>(0376) 4433870 / 4441054</p>
+    </ion-toolbar>
+  </ion-footer>
