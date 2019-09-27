@@ -34,7 +34,6 @@ class UserController extends Controller
 
         $validator = Validator::make($input, [
             'nombre' => 'string|required',
-            'username' => 'required|unique:users,username',
             'email' => 'required|email|unique:users,email',
             'password' => 'required',
             'telefono' => 'string',
@@ -87,7 +86,6 @@ class UserController extends Controller
 
         $validator = Validator::make($input, [
             'nombre' => 'string',
-            'username' => 'required|unique:users,username,' . $user->id,
             'email' => 'required|email|unique:users,email,' . $user->id,
             'telefono' => 'string',
             'codigo_gestion' => 'string',
@@ -98,7 +96,6 @@ class UserController extends Controller
         }
 
         $user->nombre = $input['nombre'];
-        $user->username = $input['username'];
         $user->email = $input['email'];
         $user->telefono = $input['telefono'];
         $user->codigo_gestion = $input['codigo_gestion'];
