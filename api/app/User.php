@@ -60,6 +60,16 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     }
 
     /**
+     * Obtener los contactos de un usuario
+     *
+     * @return Array
+     */
+    public function contactos()
+    {
+        return $this->hasMany('App\Contacto');
+    }
+
+    /**
      * Create a user
      *
      * @param $name

@@ -1,9 +1,11 @@
 <?php
+
 /** @var Router $router */
 
 use Laravel\Lumen\Routing\Router;
 
 /* Public Routes */
+
 $router->get('/', function () {
     return response()->json(['message' => 'Bienvenidos a la API del sistema de Lock Seguridad.']);
 });
@@ -45,6 +47,37 @@ $router->group(['prefix' => 'auth', 'as' => 'auth'], function (Router $router) {
 
 /* Protected Routes */
 $router->group(['middleware' => 'auth'], function (Router $router) {
+
+    /* Contactos Routes */
+    $router->get('/contactos', [
+        'as' => 'contactos.index',
+        'uses' => 'ContactoController@index'
+    ]);
+
+    $router->get('/contactos/{id}', [
+        'as' => 'contactos.show',
+        'uses' => 'ContactoController@show'
+    ]);
+
+    $router->post('/contactos', [
+        'as' => 'contactos.store',
+        'uses' => 'ContactoController@store'
+    ]);
+
+    $router->put('/contactos/{id}', [
+        'as' => 'contactos.update',
+        'uses' => 'ContactoController@update'
+    ]);
+
+    $router->delete('/contactos/{id}', [
+        'as' => 'contactos.destroy',
+        'uses' => 'ContactoController@destroy'
+    ]);
+
+    $router->get('/contactos/user/{id_user}', [
+        'as' => 'contactos.showByUser',
+        'uses' => 'ContactoController@showByUser'
+    ]);
 
     /* Admin Routes */
     $router->group(['middleware' => 'role:administrador'], function (Router $router) {
@@ -88,7 +121,5 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
             'as' => 'users.importarclientes',
             'uses' => 'UserController@importarclientes'
         ]);
-
     });
-
 });
