@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   onSubmit( data: any ) {
     console.log(data);
-    this.authService.crearUsuario(data.nombre, data.email, data.password );
+    // this.authService.crearUsuario(data.nombre, data.email, data.password );
   }
 
 }

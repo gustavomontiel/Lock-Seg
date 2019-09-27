@@ -9,7 +9,7 @@
       </ng-template>
       <div class="card card-primary mt-2">
         <!-- form start -->
-        <form role="form" ngNativeValidate [formGroup]="formUsuario" (ngSubmit)="actualizarUsuario()" action=""
+        <form role="form" ngNativeValidate [formGroup]="formUsuario" (ngSubmit)="crearUsuario()" action=""
           method="post">
           <div class="card-body form-row">
             <div class="form-group col-md-12">
@@ -29,7 +29,7 @@
             </div>
             <div class="form-group col-md-6">
               <label for="rol">Rol</label>
-              <select class="custom-select" (change)="cambioRol($event)" formControlName="roleNames">
+              <select class="custom-select" (change)="cambioRol($event)" formControlName="rol">
                 <option value="" disabled>Seleccionar un rol</option>
                 <option value="administrador">Administrador</option>
                 <option value="cliente">Cliente</option>
@@ -39,6 +39,11 @@
               <label for="codigo_gestion">Código de gestión</label>
               <input formControlName="codigo_gestion" name="codigo_gestion" [disabled]="cargando" type="text" class="form-control"
                 placeholder="Código de gestión" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="password">Contraseña</label>
+              <input formControlName="password" name="password" [disabled]="cargando" type="password" class="form-control"
+                placeholder="Contraseña" required>
             </div>
           </div>
           <!-- /.card-body -->
@@ -53,11 +58,5 @@
       </div>
     </div>
   </mat-tab>
-  <mat-tab>
-    <ng-template mat-tab-label>
-      Mensajes Push
-    </ng-template>
-
-    <app-mensajes></app-mensajes>
-  </mat-tab>
 </mat-tab-group>
+

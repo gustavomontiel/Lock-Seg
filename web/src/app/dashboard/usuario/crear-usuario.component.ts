@@ -7,13 +7,15 @@ import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
-  selector: 'app-usuario',
-  templateUrl: './usuario.component.html',
-  styleUrls: ['./usuario.component.scss']
+  selector: 'app-crear-usuario',
+  templateUrl: './crear-usuario.component.html',
+  styleUrls: ['./crear-usuario.component.scss']
 })
-export class UsuarioComponent implements OnInit, OnDestroy {
+export class CrearUsuarioComponent implements OnInit, OnDestroy {
 
   cargando: boolean;
   subscription: Subscription;
@@ -26,11 +28,9 @@ export class UsuarioComponent implements OnInit, OnDestroy {
     public router: Router,
     public activatedRoute: ActivatedRoute,
     public store: Store<AppState>
-  ) {
-  }
+  ) { }
 
   ngOnInit() {
-
     this.subscription = this.store.select('ui').subscribe(ui => {
       this.cargando = ui.isLoading;
     });
@@ -39,57 +39,39 @@ export class UsuarioComponent implements OnInit, OnDestroy {
       nombre: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.required, Validators.email]),
       telefono: new FormControl('', Validators.required),
-      roleNames: new FormControl('', [Validators.required]),
+      rol: new FormControl(null, [Validators.required]),
       codigo_gestion: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
     });
 
-    this.activatedRoute.params.subscribe(params => {
-      const id = params.id;
-      this.cargarUsuario(id);
-    });
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  cargarUsuario(id: string) {
-
-    this.authService.getUsuarioId(id)
-      .subscribe(usuario => {
-        this.usuario = usuario.data;
-        console.log(this.usuario);
-        this.formUsuario.setValue({
-          nombre: this.usuario.nombre,
-          email: this.usuario.email,
-          telefono: this.usuario.telefono,
-          roleNames: this.usuario.roleNames[0] ? this.usuario.roleNames[0] : '',
-          codigo_gestion: this.usuario.codigo_gestion
-        });
-      });
-
-  }
-
-  actualizarUsuario() {
+  crearUsuario() {
 
     Swal.fire({
-      title: 'Guardar cambios?',
-      text: 'Confirma los cambios?',
+      title: 'Guardar datos?',
+      text: 'Confirma los datos?',
       type: 'question',
       showCancelButton: true,
     }).then((result) => {
 
       if (result.value) {
-        const user = { ... this.formUsuario.value, id: this.usuario.id };
+        const user = { ... this.formUsuario.value };
         console.log(user);
 
-        this.authService.updateUser( user ).subscribe(
+        this.authService.crearUsuario( user ).subscribe(
           resp => {
             Swal.fire(
               'Guardado!',
-              'Los cambios fueron guardados correctamente.',
+              'Los datos fueron guardados correctamente.',
               'success'
             );
+            const url = environment.APIEndpoint + '/users/' + resp.data.id;
+            this.router.navigateByUrl(url);
           },
           err => {
             console.log(err);

@@ -1,32 +1,39 @@
-import { Router } from '@angular/router';
-import { AuthService } from './../../auth/auth.service';
-import { User } from './../../auth/user.model';
+import { Contacto } from './../contacto.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 @Component({
-  selector: 'app-usuarios',
-  templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.scss']
+  selector: 'app-atencion-cliente',
+  templateUrl: './atencion-cliente.component.html',
+  styleUrls: ['./atencion-cliente.component.scss']
 })
-export class UsuariosComponent implements OnInit {
+export class AtencionClienteComponent implements OnInit {
 
-  usuarios: User[];
+  usuarios: Contacto[] = [{
+    id: '2',
+    tipo: 'alarma',
+    titulo: 'Atención al cliente',
+    descripcion: null,
+    user_id: 2
+  }];
+
   dataSource: any;
-  displayedColumns: string[] = ['id', 'nombre', 'email', 'rolenames', 'acciones'];
+  displayedColumns: string[] = ['id', 'user_id', 'titulo', 'descripcion', 'acciones'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(
-    public authService: AuthService,
-    private route: Router
-  ) { }
+  constructor() { }
 
   ngOnInit() {
-    this.leerUsuarios();
+    this.leerContactos();
   }
 
-  leerUsuarios() {
+  leerContactos() {
+
+    this.dataSource = new MatTableDataSource(this.usuarios);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    /*
     this.authService.getUsuarios()
       .subscribe(usuarios => {
         console.log(usuarios);
@@ -35,6 +42,7 @@ export class UsuariosComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       });
+      */
   }
 
   applyFilter(filterValue: string) {
@@ -44,11 +52,6 @@ export class UsuariosComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
 
-  }
-
-  agregarUsuario() {
-    console.log('nuevo usuario');
-    this.route.navigateByUrl('crear-usuario');
   }
 
 }

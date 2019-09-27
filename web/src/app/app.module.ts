@@ -27,6 +27,12 @@ import { environment } from 'src/environments/environment';
 import { UsuarioComponent } from './dashboard/usuario/usuario.component';
 import { UsuariosComponent } from './dashboard/usuarios/usuarios.component';
 import { TokenInterceptor } from './shared/interceptors/token.interceptor';
+import { MensajesComponent } from './dashboard/usuario/mensajes.component';
+import { CrearUsuarioComponent } from './dashboard/usuario/crear-usuario.component';
+import { BotonPanicoComponent } from './dashboard/boton-panico/boton-panico.component';
+import { MovilDomicilioComponent } from './dashboard/movil-domicilio/movil-domicilio.component';
+import { ServicioTecnicoComponent } from './dashboard/servicio-tecnico/servicio-tecnico.component';
+import { AtencionClienteComponent } from './dashboard/atencion-cliente/atencion-cliente.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +44,14 @@ import { TokenInterceptor } from './shared/interceptors/token.interceptor';
     NavbarComponent,
     SidebarComponent,
     UsuarioComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    MensajesComponent,
+    CrearUsuarioComponent,
+    BotonPanicoComponent,
+    MovilDomicilioComponent,
+    ServicioTecnicoComponent,
+    AtencionClienteComponent,
+
   ],
   imports: [
     BrowserModule,

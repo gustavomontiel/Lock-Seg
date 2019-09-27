@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { User } from './user.model';
 import { AppState } from '../app.reducer';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Subscription, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ActivarLoadingAction, DesactivarLoadingAction } from './../shared/ui.actions';
 
@@ -29,19 +29,34 @@ export class AuthService {
     this.usuario = JSON.parse(sessionStorage.getItem('usuario')) || null;
   }
 
-  crearUsuario(nombre: string, email: string, password: string) {
+  crearUsuario(user: User) {
+
     this.store.dispatch(new ActivarLoadingAction());
-    Swal.fire('Error en el loginError al guardar los datos de usuario', 'error.message', 'error');
-    this.store.dispatch(new DesactivarLoadingAction());
+
+    const url = environment.APIEndpoint + '/users';
+
+    return this.http.post(url, user)
+    .pipe(
+      map((resp: any) => {
+        console.log('this.store.dispatch(new DesactivarLoadingAction());');
+        this.store.dispatch(new DesactivarLoadingAction());
+        return resp;
+      }),
+      catchError(err => {
+        console.log('Handling error locally and rethrowing it...', err);
+        this.store.dispatch(new DesactivarLoadingAction());
+        return throwError(err);
+      })
+    );
   }
 
-  login(username: string, password: string) {
+  login(email: string, password: string) {
 
     this.store.dispatch(new ActivarLoadingAction());
 
     const url = environment.APIEndpoint + '/auth/login';
     const usuario = {
-      username,
+      email,
       password
     };
 
@@ -62,6 +77,7 @@ export class AuthService {
       );
   }
 
+
   logout() {
 
     this.usuario = null;
@@ -73,13 +89,16 @@ export class AuthService {
 
   }
 
+
   isAuth() {
     return (this.token.length > 5) ? true : false;
   }
 
+
   getUsuario() {
     return { ...this.usuario };
   }
+
 
   getUsuarioId(id: string) {
     Swal.fire({
@@ -97,6 +116,7 @@ export class AuthService {
       })
     );
   }
+
 
   getUsuarios() {
     Swal.fire({
@@ -119,4 +139,35 @@ export class AuthService {
   isAdmin() {
     return this.usuario ? this.usuario.roleNames.includes('administrador') : false;
   }
+
+
+  updateUser(user: User) {
+
+    if (user.id) {
+
+      this.store.dispatch(new ActivarLoadingAction());
+
+      let url = environment.APIEndpoint + '/users';
+      url += '/' + user.id;
+
+      return this.http.put(url, user)
+      .pipe(
+        map((resp: any) => {
+          console.log('this.store.dispatch(new DesactivarLoadingAction());');
+          this.store.dispatch(new DesactivarLoadingAction());
+          return resp;
+        }),
+        catchError(err => {
+          console.log('Handling error locally and rethrowing it...', err);
+          this.store.dispatch(new DesactivarLoadingAction());
+          return throwError(err);
+        })
+      );
+    } else {
+      console.log('no se puede actualizar un objeto sin id');
+
+    }
+
+  }
+
 }
