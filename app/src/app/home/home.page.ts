@@ -11,7 +11,7 @@ export class HomePage {
   miAlarma = MiAlarmaPage;
 
   options : InAppBrowserOptions = {
-    location : 'yes',//Or 'no' 
+    location : 'no',//Or 'no' 
     hidden : 'no', //Or  'yes'
     clearcache : 'yes',
     clearsessioncache : 'yes',

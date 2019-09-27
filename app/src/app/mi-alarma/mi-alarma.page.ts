@@ -9,7 +9,7 @@ import { InAppBrowser , InAppBrowserOptions } from '@ionic-native/in-app-browser
 export class MiAlarmaPage implements OnInit {
 
   options : InAppBrowserOptions = {
-    location : 'yes',//Or 'no' 
+    location : 'no',//Or 'no' 
     hidden : 'no', //Or  'yes'
     clearcache : 'yes',
     clearsessioncache : 'yes',
