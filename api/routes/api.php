@@ -79,6 +79,37 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         'uses' => 'ContactoController@showByUser'
     ]);
 
+    /* Mensajes Routes */
+    $router->get('/mensajes', [
+        'as' => 'mensajes.index',
+        'uses' => 'MensajeController@index'
+    ]);
+
+    $router->get('/mensajes/{id}', [
+        'as' => 'mensajes.show',
+        'uses' => 'MensajeController@show'
+    ]);
+
+    $router->post('/mensajes', [
+        'as' => 'mensajes.store',
+        'uses' => 'MensajeController@store'
+    ]);
+
+    $router->put('/mensajes/{id}', [
+        'as' => 'mensajes.update',
+        'uses' => 'MensajeController@update'
+    ]);
+
+    $router->delete('/mensajes/{id}', [
+        'as' => 'mensajes.destroy',
+        'uses' => 'MensajeController@destroy'
+    ]);
+
+    $router->get('/mensajes/user/{id_user}', [
+        'as' => 'mensajes.showByUser',
+        'uses' => 'MensajeController@showByUser'
+    ]);
+
     /* Admin Routes */
     $router->group(['middleware' => 'role:administrador'], function (Router $router) {
 

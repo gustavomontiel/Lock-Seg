@@ -17,6 +17,13 @@ class ContactoController extends Controller
     public function index()
     {
         $contactos = Contacto::all();
+
+        if (count($contactos) == 0) {
+            return response()->json(['error' => 'true', 'message' => 'No existen contactos en el sistema.']);
+        }
+
+        $contactos->load('user');
+
         return response()->json(['error' => 'false', 'data' => $contactos, 'message' => 'Contactos enviados correctamente.']);
     }
 

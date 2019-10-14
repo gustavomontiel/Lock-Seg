@@ -70,6 +70,16 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     }
 
     /**
+     * Obtener los mensajes de un usuario
+     *
+     * @return Array
+     */
+    public function mensajes()
+    {
+        return $this->hasMany('App\Mensaje');
+    }
+
+    /**
      * Create a user
      *
      * @param $name
