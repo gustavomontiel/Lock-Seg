@@ -1,3 +1,5 @@
+import { User } from '../../auth/user.model';
+
 export class Contacto {
   public tipo: string;
   public titulo: string;
@@ -9,4 +11,5 @@ export class Contacto {
   // tslint:disable-next-line: variable-name
   public updated_at?: Date;
   public id?: string;
+  public user?: User;
 }

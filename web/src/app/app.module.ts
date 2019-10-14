@@ -24,15 +24,15 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { environment } from 'src/environments/environment';
-import { UsuarioComponent } from './dashboard/usuario/usuario.component';
-import { UsuariosComponent } from './dashboard/usuarios/usuarios.component';
+import { EditarUsuarioComponent } from './dashboard/usuario/editar-usuario/editar-usuario.component';
+import { UsuariosComponent } from './dashboard/usuario/usuarios/usuarios.component';
 import { TokenInterceptor } from './shared/interceptors/token.interceptor';
-import { MensajesComponent } from './dashboard/usuario/mensajes.component';
-import { CrearUsuarioComponent } from './dashboard/usuario/crear-usuario.component';
+import { MensajesComponent } from './dashboard/usuario/mensaje/mensajes.component';
+import { CrearUsuarioComponent } from './dashboard/usuario/crear-usuario/crear-usuario.component';
 import { BotonPanicoComponent } from './dashboard/boton-panico/boton-panico.component';
-import { MovilDomicilioComponent } from './dashboard/movil-domicilio/movil-domicilio.component';
-import { ServicioTecnicoComponent } from './dashboard/servicio-tecnico/servicio-tecnico.component';
-import { AtencionClienteComponent } from './dashboard/atencion-cliente/atencion-cliente.component';
+import { MovilDomicilioComponent } from './dashboard/contacto/movil-domicilio/movil-domicilio.component';
+import { ServicioTecnicoComponent } from './dashboard/contacto/servicio-tecnico/servicio-tecnico.component';
+import { AtencionClienteComponent } from './dashboard/contacto/atencion-cliente/atencion-cliente.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +43,7 @@ import { AtencionClienteComponent } from './dashboard/atencion-cliente/atencion-
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    UsuarioComponent,
+    EditarUsuarioComponent,
     UsuariosComponent,
     MensajesComponent,
     CrearUsuarioComponent,

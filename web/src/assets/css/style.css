@@ -8617,7 +8617,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
   align-items: center; }
   .form-inline .form-check {
     width: 100%; }
- 
+
 .btn {
   display: inline-block;
   font-weight: 400;
@@ -9074,7 +9074,7 @@ input[type="button"].btn-block {
   height: 0;
   overflow: hidden;
   transition: height 0.35s ease; }
-  
+
 
 
 .dropup,
@@ -10942,7 +10942,7 @@ button.close {
   transition: transform 0.6s ease;
   backface-visibility: hidden;
   perspective: 1000px; }
-  
+
 .carousel-item.active,
 .carousel-item-next,
 .carousel-item-prev {
@@ -13040,13 +13040,13 @@ html {
 
 .content-wrapper {
   background: #f2f8f9;
-  padding: 1.5rem 1.7rem;
+  padding:  1.3rem 1.7rem; /* ORIGINAL -> 1.5rem 1.7rem; */
   width: 100%;
   -webkit-flex-grow: 1;
   flex-grow: 1; }
 
 .container-scroller {
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .scroll-container {

@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
-import { AuthService } from './../../auth/auth.service';
-import { User } from './../../auth/user.model';
+import { AuthService } from '../../../auth/auth.service';
+import { User } from '../../../auth/user.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
@@ -13,7 +13,7 @@ export class UsuariosComponent implements OnInit {
 
   usuarios: User[];
   dataSource: any;
-  displayedColumns: string[] = ['id', 'nombre', 'email', 'rolenames', 'acciones'];
+  displayedColumns: string[] = ['codigo_gestion', 'nombre', 'email', 'rolenames', 'acciones'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 

@@ -140,6 +140,9 @@ export class AuthService {
     return this.usuario ? this.usuario.roleNames.includes('administrador') : false;
   }
 
+  getRoles() {
+    return this.usuario ? this.usuario.roleNames : false;
+  }
 
   updateUser(user: User) {
 

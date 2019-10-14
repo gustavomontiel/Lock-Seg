@@ -1,3 +1,4 @@
+<h3>Editar Usuario</h3>
 <mat-tab-group>
   <mat-tab>
     <div class="col-12">
@@ -7,7 +8,7 @@
       <i class="far fa-address-card"></i>&nbsp;Datos del cliente
       -->
       </ng-template>
-      <div class="card card-primary mt-2">
+      <div class="card card-primary mt-2 container">
         <!-- form start -->
         <form role="form" ngNativeValidate [formGroup]="formUsuario" (ngSubmit)="actualizarUsuario()" action=""
           method="post">
@@ -36,15 +37,16 @@
               </select>
             </div>
             <div class="form-group col-md-6">
-              <label for="codigo_gestion">Código de gestión</label>
+              <label for="codigo_gestion">Nro de abonado</label>
               <input formControlName="codigo_gestion" name="codigo_gestion" [disabled]="cargando" type="text" class="form-control"
                 placeholder="Código de gestión" required>
             </div>
           </div>
           <!-- /.card-body -->
-          <div class="card-footer">
-            <button *ngIf="!cargando" [disabled]="formUsuario.invalid" type="submit" class="btn btn-primary float-right">Guardar</button>
-            <button *ngIf="cargando" [disabled]="true" class="btn btn-primary float-right">
+          <div class="card-footer row justify-content-end">
+              <a routerLink="/usuarios" *ngIf="!cargando" type="button" class="btn btn-secondary mr-2">Cancelar</a>
+            <button *ngIf="!cargando" [disabled]="formUsuario.invalid" type="submit" class="btn btn-primary">Guardar</button>
+            <button *ngIf="cargando" [disabled]="true" class="btn btn-primary">
               <i class="fa fa-spin fa-sync"></i>
               Por favor espere...
             </button>

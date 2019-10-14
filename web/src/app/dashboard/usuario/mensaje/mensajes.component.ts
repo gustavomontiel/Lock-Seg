@@ -33,7 +33,6 @@ export class MensajesComponent implements OnInit {
   */
     this.mensajeService.getMensajes()
       .subscribe(msgs => {
-        console.log(msgs);
         this.mensajes = msgs.body;
         this.dataSource = new MatTableDataSource(this.mensajes);
         this.dataSource.paginator = this.paginator;

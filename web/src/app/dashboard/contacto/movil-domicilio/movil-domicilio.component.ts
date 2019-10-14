@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Contacto } from '../contacto.model';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { Contacto } from '../contacto.model';
+import { ContactoService } from '../contacto.service';
 
 @Component({
   selector: 'app-movil-domicilio',
@@ -9,20 +10,16 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 })
 export class MovilDomicilioComponent implements OnInit {
 
-  usuarios: Contacto[] = [{
-    id: '2',
-    tipo: 'alarma',
-    titulo: 'Móvil en el domicilio',
-    descripcion: null,
-    user_id: 2
-  }];
+  contactos: Contacto[];
 
   dataSource: any;
-  displayedColumns: string[] = ['id', 'user_id', 'titulo', 'descripcion', 'acciones'];
+  displayedColumns: string[] = ['created_at', 'user.codigo_gestion', 'user.nombre', 'titulo', 'descripcion'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor() { }
+  constructor(
+    private contactoService: ContactoService,
+  ) { }
 
   ngOnInit() {
     this.leerContactos();
@@ -30,19 +27,14 @@ export class MovilDomicilioComponent implements OnInit {
 
   leerContactos() {
 
-    this.dataSource = new MatTableDataSource(this.usuarios);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    /*
-    this.authService.getUsuarios()
-      .subscribe(usuarios => {
-        console.log(usuarios);
-        this.usuarios = usuarios.data;
-        this.dataSource = new MatTableDataSource(this.usuarios);
+    this.contactoService.getContactos('alarma')
+      .subscribe(contactos => {
+        console.log(contactos);
+        this.contactos = contactos;
+        this.dataSource = new MatTableDataSource(this.contactos);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       });
-      */
   }
 
   applyFilter(filterValue: string) {
@@ -53,7 +45,5 @@ export class MovilDomicilioComponent implements OnInit {
     }
 
   }
-
-
 
 }
