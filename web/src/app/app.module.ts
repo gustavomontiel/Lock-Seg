@@ -35,6 +35,9 @@ import { AtencionClienteComponent } from './dashboard/contacto/atencion-cliente/
 import { ParametrosComponent } from './dashboard/parametro/parametros/parametros.component';
 import { CrearParametroComponent } from './dashboard/parametro/crear-parametro/crear-parametro.component';
 import { EditarParametroComponent } from './dashboard/parametro/editar-parametro/editar-parametro.component';
+import { CrearPromocionComponent } from './dashboard/promocion/crear-promocion/crear-promocion.component';
+import { EditarPromocionComponent } from './dashboard/promocion/editar-promocion/editar-promocion.component';
+import { PromocionesComponent } from './dashboard/promocion/promociones/promociones.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +59,9 @@ import { EditarParametroComponent } from './dashboard/parametro/editar-parametro
     ParametrosComponent,
     CrearParametroComponent,
     EditarParametroComponent,
+    CrearPromocionComponent,
+    EditarPromocionComponent,
+    PromocionesComponent,
 
   ],
   imports: [

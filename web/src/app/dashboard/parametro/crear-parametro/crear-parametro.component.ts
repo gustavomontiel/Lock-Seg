@@ -67,7 +67,6 @@ export class CrearParametroComponent implements OnInit, OnDestroy {
               timer: 2000
             }).then(res => {
               const url = '/editar-parametro/' + resp.data.id;
-              console.log(url);
               this.router.navigate([url]);
             });
           },

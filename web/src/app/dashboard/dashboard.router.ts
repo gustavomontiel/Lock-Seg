@@ -10,6 +10,9 @@ import { UsuariosComponent } from './usuario/usuarios/usuarios.component';
 import { RoleGuard } from '../shared/guards/role.guard';
 import { ParametrosComponent } from './parametro/parametros/parametros.component';
 import { CrearParametroComponent } from './parametro/crear-parametro/crear-parametro.component';
+import { PromocionesComponent } from './promocion/promociones/promociones.component';
+import { CrearPromocionComponent } from './promocion/crear-promocion/crear-promocion.component';
+import { EditarPromocionComponent } from './promocion/editar-promocion/editar-promocion.component';
 
 
 export const dashboardRoutes: Routes = [
@@ -88,6 +91,27 @@ export const dashboardRoutes: Routes = [
     canActivate: [RoleGuard],
     data: {
       rolesPermitidos: ['administrador']
+    }
+  },
+  { path: 'promociones',
+    component: PromocionesComponent,
+    canActivate: [RoleGuard],
+    data: {
+      rolesPermitidos: ['administracion']
+    }
+  },
+  { path: 'crear-promocion',
+    component: CrearPromocionComponent,
+    canActivate: [RoleGuard],
+    data: {
+      rolesPermitidos: ['administracion']
+    }
+  },
+  { path: 'editar-promocion/:id',
+    component: EditarPromocionComponent,
+    canActivate: [RoleGuard],
+    data: {
+      rolesPermitidos: ['administracion']
     }
   }
 ];
