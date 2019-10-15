@@ -7,14 +7,14 @@
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-    <ng-container matColumnDef="enviado">
-      <th mat-header-cell *matHeaderCellDef> Enviado </th>
-      <td mat-cell *matCellDef="let element"> {{ element.enviado }} </td>
+    <ng-container matColumnDef="created_at">
+      <th mat-header-cell *matHeaderCellDef> Generado </th>
+      <td mat-cell *matCellDef="let element"> {{ element.created_at }} </td>
     </ng-container>
 
-    <ng-container matColumnDef="fechaEntrega">
+    <ng-container matColumnDef="fecha_entrega">
       <th mat-header-cell *matHeaderCellDef> Fecha Entrega </th>
-      <td mat-cell *matCellDef="let element"> {{element.fechaEntrega}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.fecha_entrega}} </td>
     </ng-container>
 
     <ng-container matColumnDef="mensaje">

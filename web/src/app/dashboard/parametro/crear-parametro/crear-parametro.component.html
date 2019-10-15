@@ -1,0 +1,36 @@
+<h3>Crear Parametro</h3>
+<div class="col-12">
+  <div class="card card-primary mt-2 container">
+    <!-- form start -->
+    <form role="form" ngNativeValidate [formGroup]="formParametro" (ngSubmit)="crearParametro()" action="" method="post">
+      <div class="card-body form-row">
+        <div class="form-group col-md-12">
+          <label for="descripcion">Descripción</label>
+          <input formControlName="descripcion" name="descripcion" type="text" class="form-control" placeholder="Descripción" required>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="valor">Valor</label>
+          <input formControlName="valor" name="valor" type="text" class="form-control" placeholder="valor" required>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="mostrar_en">Mostrar en</label>
+          <select class="custom-select" formControlName="mostrar_en">
+            <option value="" disabled>Seleccionar un rol</option>
+            <option value="BOTON">BOTON</option>
+            <option value="MENU">MENU</option>
+          </select>
+        </div>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer row justify-content-end">
+        <a routerLink="/parametros" *ngIf="!cargando" type="button" class="btn btn-secondary mr-2">Cancelar</a>
+        <button *ngIf="!cargando" [disabled]="formParametro.invalid" type="submit"
+          class="btn btn-primary">Guardar</button>
+        <button *ngIf="cargando" [disabled]="true" class="btn btn-primary">
+          <i class="fa fa-spin fa-sync"></i>
+          Por favor espere...
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

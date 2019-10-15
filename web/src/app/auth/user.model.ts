@@ -8,7 +8,7 @@ export class User {
   public telefono?: number;
   public roleNames?: any[];
   public cliente?: any[];
-  public id?: string;
+  public id?: number;
   // tslint:disable-next-line: variable-name
   public codigo_gestion?: string;
 
@@ -16,15 +16,13 @@ export class User {
     obj: DataObj
   ) {
     this.nombre = obj.nombre;
-    // this.username = obj.username;
     this.email = obj.email;
     this.id = obj.id;
   }
 }
 
 interface DataObj {
-  id: string;
+  id: number;
   email: string;
   nombre: string;
-  // username: string;
 }

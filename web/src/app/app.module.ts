@@ -11,7 +11,6 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 
-
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppReducers } from './app.reducer';
@@ -33,6 +32,9 @@ import { BotonPanicoComponent } from './dashboard/boton-panico/boton-panico.comp
 import { MovilDomicilioComponent } from './dashboard/contacto/movil-domicilio/movil-domicilio.component';
 import { ServicioTecnicoComponent } from './dashboard/contacto/servicio-tecnico/servicio-tecnico.component';
 import { AtencionClienteComponent } from './dashboard/contacto/atencion-cliente/atencion-cliente.component';
+import { ParametrosComponent } from './dashboard/parametro/parametros/parametros.component';
+import { CrearParametroComponent } from './dashboard/parametro/crear-parametro/crear-parametro.component';
+import { EditarParametroComponent } from './dashboard/parametro/editar-parametro/editar-parametro.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,9 @@ import { AtencionClienteComponent } from './dashboard/contacto/atencion-cliente/
     MovilDomicilioComponent,
     ServicioTecnicoComponent,
     AtencionClienteComponent,
+    ParametrosComponent,
+    CrearParametroComponent,
+    EditarParametroComponent,
 
   ],
   imports: [

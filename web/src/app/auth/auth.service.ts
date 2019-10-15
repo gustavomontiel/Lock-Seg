@@ -38,12 +38,11 @@ export class AuthService {
     return this.http.post(url, user)
     .pipe(
       map((resp: any) => {
-        console.log('this.store.dispatch(new DesactivarLoadingAction());');
         this.store.dispatch(new DesactivarLoadingAction());
         return resp;
       }),
       catchError(err => {
-        console.log('Handling error locally and rethrowing it...', err);
+        console.log('error:', err);
         this.store.dispatch(new DesactivarLoadingAction());
         return throwError(err);
       })
@@ -156,12 +155,11 @@ export class AuthService {
       return this.http.put(url, user)
       .pipe(
         map((resp: any) => {
-          console.log('this.store.dispatch(new DesactivarLoadingAction());');
           this.store.dispatch(new DesactivarLoadingAction());
           return resp;
         }),
         catchError(err => {
-          console.log('Handling error locally and rethrowing it...', err);
+          console.log('Error:', err);
           this.store.dispatch(new DesactivarLoadingAction());
           return throwError(err);
         })

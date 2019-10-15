@@ -1,3 +1,4 @@
+import { EditarParametroComponent } from './parametro/editar-parametro/editar-parametro.component';
 import { AtencionClienteComponent } from './contacto/atencion-cliente/atencion-cliente.component';
 import { ServicioTecnicoComponent } from './contacto/servicio-tecnico/servicio-tecnico.component';
 import { MovilDomicilioComponent } from './contacto/movil-domicilio/movil-domicilio.component';
@@ -7,6 +8,8 @@ import { Routes } from '@angular/router';
 import { EditarUsuarioComponent } from './usuario/editar-usuario/editar-usuario.component';
 import { UsuariosComponent } from './usuario/usuarios/usuarios.component';
 import { RoleGuard } from '../shared/guards/role.guard';
+import { ParametrosComponent } from './parametro/parametros/parametros.component';
+import { CrearParametroComponent } from './parametro/crear-parametro/crear-parametro.component';
 
 
 export const dashboardRoutes: Routes = [
@@ -31,7 +34,7 @@ export const dashboardRoutes: Routes = [
       rolesPermitidos: ['administracion']
     }
   },
-  { path: 'editar-usuarios/:id',
+  { path: 'editar-usuario/:id',
     component: EditarUsuarioComponent,
     canActivate: [RoleGuard],
     data: {
@@ -66,4 +69,25 @@ export const dashboardRoutes: Routes = [
       rolesPermitidos: ['administracion', 'operador']
     }
   },
+  { path: 'parametros',
+    component: ParametrosComponent,
+    canActivate: [RoleGuard],
+    data: {
+      rolesPermitidos: ['administrador']
+    }
+  },
+  { path: 'crear-parametro',
+    component: CrearParametroComponent,
+    canActivate: [RoleGuard],
+    data: {
+      rolesPermitidos: ['administrador']
+    }
+  },
+  { path: 'editar-parametro/:id',
+    component: EditarParametroComponent,
+    canActivate: [RoleGuard],
+    data: {
+      rolesPermitidos: ['administrador']
+    }
+  }
 ];
