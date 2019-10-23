@@ -152,5 +152,57 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
             'as' => 'users.importarclientes',
             'uses' => 'UserController@importarclientes'
         ]);
+
+        /* Parametros Routes */
+        $router->get('/parametros', [
+            'as' => 'parametros.index',
+            'uses' => 'ParametroController@index'
+        ]);
+
+        $router->get('/parametros/{id}', [
+            'as' => 'parametros.show',
+            'uses' => 'ParametroController@show'
+        ]);
+
+        $router->post('/parametros', [
+            'as' => 'parametros.store',
+            'uses' => 'ParametroController@store'
+        ]);
+
+        $router->put('/parametros/{id}', [
+            'as' => 'parametros.update',
+            'uses' => 'ParametroController@update'
+        ]);
+
+        $router->delete('/parametros/{id}', [
+            'as' => 'parametros.destroy',
+            'uses' => 'ParametroController@destroy'
+        ]);
+
+        /* Parametros Routes */
+        $router->get('/promociones', [
+            'as' => 'promociones.index',
+            'uses' => 'PromocionController@index'
+        ]);
+
+        $router->get('/promociones/{id}', [
+            'as' => 'promociones.show',
+            'uses' => 'PromocionController@show'
+        ]);
+
+        $router->post('/promociones', [
+            'as' => 'promociones.store',
+            'uses' => 'PromocionController@store'
+        ]);
+
+        $router->put('/promociones/{id}', [
+            'as' => 'promociones.update',
+            'uses' => 'PromocionController@update'
+        ]);
+
+        $router->delete('/promociones/{id}', [
+            'as' => 'promociones.destroy',
+            'uses' => 'PromocionController@destroy'
+        ]);
     });
 });

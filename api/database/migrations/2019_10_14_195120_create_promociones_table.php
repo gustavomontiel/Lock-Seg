@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePromocionsTable extends Migration
+class CreatePromocionesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -18,8 +18,8 @@ class CreatePromocionsTable extends Migration
             $table->string('titulo', 100);
             $table->string('descripcion', 1000);
             $table->string('imagen', 100)->nullable();
-            $table->timestamp('fecha_desde');
-            $table->timestamp('fecha_hasta');
+            $table->timestamp('fecha_desde')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('fecha_hasta')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreatePromocionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('promocions');
+        Schema::dropIfExists('promociones');
     }
 }

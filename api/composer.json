@@ -22,7 +22,8 @@
     "illuminate/mail": "^5.7",
     "spatie/laravel-permission": "^2.25",
     "beyondcode/laravel-dump-server": "^1.1",
-    "mpociot/laravel-apidoc-generator": "^3.4"
+    "mpociot/laravel-apidoc-generator": "^3.4",
+    "graham-campbell/flysystem": "^6.1"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",
