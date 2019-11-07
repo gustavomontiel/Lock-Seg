@@ -9,48 +9,50 @@
 
 <ion-content>
   <div>
-     <ion-img class="ion-align-self-center" src="/assets/imagenes/lock_logo.png"></ion-img>
+     <ion-img class="ion-align-self-center" src="/assets/imagenes/logo_g.png"></ion-img>
   </div>
   <ion-grid padding>
     <ion-row class="ion-align-items-center ion-justify-content-center">
-      <ion-col size="3" class="ion-padding-horizontal ion-align-self-center">
-        <div class="ion-text-center">
+      <ion-col size="6" class="ion-padding-horizontal ion-align-self-center">
+        <div class="lock-boton ion-text-center">
           <a href="tel:+543764433870">
-            <ion-img class="ion-align-self-center" src="/assets/imagenes/11.png"></ion-img>  
+            <ion-img class="ion-align-self-center" src="/assets/imagenes/telefono.png"></ion-img>  
           </a>
           <ion-label class="lock-label">Llamanos 24hs</ion-label>
         </div>
       </ion-col>
-      <ion-col size="3" class="ion-padding-horizontal ion-align-self-center">
-          <div class="ion-text-center">
+      <ion-col size="6" class="ion-padding-horizontal ion-align-self-center">
+          <div class="lock-boton ion-text-center">
             <a target="_blank" rel="noopener" (click)="openWithInAppBrowser('http://www.pmldigital.com/html5tags/test/chatonline.html')">
-              <ion-img src="/assets/imagenes/12.png"></ion-img>
+              <ion-img src="/assets/imagenes/chat.png"></ion-img>
             </a>
             <ion-label class="lock-label">Chat Online 24hs</ion-label>
         </div>
       </ion-col>
     </ion-row>
     <ion-row class="ion-align-items-center ion-justify-content-center">
-      <ion-col size="3" class="ion-padding-horizontal ion-align-self-center">
-        <div class="ion-text-center">
+      <ion-col size="6" class="ion-padding-horizontal ion-align-self-center">
+        <div class="lock-boton ion-text-center">
           <a  rel="noopener" [routerLink]="['/movil-domicilio']">
-            <ion-img class="ion-align-self-center" src="/assets/imagenes/13.png"></ion-img>  
+            <ion-img class="ion-align-self-center" src="/assets/imagenes/movil.png"></ion-img>  
           </a>
           <ion-label class="lock-label">Móvil a Domicilio</ion-label>
         </div>
       </ion-col>
-      <ion-col size="3" class="ion-padding-horizontal ion-align-self-center">
-          <div class="ion-text-center">
+      <ion-col size="6" class="ion-padding-horizontal ion-align-self-center">
+          <div class="lock-boton ion-text-center">
             <a [routerLink]="['/servicio-tecnico']" rel="noopener">
-              <ion-img src="/assets/imagenes/14.png"></ion-img>
+              <ion-img src="/assets/imagenes/soporte_tecnico.png"></ion-img>
             </a>
             <ion-label class="lock-label">Servicio Técnico</ion-label>
         </div>
       </ion-col>
-      <ion-col size="3" class="ion-padding-horizontal ion-align-self-center">
-        <div class="ion-text-center">
+    </ion-row>
+    <ion-row class="ion-align-items-center ion-justify-content-center">
+      <ion-col size="6" class="ion-padding-horizontal ion-align-self-center">
+        <div class="lock-boton ion-text-center">
           <a [routerLink]="['/atencion-cliente']" rel="noopener">
-            <ion-img src="/assets/imagenes/15.png"></ion-img>
+            <ion-img src="/assets/imagenes/info.png"></ion-img>
           </a>
           <ion-label class="lock-label">Atención al Cliente</ion-label>
       </div>

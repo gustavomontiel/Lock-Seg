@@ -9,22 +9,23 @@
 
 <ion-content>
   <div>
-    <ion-img class="ion-align-self-center" src="/assets/imagenes/lock_logo.png"></ion-img>
+    <ion-img class="ion-align-self-center" src="/assets/imagenes/logo_g.png"></ion-img>
   </div>
-  <ion-grid padding>
+  <ion-grid class="ion-padding">
     <ion-row class="ion-align-items-center ion-justify-content-center">
-      <ion-col size="3" class="ion-padding-horizontal ion-align-self-center">
-        <div class="ion-text-center">
-          <a (click)="openWithInAppBrowser('https://clientes.axoft.com/')">
-            <ion-img class="ion-align-self-center" src="/assets/imagenes/9.png"></ion-img>  
+      <ion-col size="6" class="ion-padding-horizontal ion-align-self-center">
+        <div class="lock-boton ion-text-center">
+          <!--a (click)="openWithInAppBrowser('https://clientes.axoft.com/')"-->
+          <a rel="noopener" [routerLink]="['/ver-factura']">
+            <ion-img class="ion-align-self-center" src="/assets/imagenes/ver_facturas.png"></ion-img>  
           </a>
           <ion-label class="lock-label">Ver Factura</ion-label>
         </div>
       </ion-col>
-      <ion-col size="3" class="ion-padding-horizontal ion-align-self-center">
-          <div class="ion-text-center">
+      <ion-col size="6" class="ion-padding-horizontal ion-align-self-center">
+          <div class="lock-boton ion-text-center">
             <a [routerLink]="['/pagar-factura']">
-              <ion-img src="/assets/imagenes/10.png"></ion-img>
+              <ion-img src="/assets/imagenes/facturas.png"></ion-img>
             </a>
             <ion-label class="lock-label">Pagar Factura</ion-label>
         </div>

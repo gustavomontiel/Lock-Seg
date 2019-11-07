@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar class="lock-color">
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-img class="ion-align-self-center" src="/assets/imagenes/logo_g.png"></ion-img>
+  </div>
+  <form [formGroup]="login"  (submit)="loginUsuario()" class="ion-padding">
+    <ion-grid class="ion-padding">
+      <ion-row>
+        <ion-col>
+          <ion-list>
+            <ion-item>
+              <ion-label position="floating">Usuario</ion-label>
+              <ion-input type="email" formControlName="usuario"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Contraseña</ion-label>
+              <ion-input type="password" formControlName="password"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="ion-padding">
+      <ion-button class="lock-button" expand="block" type="submit">ingresar</ion-button>
+    </div>
+    </form>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="lock-footer">
+    <p>www.lock-seguridad.com.ar</p>
+    <p>(0376) 4433870 / 4441054</p>
+  </ion-toolbar>
+</ion-footer>

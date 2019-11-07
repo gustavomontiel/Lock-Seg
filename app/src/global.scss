@@ -26,23 +26,29 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 .lock-color{
-    --background: #437680;
+    --background: #009fdb;
     color: white;
 }
 
 .lock-footer{
-    --background: #437680;
+    --background: #009fdb;
     color: white;
     font-size: 9px;
     text-align: center;
 }
 
 .lock-button{
-    --background: #437680;
+    --background: #009fdb;
     color: white;
 }
 
 .lock-label{
-    color:#333f6d;
+    /*color:#009fdb;*/
+    color:#000000;
     font-size: 11px;
+}
+
+.lock-boton{
+    border: solid 5px #009fdb;
+    padding: 5% 10%;
 }

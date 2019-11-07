@@ -6,56 +6,62 @@
 
 <ion-content>
   <div>
-    <ion-img class="ion-align-self-center" src="/assets/imagenes/lock_logo.png"></ion-img>
+    <ion-img class="ion-align-self-center" src="/assets/imagenes/logo_g.png"></ion-img>
   </div>
-  <ion-grid padding>
+  <ion-grid class="ion-padding">
     <ion-row class="ion-align-items-center ion-justify-content-center">
-      <ion-col size="3" class="ion-padding-horizontal ion-align-self-center">
-        <div class="ion-text-center">
+      <ion-col size="6" class="ion-padding-horizontal ion-align-self-center">
+        <div class="lock-boton ion-text-center">
           <a rel="noopener" [routerLink]="['/mi-alarma']">
-            <ion-img class="ion-align-self-center" src="/assets/imagenes/1.png"></ion-img>   
+            <ion-img class="ion-align-self-center" src="/assets/imagenes/alarma.png"></ion-img>   
           </a>
           <ion-label class="lock-label">Alarma</ion-label>
         </div>
       </ion-col>
-      <ion-col size="3" class="ion-padding-horizontal ion-align-self-center">
-         <div class="ion-text-center">
-           <a rel="noopener" (click)="openWithInAppBrowser('http://acceso04.cybermapa.com/streetx/')">
-             <ion-img src="/assets/imagenes/3.png"></ion-img>
+      <ion-col size="6" class="ion-padding-horizontal ion-align-self-center">
+         <div class="lock-boton ion-text-center">
+           <!--a rel="noopener" (click)="openWithInAppBrowser('http://acceso04.cybermapa.com/streetx/')"-->
+           <a rel="noopener" [routerLink]="['/gps']"> 
+            <ion-img src="/assets/imagenes/gps.png"></ion-img>
            </a>
            <ion-label class="lock-label">GPS</ion-label>  
         </div>
       </ion-col>
-      <ion-col size="3" class="ion-padding-horizontal ion-align-self-center">
-        <div class="ion-text-center">
-            <a rel="noopener" [routerLink]="['/facturas']">
-              <ion-img src="/assets/imagenes/4.png"></ion-img>
-            </a> 
-            <ion-label class="lock-label">Facturas</ion-label> 
-      </div>
-    </ion-col>
+      
+      
     </ion-row>
     <ion-row class="ion-align-items-center ion-justify-content-center">
-      <ion-col  size="3" class="ion-padding-horizontal ion-align-self-center">
-        <div class="ion-text-center">
-            <a rel="noopener" [routerLink]="['/facturas']">
-              <ion-img src="/assets/imagenes/8.png"></ion-img>
-            </a> 
-            <ion-label class="lock-label">Botón de Pánico</ion-label> 
-      </div>
-    </ion-col>
-      <ion-col size="3" class="ion-padding-horizontal ion-align-self-center">
-          <div class="ion-text-center">
+        <ion-col size="6" class="ion-padding-horizontal ion-align-self-center">
+            <div class="lock-boton ion-text-center">
+                <a rel="noopener" [routerLink]="['/facturas']">
+                  <ion-img src="/assets/imagenes/facturas.png"></ion-img>
+                </a> 
+                <ion-label class="lock-label">Facturas</ion-label> 
+          </div>
+        </ion-col>
+        <ion-col  size="6" class="ion-padding-horizontal ion-align-self-center">
+            <div class="lock-boton ion-text-center">
+                <a rel="noopener" [routerLink]="['/facturas']">
+                  <ion-img src="/assets/imagenes/panico.png"></ion-img>
+                </a> 
+                <ion-label class="lock-label">Botón de Pánico</ion-label> 
+          </div>
+        </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center ion-justify-content-center">
+      
+      <ion-col size="6" class="ion-padding-horizontal ion-align-self-center">
+          <div class="lock-boton ion-text-center">
             <a rel="noopener" [routerLink]="['/soporte']">
-              <ion-img src="/assets/imagenes/5.png"></ion-img>
+              <ion-img src="/assets/imagenes/soporte.png"></ion-img>
             </a>
             <ion-label class="lock-label">Soporte</ion-label>
         </div>
       </ion-col>
-      <ion-col size="3" class="ion-padding-horizontal ion-align-self-center">
-          <div class="ion-text-center">
+      <ion-col size="6" class="ion-padding-horizontal ion-align-self-center">
+          <div class="lock-boton ion-text-center">
             <a rel="noopener" [routerLink]="['/promoiones']">
-              <ion-img src="/assets/imagenes/6.png"></ion-img>
+              <ion-img src="/assets/imagenes/promociones.png"></ion-img>
             </a>  
             <ion-label class="lock-label">Promociones</ion-label>  
         </div>
