@@ -3,15 +3,13 @@
       <ion-buttons slot="start">
           <ion-back-button></ion-back-button>
       </ion-buttons>
-    <ion-title>Soporte</ion-title>
+      <ion-title><img src="/assets/imagenes/logo_g.png"/></ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div>
-     <ion-img class="ion-align-self-center" src="/assets/imagenes/logo_g.png"></ion-img>
-  </div>
-  <ion-grid padding>
+  
+  <ion-grid class="ion-padding">
     <ion-row class="ion-align-items-center ion-justify-content-center">
       <ion-col size="6" class="ion-padding-horizontal ion-align-self-center">
         <div class="lock-boton ion-text-center">
@@ -23,7 +21,7 @@
       </ion-col>
       <ion-col size="6" class="ion-padding-horizontal ion-align-self-center">
           <div class="lock-boton ion-text-center">
-            <a target="_blank" rel="noopener" (click)="openWithInAppBrowser('http://www.pmldigital.com/html5tags/test/chatonline.html')">
+            <a rel="noopener" [routerLink]="['/chat']">
               <ion-img src="/assets/imagenes/chat.png"></ion-img>
             </a>
             <ion-label class="lock-label">Chat Online 24hs</ion-label>

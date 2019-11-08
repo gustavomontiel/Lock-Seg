@@ -19,6 +19,9 @@ const routes: Routes = [
   { path: 'rapipago', loadChildren: './rapipago/rapipago.module#RapipagoPageModule' },
   { path: 'pagofacil', loadChildren: './pagofacil/pagofacil.module#PagofacilPageModule' },
   { path: 'banco-macro', loadChildren: './banco-macro/banco-macro.module#BancoMacroPageModule' },
+  { path: 'oprerar-alarma', loadChildren: './oprerar-alarma/oprerar-alarma.module#OprerarAlarmaPageModule' },
+  { path: 'historial-alarma', loadChildren: './historial-alarma/historial-alarma.module#HistorialAlarmaPageModule' },
+  { path: 'chat', loadChildren: './chat/chat.module#ChatPageModule' },
 
 
 ];

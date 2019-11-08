@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MiAlarmaPage } from '../mi-alarma/mi-alarma.page';
 import { InAppBrowser , InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +28,10 @@ export class HomePage {
     presentationstyle : 'pagesheet',//iOS only 
     fullscreen : 'yes',//Windows only    
   };
-  constructor(private theInAppBrowser: InAppBrowser) {  }
+  constructor(
+    private theInAppBrowser: InAppBrowser,
+    private authService: AuthService
+    ) {  }
 
   public openWithInAppBrowser(url : string){
       let target = "_blank";
@@ -37,5 +41,9 @@ export class HomePage {
       let target = "_self";
       this.theInAppBrowser.create(url,target,this.options);
   } 
+
+  logoutUser() {
+    this.authService.logout();
+  }
 
 }

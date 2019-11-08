@@ -1,13 +1,18 @@
 <ion-header>
   <ion-toolbar class="lock-color">
-    <ion-title></ion-title>
+    <ion-title>
+        <img src="/assets/imagenes/logo_g.png"/>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logoutUser()">
+          <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div>
-    <ion-img class="ion-align-self-center" src="/assets/imagenes/logo_g.png"></ion-img>
-  </div>
+  
   <ion-grid class="ion-padding">
     <ion-row class="ion-align-items-center ion-justify-content-center">
       <ion-col size="6" class="ion-padding-horizontal ion-align-self-center">

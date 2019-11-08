@@ -3,13 +3,14 @@
       <ion-buttons slot="start">
           <ion-back-button></ion-back-button>
       </ion-buttons>
-      <ion-title><img src="/assets/imagenes/logo_g.png"/></ion-title>
+    <ion-title><img src="/assets/imagenes/logo_g.png"/></ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    {{urlHistorial|json}}
     <div style="overflow:auto;-webkit-overflow-scrolling:touch">
-        <iframe style="width:100%;height:600px" src="http://acceso04.cybermapa.com/streetx/"></iframe>
+        <iframe style="width:100%;height:600px" src="http://190.183.235.226:8008/phone/welcomeCell.php"></iframe>
     </div>
 </ion-content>
 
