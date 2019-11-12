@@ -119,4 +119,22 @@ class ParametroController extends Controller
 
         return response()->json(['error' => 'false', 'message' => 'Parametro eliminado correctamente.']);
     }
+
+    /**
+     * Display the specified resource by description.
+     *
+     * @param  string  $descripcion
+     * @return \Illuminate\Http\Response
+     */
+    public function showByDescripcion($descripcion)
+    {
+        return response()->json(['error' => 'false', 'data' => $descripcion, 'message' => 'Parametro enviado correctamente.']);
+        $parametro = Parametro::where('descripcion', $descripcion)->first();
+
+        if (is_null($parametro)) {
+            return response()->json(['error' => 'true', 'message' => 'Parametro no encontrado.']);
+        }
+
+        return response()->json(['error' => 'false', 'data' => $parametro, 'message' => 'Parametro enviado correctamente.']);
+    }
 }

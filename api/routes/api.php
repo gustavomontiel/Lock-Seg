@@ -110,6 +110,12 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         'uses' => 'MensajeController@showByUser'
     ]);
 
+    /* Parametros Routes */
+    $router->get('/parametros/descripcion/{descripcion}', [
+        'as' => 'parametros.showByDescripcion',
+        'uses' => 'ParametroController@showByDescripcion'
+    ]);
+
     /* Admin Routes */
     $router->group(['middleware' => 'role:administrador'], function (Router $router) {
 
@@ -179,7 +185,7 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
             'uses' => 'ParametroController@destroy'
         ]);
 
-        /* Parametros Routes */
+        /* Promociones Routes */
         $router->get('/promociones', [
             'as' => 'promociones.index',
             'uses' => 'PromocionController@index'
