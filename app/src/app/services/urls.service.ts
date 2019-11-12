@@ -13,43 +13,19 @@ export class UrlsService {
   constructor(
     private http: HttpClient,
     private storage: Storage
-  ) {  }
-
-  
-  private getAuthHeaders() {
-    return from(this.storage.get('USER_INFO').data.token);
-  }
+  ) { }
 
 
+  getUrl(descripcion: string) {
 
-  getUrl(nombre: string) {
+    const url = 'http://lock-api.grupo-sim.com.ar/parametros/descripcion/' + descripcion;
 
-    var responseStream = this.getAuthHeaders().pipe(
-      mergeMap( userinfo => {
-      console.log(userinfo);
-      })
+    return this.http.get(url).pipe(
+      map((respuesta: any) => {
+        return respuesta;
+      }),
+
     );
-
-      /*console.log(response.data.token);
-
-
-
-      const headers = new HttpHeaders({
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': response.data.token
-      });
-
-      const url = 'http://lock-api.grupo-sim.com.ar/parametros/'+nombre;
-
-      return this.http.get(url, { headers: headers }).pipe(
-        map((respuesta: any) => {
-          return respuesta;
-        }),
-        
-      );*/
- 
-
-    
   }
+
 }

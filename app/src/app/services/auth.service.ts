@@ -21,10 +21,10 @@ export class AuthService {
     this.platform.ready().then(() => {
       this.ifLoggedIn();
     });
-   }
+  }
 
 
-   ifLoggedIn() {
+  ifLoggedIn() {
     this.storage.get('USER_INFO').then((response) => {
       if (response) {
         this.authState.next(true);
@@ -32,7 +32,7 @@ export class AuthService {
     });
   }
 
-  loginUsuario(username: string, password:string ) {
+  loginUsuario(username: string, password: string) {
 
     const usuario = {
       email: username,
@@ -48,7 +48,6 @@ export class AuthService {
           this.authState.next(true);
         })
       }),
-      
     );
   }
 

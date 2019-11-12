@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UrlsService } from '../services/urls.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-historial-alarma',
@@ -12,18 +13,19 @@ export class HistorialAlarmaPage implements OnInit {
 
   constructor(
     private urlsService: UrlsService,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit() {
     this.getUrlHistorial();
   }
 
-  private getUrlHistorial(){
+  private getUrlHistorial() {
     console.log('entra en el ts');
-    this.urlsService.getUrl('1')
-        .subscribe(parametro => {
-          this.parametro = parametro;
-        });
+    this.urlsService.getUrl('historial')
+      .subscribe(parametro => {
+        this.urlHistorial = this.sanitizer.bypassSecurityTrustResourceUrl(parametro.data.valor);
+      });
   }
 
 }

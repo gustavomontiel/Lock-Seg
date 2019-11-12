@@ -8,25 +8,28 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { IonicStorageModule } from '@ionic/storage';
-import { HttpClientModule} from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+import { TokenInterceptor } from './services/token.interceptor';
 
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, 
-    IonicModule.forRoot(), 
+  imports: [BrowserModule,
+    IonicModule.forRoot(),
     AppRoutingModule,
-    IonicStorageModule.forRoot(), 
+    IonicStorageModule.forRoot(),
     HttpClientModule],
   providers: [
     InAppBrowser,
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
