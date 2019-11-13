@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { InAppBrowser , InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
+import { UrlsService } from '../services/urls.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
 
 
 @Component({
@@ -25,9 +28,16 @@ export class GpsPage implements OnInit {
     allowInlineMediaPlayback : 'no',//iOS only 
     presentationstyle : 'pagesheet',//iOS only 
     fullscreen : 'yes',//Windows only    
-};
+  };
 
-  constructor(private theInAppBrowser: InAppBrowser) { }
+  urlGPS: any;
+  parametro: any;
+
+  constructor(
+    private theInAppBrowser: InAppBrowser,
+    private urlsService: UrlsService,
+    private sanitizer: DomSanitizer
+  ) { }
 
   public openWithSystemBrowser(url : string){
     let target = "_system";
@@ -41,7 +51,17 @@ export class GpsPage implements OnInit {
       let target = "_self";
       this.theInAppBrowser.create(url,target,this.options);
   } 
+
   ngOnInit() {
+    this.getUrlHistorial();
+  }
+
+  private getUrlHistorial() {
+    console.log('gps');
+    this.urlsService.getUrl('gps')
+      .subscribe(parametro => {
+        this.urlGPS = this.sanitizer.bypassSecurityTrustResourceUrl(parametro.data.valor);
+      });
   }
 
 }

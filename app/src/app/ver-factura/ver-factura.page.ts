@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UrlsService } from '../services/urls.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-ver-factura',
@@ -7,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VerFacturaPage implements OnInit {
 
-  constructor() { }
+  urlVerFacturas: any;
+  parametro: any;
+
+  constructor(
+    private urlsService: UrlsService,
+    private sanitizer: DomSanitizer
+  ) { }
 
   ngOnInit() {
+    this.getUrlVerFacturas();
+  }
+
+  private getUrlVerFacturas() {
+    console.log('ver facturas');
+    this.urlsService.getUrl('ver-facturas')
+      .subscribe(parametro => {
+        this.urlVerFacturas = this.sanitizer.bypassSecurityTrustResourceUrl(parametro.data.valor);
+      });
   }
 
 }

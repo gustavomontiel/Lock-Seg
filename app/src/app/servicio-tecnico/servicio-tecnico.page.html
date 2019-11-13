@@ -12,23 +12,23 @@
         <ion-text>
             <h2>Solicite servicio técnico</h2>
         </ion-text>
-    <form>
+    <form [formGroup]="servicio">
         <ion-item>
             <ion-label>Abonado:</ion-label>
-            <ion-input value="admin@admin.com"></ion-input>
+            <ion-input formControlName="email" ></ion-input>
         </ion-item>
         <ion-item>
             <ion-label position="floating">Motivo:</ion-label>
-            <ion-textarea></ion-textarea>
+            <ion-textarea formControlName="descripcion"></ion-textarea>
        </ion-item>
-      <ion-button class="lock-button" expand="block" type="submit" block>Solicitar</ion-button>
+      <ion-button (click)="insertarContacto()" class="lock-button" expand="block" type="submit" block>Solicitar</ion-button>
     </form>
   </div>
 
 </ion-content>
 <ion-footer>
     <ion-toolbar class="lock-footer">
-      <p>www.lock-seguridad.com.ar</p>
+      <p>www.guazú-seguridad.com.ar</p>
       <p>(0376) 4433870 / 4441054</p>
     </ion-toolbar>
   </ion-footer>
