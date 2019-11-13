@@ -27,7 +27,7 @@ export class MovilDomicilioComponent implements OnInit {
 
   leerContactos() {
 
-    this.contactoService.getContactos('alarma')
+    this.contactoService.getContactos('movil')
       .subscribe(contactos => {
         console.log(contactos);
         this.contactos = contactos;

@@ -27,7 +27,7 @@ export class BotonPanicoComponent implements OnInit {
 
   leerContactos() {
 
-    this.contactoService.getContactos('alarma')
+    this.contactoService.getContactos('panico')
       .subscribe(contactos => {
         console.log(contactos);
         this.contactos = contactos;

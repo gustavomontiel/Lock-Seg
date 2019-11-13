@@ -27,7 +27,7 @@ export class AtencionClienteComponent implements OnInit {
 
   leerContactos() {
 
-    this.contactoService.getContactos('alarma')
+    this.contactoService.getContactos('atencion')
       .subscribe(contactos => {
         console.log(contactos);
         this.contactos = contactos;

@@ -30,7 +30,7 @@ export class ContactoService {
     return this.http.get(url).pipe(
       map((respuesta: any) => {
         Swal.close();
-        return respuesta.data.filter( ( contacto: Contacto ) => contacto.tipo = tipo );
+        return respuesta.data.filter( ( contacto: Contacto ) => contacto.tipo == tipo );
       })
     );
   }

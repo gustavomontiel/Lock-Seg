@@ -27,7 +27,7 @@ export class ServicioTecnicoComponent implements OnInit {
 
   leerContactos() {
 
-    this.contactoService.getContactos('alarma')
+    this.contactoService.getContactos('servicio')
       .subscribe(contactos => {
         console.log(contactos);
         this.contactos = contactos;
