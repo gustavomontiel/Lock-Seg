@@ -6,6 +6,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContactoService } from '../services/contacto.service';
 import { Storage } from '@ionic/storage';
+import { ToastController } from '@ionic/angular';
 
 
 @Component({
@@ -43,6 +44,7 @@ export class HomePage {
     private contactoService: ContactoService,
     private sanitizer: DomSanitizer,
     private storage: Storage,
+    public toastController: ToastController
     ) {  }
 
   public openWithInAppBrowser(url : string){
@@ -67,11 +69,18 @@ export class HomePage {
         this.contactoService.insertarContacto(body)
           .subscribe(contacto => {
             console.log("panico - lo hizo:" + contacto);
+            this.presentToast();
           });
       }
     });
   }
 
-
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Hemos recibido su pedido de ayuda.',
+      duration: 2000
+    });
+    toast.present();
+  }
 
 }

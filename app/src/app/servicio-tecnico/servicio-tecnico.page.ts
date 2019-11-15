@@ -24,30 +24,30 @@ export class ServicioTecnicoPage implements OnInit {
   ngOnInit() {
     this.crearForm();
   }
-  
-  private crearForm(){
+
+  private crearForm() {
     this.servicio = new FormGroup({
       descripcion: new FormControl('', Validators.required),
       email: new FormControl('', Validators.required)
     });
     this.storage.get('USER_INFO').then((response) => {
       if (response) {
-        //console.log(response.data.user.email);
-        this.servicio.controls['email'].setValue(response.data.user.email);
+        console.log(response);
+        this.servicio.controls.email.setValue(response.data.user.email);
       }
     });
-    
+
   }
 
   private insertarContacto() {
     this.storage.get('USER_INFO').then((response) => {
       if (response) {
-        //console.log(response.data.user.email);
+        // console.log(response.data.user.email);
         console.log('ingresa');
-        var body = { "tipo": "servicio", "titulo": "Solicitud de servico técnico", "descripcion": this.servicio.get('descripcion').value,  "user_id": response.data.user.id};
+        var body = { 'tipo': 'servicio', 'titulo': 'Solicitud de servico técnico', 'descripcion': this.servicio.get('descripcion').value, 'user_id': response.data.user.id };
         this.contactoService.insertarContacto(body)
           .subscribe(contacto => {
-            console.log("servicio - lo hizo:" + contacto);
+            console.log('servicio - lo hizo:' + contacto);
           });
       }
     });

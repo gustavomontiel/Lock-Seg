@@ -46,7 +46,8 @@ export class AuthService {
         this.storage.set('USER_INFO', resp).then((response) => {
           this.router.navigate(['home']);
           this.authState.next(true);
-        })
+          return response;
+        });
       }),
     );
   }

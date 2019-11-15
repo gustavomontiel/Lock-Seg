@@ -19,24 +19,23 @@ export class LoginPage implements OnInit {
     this.crearForm();
   }
 
-  private crearForm(){
+  private crearForm() {
     this.login = new FormGroup({
-      usuario: new FormControl('', Validators.required),
+      usuario: new FormControl('amazal@fibertel.com.ar', Validators.required),
       password: new FormControl('', Validators.required)
     });
   }
 
-  private loginUsuario(){
+  private loginUsuario() {
     console.log(this.login.value);
     this.authService.loginUsuario(
       this.login.get('usuario').value,
       this.login.get('password').value,
     ).subscribe(usuario => {
-      console.log('usr:'+usuario);
-    
+      console.log('usr:' + usuario);
     },
-    error => {
-      console.log(error);
-    })  ;
+      error => {
+        console.log(error);
+      });
   }
 }

@@ -26,7 +26,7 @@ export class TokenInterceptor implements HttpInterceptor {
         return from(this.storage.get('USER_INFO'))
             .pipe(
                 switchMap(userInfo => {
-                    if (userInfo.data.token) {
+                    if (userInfo && userInfo.data.token) {
                         request = request.clone({
                             setHeaders: {
                                 Authorization: userInfo.data.token
@@ -56,7 +56,7 @@ export class TokenInterceptor implements HttpInterceptor {
                         catchError((error: HttpErrorResponse) => {
                             if (error.status === 401) {
                                 if (error.error.success === false) {
-                                    this.presentToast('Login failed');
+                                    this.presentToast('Datos incorrectos');
                                 } else {
                                     this.router.navigate(['login']);
                                 }
