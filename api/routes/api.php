@@ -79,6 +79,11 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         'uses' => 'ContactoController@showByUser'
     ]);
 
+    $router->get('/contactos/tipo/{tipo}', [
+        'as' => 'contactos.showByTipo',
+        'uses' => 'ContactoController@showByTipo'
+    ]);
+
     /* Mensajes Routes */
     $router->get('/mensajes', [
         'as' => 'mensajes.index',

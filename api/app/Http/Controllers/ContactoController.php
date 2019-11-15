@@ -144,4 +144,21 @@ class ContactoController extends Controller
 
         return response()->json(['error' => 'false', 'data' => $usuario, 'message' => 'Contactos enviados correctamente.']);
     }
+
+    /**
+     * Display the specified resource by tipo.
+     *
+     * @param  string  $tipo
+     * @return \Illuminate\Http\Response
+     */
+    public function showByTipo($tipo)
+    {
+        $contactos = Contacto::where('tipo', $tipo)->with('user')->get();
+
+        if (count($contactos) == 0) {
+            return response()->json(['error' => 'true', 'message' => 'No hay contactos de ese tipo en el sistema.']);
+        }
+
+        return response()->json(['error' => 'false', 'data' => $contactos, 'message' => 'Contactos enviados correctamente.']);
+    }
 }
