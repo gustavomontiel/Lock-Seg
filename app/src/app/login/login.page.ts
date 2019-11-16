@@ -10,6 +10,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginPage implements OnInit {
   login: FormGroup;
+  public mensaje: string;
 
   constructor(
     private authService: AuthService,
@@ -34,8 +35,9 @@ export class LoginPage implements OnInit {
     ).subscribe(usuario => {
       console.log('usr:' + usuario);
     },
-      error => {
-        console.log(error);
-      });
+    error => {
+      console.log('error en page:', error.error);
+      this.mensaje = error.error.message;
+    })  ;
   }
 }

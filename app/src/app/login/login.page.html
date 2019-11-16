@@ -3,6 +3,7 @@
   <div>
     <ion-img class="ion-align-self-center" src="/assets/imagenes/logo.png"></ion-img>
   </div>
+  <ion-label class="ion-padding" color="danger" floating> {{ mensaje }} </ion-label>
   <form [formGroup]="login"  (submit)="loginUsuario()" class="ion-padding">
     <ion-grid class="ion-padding">
       <ion-row>
