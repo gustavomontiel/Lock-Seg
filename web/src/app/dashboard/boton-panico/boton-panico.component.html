@@ -1,5 +1,11 @@
 <div class="container-fluid">
     <h3>Botón de pánico</h3>
+    <audio *ngIf="activarAlarma" autoplay>
+      <source src="../../../assets/sounds/alarm.mp3" type="audio/mpeg">
+    </audio>
+    <button type="button" class="btn btn-danger btn-lg btn-block" *ngIf="activarAlarma" (click)="pararAlarma()">
+        <i class="fas fa-bell-slash"></i> Silenciar Alarma
+    </button>
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
     </mat-form-field>
@@ -26,9 +32,9 @@
         <td mat-cell *matCellDef="let element"><span class="d-none d-sm-block">{{element.titulo}}</span> </td>
       </ng-container>
 
-      <ng-container matColumnDef="descripcion">
-        <th mat-header-cell *matHeaderCellDef><span class="d-none d-sm-block"> Descripcion</span> </th>
-        <td mat-cell *matCellDef="let element"><span class="d-none d-sm-block">{{element.descripcion}}</span> </td>
+      <ng-container matColumnDef="updated_at">
+        <th mat-header-cell *matHeaderCellDef><span class="d-none d-sm-block"> Sileciado</span> </th>
+        <td mat-cell *matCellDef="let element"><span class="d-none d-sm-block">{{element.updated_at}}</span> </td>
       </ng-container>
 
       <!--
