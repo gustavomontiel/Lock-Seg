@@ -90,6 +90,7 @@ class ContactoController extends Controller
             'tipo' => 'string|required|max:50',
             'titulo' => 'string|max:100',
             'descripcion' => 'string|max:1000',
+            'notificado_el' => 'date'
         ]);
 
         if ($validator->fails()) {
@@ -99,6 +100,7 @@ class ContactoController extends Controller
         $contacto->tipo = $input['tipo'];
         if (isset($input['titulo'])) $contacto->titulo = $input['titulo'];
         if (isset($input['descripcion'])) $contacto->descripcion = $input['descripcion'];
+        if (isset($input['notificado_el'])) $contacto->notificado_el = $input['notificado_el'];
 
         $contacto->save();
 

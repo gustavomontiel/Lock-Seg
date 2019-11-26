@@ -18,6 +18,7 @@ class CreateContactosTable extends Migration
             $table->string('tipo', 50);
             $table->string('titulo', 100)->nullable();
             $table->string('descripcion', 1000)->nullable();
+            $table->timestamp('notificado_el')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
