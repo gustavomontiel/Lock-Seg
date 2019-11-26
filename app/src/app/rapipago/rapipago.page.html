@@ -1,9 +1,21 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>rapipago</ion-title>
-  </ion-toolbar>
+  <ion-toolbar class="lock-color">
+    <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title><img src="/assets/imagenes/logo_g.png"/></ion-title>
+</ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div style="overflow:auto;-webkit-overflow-scrolling:touch">
+      <iframe style="width:100%;" [src]="https://www.rapipago.com.ar/"></iframe>
+  </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar class="lock-footer">
+    <p>www.guazuseguridad.com.ar</p>
+    <p>(0376) 4433870 / 4441054</p>
+  </ion-toolbar>
+</ion-footer>
