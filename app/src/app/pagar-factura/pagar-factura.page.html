@@ -10,7 +10,7 @@
 <ion-content>
     
     <div class="ion-padding">
-        <ion-button class="lock-button" expand="block" (click)="openWithInAppBrowser('https://pagomiscuentas.com/')">Pago mis cuentas</ion-button>
+        <ion-button class="lock-button" expand="block" [routerLink]="['/pagomiscuentas']">Pago mis cuentas</ion-button>
         <ion-button class="lock-button" expand="block" (click)="openWithInAppBrowser('https://www.rapipago.com.ar/')">Rapipago</ion-button>
         <ion-button class="lock-button" expand="block" (click)="openWithInAppBrowser('https://www.e-pagofacil.com/')">Pago Fácil</ion-button>
         <ion-button class="lock-button" expand="block" (click)="openWithInAppBrowser('https://www.macro.com.ar/bancainternet/#')">Banco Macro</ion-button>

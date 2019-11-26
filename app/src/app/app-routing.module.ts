@@ -22,6 +22,9 @@ const routes: Routes = [
   { path: 'oprerar-alarma', loadChildren: './oprerar-alarma/oprerar-alarma.module#OprerarAlarmaPageModule' },
   { path: 'historial-alarma', loadChildren: './historial-alarma/historial-alarma.module#HistorialAlarmaPageModule' },
   { path: 'chat', loadChildren: './chat/chat.module#ChatPageModule' },
+  { path: 'banco-galicia', loadChildren: './banco-galicia/banco-galicia.module#BancoGaliciaPageModule' },
+  { path: 'banco-bbva', loadChildren: './banco-bbva/banco-bbva.module#BancoBbvaPageModule' },
+  { path: 'debito', loadChildren: './debito/debito.module#DebitoPageModule' },
 
 
 ];
