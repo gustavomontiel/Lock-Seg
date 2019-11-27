@@ -27,8 +27,8 @@
 
 .lock-color{
     /*--background: #009fdb;*/
-    --background: #ffffff;
-    color: #009fdb;
+    --background: #000000;
+    color: #ffffff;
     text-align: center;
 }
 
@@ -37,8 +37,13 @@
    display:inline-block;
 }
 
+ion-content, ion-list{
+    --background: #000000;
+}
+
+
 .lock-footer{
-    --background: #009fdb;
+    --background: #000000;
     color: white;
     font-size: 9px;
     text-align: center;
@@ -51,11 +56,43 @@
 
 .lock-label{
     /*color:#009fdb;*/
-    color:#000000;
+    color:#ffffff;
     font-size: 11px;
 }
 
 .lock-boton{
-    border: solid 5px #009fdb;
-    padding: 5% 10%;
+    border: solid 1px;
+   /* padding: 5% 10%;*/
+}
+
+div.lock-boton:hover{
+    --background: #009fdb;
+}
+
+.lock-boton a {
+    display: flex!important;
+    align-content: center!important;
+    align-items: center!important;
+}
+
+.lock-boton a:hover {
+    --background: #009fdb;
+}
+
+.lock-boton a ion-img{
+    --background: #009fdb;
+}
+
+.lock-boton a ion-label{
+    width: 80%;
+    font-size: 14px;
+}
+
+
+ion-item:hover{
+    --background: #009fdb;
+}
+
+ion-item ion-img{
+    width: 20%;
 }
