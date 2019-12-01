@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, MatSortable } from '@angular/material';
 import { Contacto } from '../contacto/contacto.model';
 import { ContactoService } from '../contacto/contacto.service';
 import { BotonPanicoService } from './boton-panico.service';
@@ -15,12 +15,13 @@ import { Title } from '@angular/platform-browser';
 export class BotonPanicoComponent implements OnInit, OnDestroy {
 
   contactos: Contacto[];
+  contactoAlarma: Contacto;
   activarAlarma = false;
   private subscription: Subscription;
   tituloAnt: string;
 
   dataSource: any;
-  displayedColumns: string[] = ['created_at', 'user.codigo_gestion', 'user.nombre', 'titulo', 'updated_at'];
+  displayedColumns: string[] = ['created_at', 'user.codigo_gestion', 'user.nombre', 'titulo', 'notificado_el'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -37,14 +38,12 @@ export class BotonPanicoComponent implements OnInit, OnDestroy {
 
     this.botonPanicoService.activarGuardia();
     this.subscription = this.botonPanicoService.contactoAlarmaObs.subscribe((contacto) => {
-      if (contacto) {
-        this.botonPanicoService.cancelarPanico(contacto);
+      if ( contacto && this.activarAlarma === false ) {
+        this.contactoAlarma = contacto;
         this.titleService.setTitle( this.tituloAnt + ' - ALARMA!');
         this.activarAlarma = true;
-        this.leerContactos();
       } else {
         this.titleService.setTitle( this.tituloAnt);
-        this.activarAlarma = false;
       }
     });
   }
@@ -58,10 +57,10 @@ export class BotonPanicoComponent implements OnInit, OnDestroy {
     this.contactoService.getContactos('panico')
       .subscribe(contactos => {
         console.log(contactos);
+        const sorted = contactos.sort((a, b) => b.created_at.localeCompare(a.created_at));
         this.contactos = contactos;
         this.dataSource = new MatTableDataSource(this.contactos);
         this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
       });
   }
 
@@ -83,10 +82,14 @@ export class BotonPanicoComponent implements OnInit, OnDestroy {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.value) {
-        this.activarAlarma = false;
+        this.botonPanicoService.cancelarPanico(this.contactoAlarma).subscribe(
+          resp => {
+            this.activarAlarma = false;
+            this.leerContactos();
+          }
+        );
       }
     });
   }
-
 
 }

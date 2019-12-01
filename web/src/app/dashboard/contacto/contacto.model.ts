@@ -5,6 +5,8 @@ export class Contacto {
   public titulo: string;
   public descripcion: string;
   // tslint:disable-next-line: variable-name
+  public notificado_el?: Date;
+  // tslint:disable-next-line: variable-name
   public user_id?: number;
   // tslint:disable-next-line: variable-name
   public created_at?: Date;
