@@ -6,6 +6,7 @@ use App\Contacto;
 use App\User;
 use Illuminate\Http\Request;
 use Validator;
+use Carbon\Carbon;
 
 class ContactoController extends Controller
 {
@@ -162,5 +163,26 @@ class ContactoController extends Controller
         }
 
         return response()->json(['error' => 'false', 'data' => $contactos, 'message' => 'Contactos enviados correctamente.']);
+    }
+
+    /**
+     * Silenciar  marcar como notificado un contacto.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function silenciarContacto($id)
+    {
+        $contacto = Contacto::find($id);
+
+        if (is_null($contacto)) {
+            return response()->json(['error' => 'true', 'message' => 'Contacto no encontrado.'], 404);
+        }
+
+        $contacto->notificado_el = Carbon::now()->toDateTimeString();;
+
+        $contacto->save();
+
+        return response()->json(['error' => 'false', 'data' => $contacto, 'message' => 'Contacto actualizado correctamente.']);
     }
 }

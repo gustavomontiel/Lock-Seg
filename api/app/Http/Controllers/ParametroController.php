@@ -35,9 +35,9 @@ class ParametroController extends Controller
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'descripcion' => 'required|string|max:100',
-            'valor' => 'required|string|max:100',
-            'mostrar_en' => 'required|string|max:100'
+            'descripcion' => 'required|string|max:255',
+            'valor' => 'required|string|max:255',
+            'mostrar_en' => 'required|string|max:255'
         ]);
 
         if ($validator->fails()) {
@@ -83,9 +83,9 @@ class ParametroController extends Controller
         }
 
         $validator = Validator::make($input, [
-            'descripcion' => 'string|max:100',
-            'valor' => 'string|max:100',
-            'mostrar_en' => 'string|max:100'
+            'descripcion' => 'string|max:255',
+            'valor' => 'string|max:255',
+            'mostrar_en' => 'string|max:255'
         ]);
 
         if ($validator->fails()) {

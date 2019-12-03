@@ -84,6 +84,11 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         'uses' => 'ContactoController@showByTipo'
     ]);
 
+    $router->put('/contacto/silenciar/{id}', [
+        'as' => 'contactos.silenciarContacto',
+        'uses' => 'ContactoController@silenciarContacto'
+    ]);
+
     /* Mensajes Routes */
     $router->get('/mensajes', [
         'as' => 'mensajes.index',
