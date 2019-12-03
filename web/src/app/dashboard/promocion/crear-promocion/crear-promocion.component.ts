@@ -1,5 +1,5 @@
 import { PromocionService } from './../promocion.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -27,6 +27,7 @@ export class CrearPromocionComponent implements OnInit, OnDestroy {
     public router: Router,
     public promocionService: PromocionService,
     public activatedRoute: ActivatedRoute,
+    private cd: ChangeDetectorRef,
     public store: Store<AppState>
   ) { }
 
@@ -92,4 +93,16 @@ export class CrearPromocionComponent implements OnInit, OnDestroy {
     });
 
   }
+
+  onFileChange( event: any, field: any ) {
+    const reader = new FileReader();
+
+    if ( event.target.files && event.target.files.length > 0 ) {
+      const file = event.target.files[0];
+      this.formPromocion.get(field).setValue(file);
+    }
+    this.cd.markForCheck();
+
+  }
+
 }

@@ -22,7 +22,7 @@
         </div>
         <div class="form-group col-md-12">
           <label for="imagen">Imagen</label>
-          <input formControlName="imagen" name="imagen" type="file" class="form-control" placeholder="Imagen" required>
+          <input name="imagen" (change)="onFileChange($event, 'imagen')" type="file" class="form-control" placeholder="Imagen" lang="es" required>
         </div>
       </div>
       <!-- /.card-body -->
