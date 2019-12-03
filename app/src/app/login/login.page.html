@@ -4,7 +4,7 @@
     <ion-img class="ion-align-self-center" src="/assets/imagenes/logo_g.png"></ion-img>
   </div>
   <ion-label class="ion-padding" color="danger" floating> {{ mensaje }} </ion-label>
-  <form [formGroup]="login"  (submit)="loginUsuario()" class="ion-padding">
+  <form [formGroup]="login" ngNativeValidate (submit)="loginUsuario()" class="ion-padding">
     <ion-grid class="ion-padding">
       <ion-row>
         <ion-col>
@@ -22,7 +22,7 @@
       </ion-row>
     </ion-grid>
     <div class="ion-padding">
-      <ion-button class="lock-button" expand="block" type="submit">ingresar</ion-button>
+      <ion-button class="lock-button" [disabled]="login.invalid" expand="block" type="submit">ingresar</ion-button>
     </div>
     </form>
 </ion-content>
