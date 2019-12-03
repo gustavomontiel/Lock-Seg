@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { InAppBrowser , InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
+import { UrlsService } from '../services/urls.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-pagomiscuentas',
@@ -7,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PagomiscuentasPage implements OnInit {
 
-  constructor() { }
+  urlPagomiscuentas: any;
+  parametro: any;
+
+  constructor(
+    private theInAppBrowser: InAppBrowser,
+    private urlsService: UrlsService,
+    private sanitizer: DomSanitizer
+  ) { }
 
   ngOnInit() {
+    this.getUrlPagomiscuentas();
+  }
+
+  private getUrlPagomiscuentas() {
+    console.log('pago mis cuentas');
+    this.urlsService.getUrl('pagomiscuentas')
+      .subscribe(parametro => {
+        this.urlPagomiscuentas = this.sanitizer.bypassSecurityTrustResourceUrl(parametro.data.valor);
+      });
   }
 
 }

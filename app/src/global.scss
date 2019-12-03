@@ -105,6 +105,7 @@ ion-item:hover{
     background-color: #009fdb !important;
 }
 
+
 ion-item ion-img{
     width: 15%;
 }
@@ -133,5 +134,7 @@ h2 {
 
 
 .item-complex .item-content:hover{
-    background-color: #009fdb !important;
+    --background: #009fdb !important;
 }
+
+

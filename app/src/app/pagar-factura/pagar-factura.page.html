@@ -11,12 +11,12 @@
     
     <div class="ion-padding">
         <ion-button class="lock-button" expand="block" [routerLink]="['/pagomiscuentas']">Pago mis cuentas</ion-button>
-        <ion-button class="lock-button" expand="block" (click)="openWithInAppBrowser('https://www.rapipago.com.ar/')">Rapipago</ion-button>
+        <ion-button class="lock-button" expand="block" [routerLink]="['/rapipago']">Rapipago</ion-button>
         <ion-button class="lock-button" expand="block" (click)="openWithInAppBrowser('https://www.e-pagofacil.com/')">Pago Fácil</ion-button>
-        <ion-button class="lock-button" expand="block" (click)="openWithInAppBrowser('https://www.macro.com.ar/bancainternet/#')">Banco Macro</ion-button>
-        <ion-button class="lock-button" expand="block" (click)="openWithInAppBrowser('https://www.bancogalicia.com/banca/online/web/Personas')">Banco Galicia</ion-button>
-        <ion-button class="lock-button" expand="block" (click)="openWithInAppBrowser('https://www.bbva.com.ar/')">Banco Francés</ion-button>
-        <ion-button class="lock-button" expand="block" (click)="openWithInAppBrowser('hik.intent.action.iVMS-4500://')">Adherirse al débito automático</ion-button>
+        <ion-button class="lock-button" expand="block" [routerLink]="['/banco-macro']">Banco Macro</ion-button>
+        <ion-button class="lock-button" expand="block" [routerLink]="['/banco-galicia']">Banco Galicia</ion-button>
+        <ion-button class="lock-button" expand="block" [routerLink]="['/banco-bbva']">Banco Francés</ion-button>
+        <ion-button class="lock-button" expand="block" [routerLink]="['/debito']">Adherirse al débito automático</ion-button>
     </div>
     
 

@@ -1,21 +1,36 @@
 <ion-header>
-  <ion-toolbar class="lock-color">
-    <ion-buttons slot="start">
-        <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title><img src="/assets/imagenes/logo_g.png"/></ion-title>
-</ion-toolbar>
+    <ion-toolbar class="lock-color">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title><img src="/assets/imagenes/logo_g.png"/></ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div style="overflow:auto;-webkit-overflow-scrolling:touch">
-      <iframe style="width:100%;" [src]="https://www.macro.com.ar/bancainternet/#"></iframe>
+    
+    <div class="ion-padding">
+            <ion-text>
+              <h2>Solicite adhesión al débito autoático</h2>
+            </ion-text>
+        
+    <form [formGroup]="debito">
+        <ion-item>
+            <ion-label class="lock-label">Abonado:</ion-label>
+            <ion-input formControlName="email"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label class="lock-label" position="floating">Motivo:</ion-label>
+            <ion-textarea formControlName="descripcion"></ion-textarea>
+       </ion-item>
+      <ion-button (click)="insertarContacto()" class="lock-button" expand="block" type="submit" block>Solicitar</ion-button>
+    </form>
   </div>
-</ion-content>
 
+</ion-content>
 <ion-footer>
-  <ion-toolbar class="lock-footer">
-    <p>www.guazuseguridad.com.ar</p>
-    <p>(0376) 4433870 / 4441054</p>
-  </ion-toolbar>
-</ion-footer>
+    <ion-toolbar class="lock-footer">
+      <p>www.guazuseguridad.com.ar</p>
+      <p>(0376) 4433870 / 4441054</p>
+    </ion-toolbar>
+  </ion-footer>

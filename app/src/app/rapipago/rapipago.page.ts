@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { InAppBrowser , InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
+import { UrlsService } from '../services/urls.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-rapipago',
@@ -7,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RapipagoPage implements OnInit {
 
-  constructor() { }
+  urlRapipago: any;
+  parametro: any;
+
+  constructor(
+    private theInAppBrowser: InAppBrowser,
+    private urlsService: UrlsService,
+    private sanitizer: DomSanitizer
+  ) { }
 
   ngOnInit() {
+    this.getUrlRapipago();
+  }
+
+  private getUrlRapipago() {
+    console.log('rapipago');
+    this.urlsService.getUrl('rapipago')
+      .subscribe(parametro => {
+        this.urlRapipago = this.sanitizer.bypassSecurityTrustResourceUrl(parametro.data.valor);
+      });
   }
 
 }

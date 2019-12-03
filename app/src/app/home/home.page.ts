@@ -65,7 +65,7 @@ export class HomePage {
       if (response) {
         //console.log(response.data.user.email);
         console.log('ingresa');
-        var body = { "tipo": "panico", "titulo": "Botón de Panico", "descripcion": "yaaaaa",  "user_id": response.data.user.id};
+        var body = { "tipo": "panico", "titulo": "Botón de Panico", "descripcion": "Llamada urgente",  "user_id": response.data.user.id};
         this.contactoService.insertarContacto(body)
           .subscribe(contacto => {
             console.log("panico - lo hizo:" + contacto);
@@ -77,8 +77,12 @@ export class HomePage {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'Hemos recibido su pedido de ayuda.',
-      duration: 2000
+      message: 'Hemos recibido su pedido de ayuda. Estamos en camino.',
+      duration: 48000,
+      position: 'middle',
+      color:'danger',
+      showCloseButton: true,
+      closeButtonText: "OK"
     });
     toast.present();
   }
