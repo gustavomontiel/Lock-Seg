@@ -79,7 +79,7 @@ export class HomePage {
     const toast = await this.toastController.create({
       message: 'Hemos recibido su pedido de ayuda. Estamos en camino.',
       duration: 48000,
-      position: 'middle',
+      position: 'bottom',
       color:'danger',
       showCloseButton: true,
       closeButtonText: "OK"
