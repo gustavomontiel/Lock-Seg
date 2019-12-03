@@ -14,11 +14,11 @@
         </ion-text>
     <form [formGroup]="servicio">
         <ion-item>
-            <ion-label>Abonado:</ion-label>
+            <ion-label class="lock-label">Abonado:</ion-label>
             <ion-input formControlName="email" ></ion-input>
         </ion-item>
         <ion-item>
-            <ion-label position="floating">Motivo:</ion-label>
+            <ion-label position="floating" class="lock-label">Motivo:</ion-label>
             <ion-textarea formControlName="descripcion"></ion-textarea>
        </ion-item>
       <ion-button (click)="insertarContacto()" class="lock-button" expand="block" type="submit" block>Solicitar</ion-button>

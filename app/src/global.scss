@@ -120,13 +120,18 @@ ion-input{
     border-bottom: white solid 1px;
 }
 
+ion-textarea{
+    --color: #ffffff !important;
+    border-bottom: white solid 1px;
+}
+
 h2 {
     text-align: center;
-    --color: #ffffff !important;
+    color: #ffffff !important;
 }
 
 
-/*
+
 .item-complex .item-content:hover{
     background-color: #009fdb !important;
-}*/
+}
