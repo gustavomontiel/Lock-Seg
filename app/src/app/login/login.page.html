@@ -1,7 +1,7 @@
 
 <ion-content>
   <div>
-    <ion-img class="ion-align-self-center" src="/assets/imagenes/logo.png"></ion-img>
+    <ion-img class="ion-align-self-center" src="/assets/imagenes/logo_g.png"></ion-img>
   </div>
   <ion-label class="ion-padding" color="danger" floating> {{ mensaje }} </ion-label>
   <form [formGroup]="login"  (submit)="loginUsuario()" class="ion-padding">
@@ -10,11 +10,11 @@
         <ion-col>
           <ion-list>
             <ion-item>
-              <ion-label position="floating">Usuario</ion-label>
+              <ion-label class="lock-label" position="floating">Usuario</ion-label>
               <ion-input type="email" formControlName="usuario"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-label position="floating">Contraseña</ion-label>
+              <ion-label class="lock-label" position="floating">Contraseña</ion-label>
               <ion-input type="password" formControlName="password"></ion-input>
             </ion-item>
           </ion-list>

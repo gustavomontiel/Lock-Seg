@@ -88,11 +88,45 @@ div.lock-boton:hover{
     font-size: 14px;
 }
 
+ion-list{
+    background-color: #000000 !important;
+}
+
+ion-item{
+    --background: #000000 !important;
+}
 
 ion-item:hover{
-    --background: #009fdb;
+    --background: #009fdb !important;
+}
+
+/*hover color item*/
+.item-complex .item-content, .item{
+    background-color: #009fdb !important;
 }
 
 ion-item ion-img{
-    width: 20%;
+    width: 15%;
 }
+
+ion-item ion-label.lock-label{
+    --color: #ffffff !important;
+    font-size: 12px;
+}
+
+
+ion-input{
+    --color: #ffffff !important;
+    border-bottom: white solid 1px;
+}
+
+h2 {
+    text-align: center;
+    --color: #ffffff !important;
+}
+
+
+/*
+.item-complex .item-content:hover{
+    background-color: #009fdb !important;
+}*/
