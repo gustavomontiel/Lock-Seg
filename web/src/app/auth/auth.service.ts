@@ -171,4 +171,24 @@ export class AuthService {
 
   }
 
+  deleteUser(user: User) {
+
+    Swal.fire({
+      text: 'Procesando solicitud',
+      onBeforeOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
+    const url = environment.APIEndpoint + '/users/' + user.id;
+    return this.http.delete(url)
+      .pipe(
+        map((resp: any) => {
+          Swal.close();
+          return resp;
+        })
+      );
+
+  }
+
 }

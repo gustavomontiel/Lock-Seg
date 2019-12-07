@@ -36,6 +36,7 @@ export class BotonPanicoComponent implements OnInit, OnDestroy {
     this.tituloAnt = this.titleService.getTitle();
     this.leerContactos();
 
+    this.botonPanicoService.getPanico();
     this.botonPanicoService.activarGuardia();
     this.subscription = this.botonPanicoService.contactoAlarmaObs.subscribe((contacto) => {
       if ( contacto && this.activarAlarma === false ) {
@@ -50,6 +51,7 @@ export class BotonPanicoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.botonPanicoService.desactivarGuardia();
   }
 
   leerContactos() {

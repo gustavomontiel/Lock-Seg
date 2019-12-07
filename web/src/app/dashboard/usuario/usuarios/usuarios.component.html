@@ -36,6 +36,9 @@
             [routerLink]="['/editar-usuario', element.id]">
             <i class="fas fa-pencil-alt"></i>
           </button>
+          <button *ngIf="element.roleNames[0] != 'administrador'"  type="button" class="btn btn-danger ml-1" placement="top" ngbTooltip="Eliminar"><i
+            class="fas fa-trash-alt" (click)="borrarUsuario(element)">
+          </i></button>
         </div>
       </td>
     </ng-container>

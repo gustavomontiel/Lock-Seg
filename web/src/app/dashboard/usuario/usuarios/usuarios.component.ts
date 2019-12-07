@@ -3,6 +3,7 @@ import { AuthService } from '../../../auth/auth.service';
 import { User } from '../../../auth/user.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-usuarios',
@@ -49,6 +50,40 @@ export class UsuariosComponent implements OnInit {
   agregarUsuario() {
     console.log('nuevo usuario');
     this.route.navigateByUrl('crear-usuario');
+  }
+
+  borrarUsuario(user: User) {
+    Swal.fire({
+      title: 'Confirmación?',
+      text: 'Confirma eliminar el registro?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+
+      if (result.value) {
+        this.authService.deleteUser(user)
+          .subscribe(
+            resp => {
+              Swal.fire(
+                'Eliminado!',
+                'La operación ha sido realizada.',
+                'success'
+              );
+              this.leerUsuarios();
+            },
+            err => {
+              Swal.fire(
+                'Error!',
+                'La operación no pudo realizarse.',
+                'error'
+              );
+            }
+          );
+      }
+    });
+
   }
 
 }

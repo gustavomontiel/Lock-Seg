@@ -2,7 +2,7 @@ import { LoginComponent } from './../../auth/login/login.component';
 import { ContactoService } from './../contacto/contacto.service';
 import { Injectable } from '@angular/core';
 import { Contacto } from '../contacto/contacto.model';
-import { interval, Subject, timer, Observable, throwError } from 'rxjs';
+import { interval, Subject, timer, Observable, throwError, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { map, switchMap, catchError } from 'rxjs/operators';
@@ -14,6 +14,7 @@ export class BotonPanicoService {
 
   private contactoAlarma: Subject<Contacto> = new Subject<Contacto>();    // consider putting the actual type of the data you will receive
   public contactoAlarmaObs = this.contactoAlarma.asObservable();
+  private subscription: Subscription;
 
   constructor(
     public http: HttpClient,
@@ -38,30 +39,19 @@ export class BotonPanicoService {
   }
 
   activarGuardia() {
-    interval(10000).subscribe(
+    this.subscription = interval(10000).subscribe(
       () => {
         this.getPanico();
       }
     );
   }
 
+  desactivarGuardia() {
+    this.subscription.unsubscribe();
+  }
+
   cancelarPanico(contacto: Contacto) {
-    if (contacto.id) {
-
-      let url = environment.APIEndpoint + '/contacto/silenciar';
-      url += '/' + contacto.id;
-
-      return this.http.put(url, contacto );
-      /*
-      .subscribe(
-        resp => { console.log('resp:', resp); } ,
-        err => { console.log('Error:', err); }
-      );
-      */
-
-    } else {
-      console.log('no se puede actualizar un objeto sin id');
-    }
+    return this.contactoService.notificarContacto(contacto);
   }
 
 }

@@ -30,10 +30,20 @@ export class MovilDomicilioComponent implements OnInit {
     this.contactoService.getContactos('movil')
       .subscribe(contactos => {
         console.log(contactos);
+        const sorted = contactos.sort((a, b) => b.created_at.localeCompare(a.created_at));
         this.contactos = contactos;
         this.dataSource = new MatTableDataSource(this.contactos);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.contactos.forEach(contacto => {
+          if ( contacto.notificado_el === null ) {
+            this.contactoService.notificarContacto( contacto )
+            .subscribe(
+              res => { console.log(res); },
+              err => { console.log(err); }
+            );
+          }
+        });
       });
   }
 

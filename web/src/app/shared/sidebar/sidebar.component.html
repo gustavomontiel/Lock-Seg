@@ -24,6 +24,7 @@
         <a routerLink="/boton-panico" class="nav-link">
           <i class="menu-icon fas fa-bell text-danger"></i>
           <span class="menu-title">Botón de Pánico</span>
+          <span *ngIf="contactoService.cantContactos.panico > 0" class="badge badge-danger right">{{ contactoService.cantContactos.panico }}</span>
         </a>
       </li>
 
@@ -38,6 +39,7 @@
         <a routerLink="/movil-domicilio" class="nav-link">
           <i class="menu-icon fas fa-motorcycle text-primary"></i>
           <span class="menu-title">Móvil a domicilio</span>
+          <span *ngIf="contactoService.cantContactos.movil > 0" class="badge badge-primary right">{{ contactoService.cantContactos.movil }}</span>
         </a>
       </li>
 
@@ -45,6 +47,7 @@
         <a routerLink="/servicio-tecnico" class="nav-link">
           <i class="menu-icon fas fa-wrench text-primary"></i>
           <span class="menu-title">Servicio Técnico</span>
+          <span *ngIf="contactoService.cantContactos.servicio > 0" class="badge badge-primary right">{{ contactoService.cantContactos.servicio }}</span>
         </a>
       </li>
 
@@ -52,6 +55,7 @@
         <a routerLink="/atencion-cliente" class="nav-link" routerLinkActive="active">
           <i class="menu-icon fas fa-phone text-primary"></i>
           <span class="menu-title">Atención al cliente</span>
+          <span *ngIf="contactoService.cantContactos.atencion > 0" class="badge badge-primary right">{{ contactoService.cantContactos.atencion }}</span>
         </a>
       </li>
 
