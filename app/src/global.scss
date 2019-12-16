@@ -93,7 +93,7 @@ ion-list{
 }
 
 ion-item{
-    --background: #000000 !important;
+    --background: #1c1c1c !important;
 }
 
 ion-item:hover{
@@ -137,6 +137,13 @@ h2 {
     --background: #009fdb !important;
 }
 
+ .item{
+    --background: #1c1c1c !important;
+ }
+
+ .item .panico{
+    --background: #009fdb !important;
+ }
 
 iframe {
     border: none;
