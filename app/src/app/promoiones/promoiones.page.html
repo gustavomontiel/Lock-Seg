@@ -8,16 +8,19 @@
 </ion-header>
 
 <ion-content>
-    
-     <ion-grid>
-        <ion-row class="ion-align-items-center ion-justify-content-center">
-          <ion-col size="10" class="ion-padding-horizontal ion-align-self-center">
-            <div class="ion-text-center">
-              <ion-label>No hay promociones disponibles</ion-label>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+    <div *ngFor="let promocion of promociones">
+    <ion-card class="sombra">
+        <img [src]="'http://lock-api.grupo-sim.com.ar/'+promocion.imagen" />
+        <ion-card-header>
+          <ion-card-title style="color:#ffffff;">{{promocion.titulo}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content style="color:#ffffff;">
+            {{promocion.descripcion}}
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+     
 </ion-content>
 
 <ion-footer>

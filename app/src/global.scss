@@ -115,7 +115,11 @@ ion-item ion-label.lock-label{
     font-size: 20px !important;
 }
 
-
+.sombra{
+    box-shadow: 0px 4px 8px 0px #009fdb !important;
+    -webkit-box-shadow: 0px 4px 8px 0px #009fdb;
+    -moz-box-shadow: 0px 4px 8px 0px #009fdb;
+}
 ion-input{
     --color: #ffffff !important;
     border-bottom: white solid 1px;
