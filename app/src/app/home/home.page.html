@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar class="lock-color">
-    <ion-title>
+    <!--ion-title>
         <img src="/assets/imagenes/logo_g.png"/>
-    </ion-title>
+    </!--ion-title-->
     <ion-buttons slot="end">
       <ion-button (click)="logoutUser()">
           <ion-icon slot="icon-only" name="log-out"></ion-icon>
@@ -13,6 +13,10 @@
 
 <ion-content class="ion-padding">
     <ion-list lines="full">
+        <ion-list-header>
+          <ion-img class="ion-align-self-center" src="/assets/imagenes/logo_g.png"></ion-img>
+        </ion-list-header>
+
         <ion-item class="panico" (click)="insertarContacto()">
             <ion-img slot="start" src="/assets/imagenes/panico.png"></ion-img>
             <ion-label class="lock-label">Botón de Pánico</ion-label>

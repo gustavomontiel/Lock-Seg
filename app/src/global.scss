@@ -107,7 +107,7 @@ ion-item:hover{
 
 
 ion-item ion-img{
-    width: 15%;
+    width: 20%;
 }
 
 ion-item ion-label.lock-label{
@@ -132,16 +132,19 @@ h2 {
 }
 
 
-
+/*
 .item-complex .item-content:hover{
     --background: #009fdb !important;
-}
+}*/
 
  .item{
-    --background: #1c1c1c !important;
+    --background: #1c1c1c;
+    --border-width: 7px;
+    --border-style: solid;
+    --border-color: #000;
  }
 
- .item .panico{
+ ion-item.panico.item-label.item{
     --background: #009fdb !important;
  }
 
