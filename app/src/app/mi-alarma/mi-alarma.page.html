@@ -3,12 +3,15 @@
         <ion-buttons slot="start">
             <ion-back-button></ion-back-button>
         </ion-buttons>
-        <ion-title><img src="/assets/imagenes/logo_g.png"/></ion-title>
+        <!--ion-title><img src="/assets/imagenes/logo_g.png"/></ion-title-->
     </ion-toolbar>
   </ion-header>
 
 <ion-content class="ion-padding">
     <ion-list lines="full">
+        <ion-list-header>
+            <ion-img class="ion-align-self-center" src="/assets/imagenes/logo_g.png"></ion-img>
+        </ion-list-header>
         <ion-item [routerLink]="['/historial-alarma']">
           <ion-img slot="start" src="/assets/imagenes/historial.png"></ion-img>
           <ion-label class="lock-label">Historial</ion-label>
