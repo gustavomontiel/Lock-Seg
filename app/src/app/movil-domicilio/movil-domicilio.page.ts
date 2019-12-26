@@ -3,6 +3,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContactoService } from '../services/contacto.service';
 import { Storage } from '@ionic/storage';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-movil-domicilio',
@@ -18,6 +19,7 @@ export class MovilDomicilioPage implements OnInit {
     private contactoService: ContactoService,
     private sanitizer: DomSanitizer,
     private storage: Storage,
+    public toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -47,9 +49,23 @@ export class MovilDomicilioPage implements OnInit {
         this.contactoService.insertarContacto(body)
           .subscribe(contacto => {
             console.log('aparentemente lo hizo:' + contacto);
+            this.presentToast();
           });
       }
     });
+  }
+
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Hemos recibido su solicitud de un móvil a domicilio.',
+      duration: 48000,
+      position: 'bottom',
+      color:'danger',
+      showCloseButton: true,
+      closeButtonText: "OK"
+    });
+    toast.present();
   }
 
 }

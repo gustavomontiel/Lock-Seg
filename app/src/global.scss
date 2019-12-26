@@ -92,6 +92,10 @@ ion-list{
     background-color: #000000 !important;
 }
 
+ion-list-header{
+    padding-left: 0px;
+}
+
 ion-item{
     --background: #1c1c1c !important;
 }
@@ -154,4 +158,8 @@ h2 {
 
 iframe {
     border: none;
+}
+
+ion-card{
+    margin-bottom: 50px !important;
 }

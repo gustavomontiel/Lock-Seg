@@ -3,6 +3,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContactoService } from '../services/contacto.service';
 import { Storage } from '@ionic/storage';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-servicio-tecnico',
@@ -19,6 +20,7 @@ export class ServicioTecnicoPage implements OnInit {
     private contactoService: ContactoService,
     private sanitizer: DomSanitizer,
     private storage: Storage,
+    public toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -48,9 +50,23 @@ export class ServicioTecnicoPage implements OnInit {
         this.contactoService.insertarContacto(body)
           .subscribe(contacto => {
             console.log('servicio - lo hizo:' + contacto);
+            this.presentToast();
           });
       }
     });
   }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Hemos recibido su solicitud de servicio técnico.',
+      duration: 48000,
+      position: 'bottom',
+      color:'danger',
+      showCloseButton: true,
+      closeButtonText: "OK"
+    });
+    toast.present();
+  }
+
 
 }
