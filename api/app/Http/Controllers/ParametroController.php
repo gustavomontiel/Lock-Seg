@@ -128,7 +128,6 @@ class ParametroController extends Controller
      */
     public function showByDescripcion($descripcion)
     {
-        return response()->json(['error' => 'false', 'data' => $descripcion, 'message' => 'Parametro enviado correctamente.']);
         $parametro = Parametro::where('descripcion', $descripcion)->first();
 
         if (is_null($parametro)) {

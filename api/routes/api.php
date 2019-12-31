@@ -7,7 +7,7 @@ use Laravel\Lumen\Routing\Router;
 /* Public Routes */
 
 $router->get('/', function () {
-    return response()->json(['message' => 'Bienvenidos a la API del sistema de Lock Seguridad.']);
+    return response()->json(['message' => 'Bienvenidos a la API del sistema de GUAZÚ Seguridad.']);
 });
 
 /* Auth Routes */
@@ -48,6 +48,37 @@ $router->group(['prefix' => 'auth', 'as' => 'auth'], function (Router $router) {
 /* Protected Routes */
 $router->group(['middleware' => 'auth'], function (Router $router) {
 
+    /* Users Routes */
+    $router->get('/users', [
+        'as' => 'users.index',
+        'uses' => 'UserController@index'
+    ]);
+
+    $router->get('/users/{id}', [
+        'as' => 'users.show',
+        'uses' => 'UserController@show'
+    ]);
+
+    $router->post('/users', [
+        'as' => 'users.store',
+        'uses' => 'UserController@store'
+    ]);
+
+    $router->put('/users/{id}', [
+        'as' => 'users.update',
+        'uses' => 'UserController@update'
+    ]);
+
+    $router->delete('/users/{id}', [
+        'as' => 'users.destroy',
+        'uses' => 'UserController@destroy'
+    ]);
+
+    $router->put('/actualizar-password', [
+        'as' => 'users.password',
+        'uses' => 'UserController@actualizarPassword'
+    ]);
+    
     /* Contactos Routes */
     $router->get('/contactos', [
         'as' => 'contactos.index',
@@ -121,9 +152,45 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
     ]);
 
     /* Parametros Routes */
+    $router->get('/parametros', [
+        'as' => 'parametros.index',
+        'uses' => 'ParametroController@index'
+    ]);
+
+    $router->get('/parametros/{id}', [
+        'as' => 'parametros.show',
+        'uses' => 'ParametroController@show'
+    ]);
+
     $router->get('/parametros/descripcion/{descripcion}', [
         'as' => 'parametros.showByDescripcion',
         'uses' => 'ParametroController@showByDescripcion'
+    ]);
+
+    /* Promociones Routes */
+    $router->get('/promociones', [
+        'as' => 'promociones.index',
+        'uses' => 'PromocionController@index'
+    ]);
+    
+    $router->get('/promociones/{id}', [
+        'as' => 'promociones.show',
+        'uses' => 'PromocionController@show'
+    ]);
+
+    $router->post('/promociones', [
+        'as' => 'promociones.store',
+        'uses' => 'PromocionController@store'
+    ]);
+
+    $router->put('/promociones/{id}', [
+        'as' => 'promociones.update',
+        'uses' => 'PromocionController@update'
+    ]);
+
+    $router->delete('/promociones/{id}', [
+        'as' => 'promociones.destroy',
+        'uses' => 'PromocionController@destroy'
     ]);
 
     /* Admin Routes */
@@ -133,53 +200,13 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
             return response()->json(['message' => 'Usted posee los privilegios de administrador.']);
         });
 
-        /* Users Routes */
-        $router->get('/users', [
-            'as' => 'users.index',
-            'uses' => 'UserController@index'
-        ]);
-
-        $router->get('/users/{id}', [
-            'as' => 'users.show',
-            'uses' => 'UserController@show'
-        ]);
-
-        $router->post('/users', [
-            'as' => 'users.store',
-            'uses' => 'UserController@store'
-        ]);
-
-        $router->put('/users/{id}', [
-            'as' => 'users.update',
-            'uses' => 'UserController@update'
-        ]);
-
-        $router->delete('/users/{id}', [
-            'as' => 'users.destroy',
-            'uses' => 'UserController@destroy'
-        ]);
-
-        $router->put('/actualizar-password', [
-            'as' => 'users.password',
-            'uses' => 'UserController@actualizarPassword'
-        ]);
-
         $router->post('/importarclientes', [
             'as' => 'users.importarclientes',
             'uses' => 'UserController@importarclientes'
         ]);
 
         /* Parametros Routes */
-        $router->get('/parametros', [
-            'as' => 'parametros.index',
-            'uses' => 'ParametroController@index'
-        ]);
-
-        $router->get('/parametros/{id}', [
-            'as' => 'parametros.show',
-            'uses' => 'ParametroController@show'
-        ]);
-
+        
         $router->post('/parametros', [
             'as' => 'parametros.store',
             'uses' => 'ParametroController@store'
@@ -195,30 +222,6 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
             'uses' => 'ParametroController@destroy'
         ]);
 
-        /* Promociones Routes */
-        $router->get('/promociones', [
-            'as' => 'promociones.index',
-            'uses' => 'PromocionController@index'
-        ]);
-
-        $router->get('/promociones/{id}', [
-            'as' => 'promociones.show',
-            'uses' => 'PromocionController@show'
-        ]);
-
-        $router->post('/promociones', [
-            'as' => 'promociones.store',
-            'uses' => 'PromocionController@store'
-        ]);
-
-        $router->put('/promociones/{id}', [
-            'as' => 'promociones.update',
-            'uses' => 'PromocionController@update'
-        ]);
-
-        $router->delete('/promociones/{id}', [
-            'as' => 'promociones.destroy',
-            'uses' => 'PromocionController@destroy'
-        ]);
+        
     });
 });

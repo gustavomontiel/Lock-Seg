@@ -44,9 +44,16 @@ class UserController extends Controller
             return response()->json(['error' => 'true', 'data' => $validator->errors(), 'message' => 'Error en la validación de datos.'], 400);
         }
 
+        $roles = $input['roleNames'];
+        unset($input['roleNames']);
         $input['password'] = Hash::make($input['password']);
         $input['verified'] = 1;
         $user = User::create($input);
+
+        foreach ($roles as $key => $value) {
+            $rol = $value;
+            $user->assignRole($rol);
+        }
 
         return response()->json(['error' => 'false', 'data' => $user, 'message' => 'Usuario creado correctamente.']);
     }
@@ -101,6 +108,9 @@ class UserController extends Controller
         $user->codigo_gestion = $input['codigo_gestion'];
 
         $user->save();
+
+        $roles = $input['roleNames'];
+        $user->syncRoles($roles);
 
         return response()->json(['error' => 'false', 'data' => $user, 'message' => 'Usuario actualizado correctamente.']);
     }
