@@ -13,6 +13,7 @@ import { CrearParametroComponent } from './parametro/crear-parametro/crear-param
 import { PromocionesComponent } from './promocion/promociones/promociones.component';
 import { CrearPromocionComponent } from './promocion/crear-promocion/crear-promocion.component';
 import { EditarPromocionComponent } from './promocion/editar-promocion/editar-promocion.component';
+import { EliminarUsuarioComponent } from './usuario/eliminar-usuario/eliminar-usuario.component';
 
 
 export const dashboardRoutes: Routes = [
@@ -20,56 +21,63 @@ export const dashboardRoutes: Routes = [
     component: UsuariosComponent,
     canActivate: [RoleGuard],
     data: {
-      rolesPermitidos: ['administracion']
+      rolesPermitidos: ['administrativo', 'guardia']
     }
   },
   { path: 'usuarios',
     component: UsuariosComponent,
     canActivate: [RoleGuard],
     data: {
-      rolesPermitidos: ['administracion', 'operador']
+      rolesPermitidos: ['administrativo', 'guardia']
     }
   },
   { path: 'crear-usuario',
     component: CrearUsuarioComponent,
     canActivate: [RoleGuard],
     data: {
-      rolesPermitidos: ['administracion']
+      rolesPermitidos: ['administrativo']
     }
   },
   { path: 'editar-usuario/:id',
     component: EditarUsuarioComponent,
     canActivate: [RoleGuard],
     data: {
-      rolesPermitidos: ['administracion']
+      rolesPermitidos: ['administrativo']
+    }
+  },
+  { path: 'eliminar-usuario/:id',
+    component: EliminarUsuarioComponent,
+    canActivate: [RoleGuard],
+    data: {
+      rolesPermitidos: ['administrativo']
     }
   },
   { path: 'boton-panico',
     component: BotonPanicoComponent,
     canActivate: [RoleGuard],
     data: {
-      rolesPermitidos: ['operador']
+      rolesPermitidos: ['guardia']
     }
   },
   { path: 'movil-domicilio',
     component: MovilDomicilioComponent,
     canActivate: [RoleGuard],
     data: {
-      rolesPermitidos: ['administracion', 'operador']
+      rolesPermitidos: ['administrativo', 'guardia']
     }
   },
   { path: 'servicio-tecnico',
     component: ServicioTecnicoComponent,
     canActivate: [RoleGuard],
     data: {
-      rolesPermitidos: ['administracion', 'operador']
+      rolesPermitidos: ['administrativo', 'guardia']
     }
   },
   { path: 'atencion-cliente',
     component: AtencionClienteComponent,
     canActivate: [RoleGuard],
     data: {
-      rolesPermitidos: ['administracion', 'operador']
+      rolesPermitidos: ['administrativo', 'guardia']
     }
   },
   { path: 'parametros',
@@ -97,21 +105,21 @@ export const dashboardRoutes: Routes = [
     component: PromocionesComponent,
     canActivate: [RoleGuard],
     data: {
-      rolesPermitidos: ['administracion']
+      rolesPermitidos: ['administrativo']
     }
   },
   { path: 'crear-promocion',
     component: CrearPromocionComponent,
     canActivate: [RoleGuard],
     data: {
-      rolesPermitidos: ['administracion']
+      rolesPermitidos: ['administrativo']
     }
   },
   { path: 'editar-promocion/:id',
     component: EditarPromocionComponent,
     canActivate: [RoleGuard],
     data: {
-      rolesPermitidos: ['administracion']
+      rolesPermitidos: ['administrativo']
     }
   }
 ];

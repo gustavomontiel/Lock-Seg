@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { User } from 'src/app/auth/user.model';
 import { AuthService } from 'src/app/auth/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class CrearUsuarioComponent implements OnInit, OnDestroy {
 
   usuario: User;
   formUsuario: FormGroup;
+  roleNames = ['administrador', 'administrativo', 'guardia', 'cliente'];
 
   constructor(
     public authService: AuthService,
@@ -38,7 +40,7 @@ export class CrearUsuarioComponent implements OnInit, OnDestroy {
       nombre: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.required, Validators.email]),
       telefono: new FormControl('', Validators.required),
-      rol: new FormControl(null, [Validators.required]),
+      roleNames: new FormControl([], [Validators.required]),
       codigo_gestion: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
     });
@@ -71,13 +73,28 @@ export class CrearUsuarioComponent implements OnInit, OnDestroy {
               type: 'success',
               timer: 2000
             }).then(res => {
-              const url = '/editar-usuario/' + resp.data.id;
-              console.log(url);
+              const url = '/usuarios';
               this.router.navigate([url]);
             });
           },
-          err => {
-            console.log(err);
+          error => {
+            console.log('error en comp', error);
+            if (error instanceof HttpErrorResponse) {
+              console.log('if (error instanceof HttpErrorResponse) {');
+              const validationErrors = error.error;
+              if ( error.status === 422 || error.status === 400) {
+                console.log('if (error.status === 422) {');
+                Object.keys(validationErrors).forEach(prop => {
+                  const formControl = this.formUsuario.get(prop);
+                  if (formControl) {
+                    formControl.setErrors({
+                      serverError: validationErrors[prop]
+                    });
+                  }
+                });
+              }
+            }
+            console.log(error);
             Swal.fire(
               'Error!',
               'Los cambios no fueron guardados.',

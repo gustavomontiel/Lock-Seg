@@ -89,17 +89,19 @@ export class ContactoService {
       })
     ).subscribe(
       res => {
-        const atencion = res.filter((contacto: Contacto) => contacto.tipo === 'atencion' && contacto.notificado_el === null);
-        this.cantContactos.atencion = atencion.length;
+        if ( res ) {
+          const atencion = res.filter((contacto: Contacto) => contacto.tipo === 'atencion' && contacto.notificado_el === null);
+          this.cantContactos.atencion = atencion.length;
 
-        const movil = res.filter((contacto: Contacto) => contacto.tipo === 'movil' && contacto.notificado_el === null);
-        this.cantContactos.movil = movil.length;
+          const movil = res.filter((contacto: Contacto) => contacto.tipo === 'movil' && contacto.notificado_el === null);
+          this.cantContactos.movil = movil.length;
 
-        const panico = res.filter((contacto: Contacto) => contacto.tipo === 'panico' && contacto.notificado_el === null);
-        this.cantContactos.panico = panico.length;
+          const panico = res.filter((contacto: Contacto) => contacto.tipo === 'panico' && contacto.notificado_el === null);
+          this.cantContactos.panico = panico.length;
 
-        const servicio = res.filter((contacto: Contacto) => contacto.tipo === 'servicio' && contacto.notificado_el === null);
-        this.cantContactos.servicio = servicio.length;
+          const servicio = res.filter((contacto: Contacto) => contacto.tipo === 'servicio' && contacto.notificado_el === null);
+          this.cantContactos.servicio = servicio.length;
+        }
       },
       err => {
         console.log(err);

@@ -1,4 +1,4 @@
-<h3>Crear Usuario</h3>
+<h3>Eliminar Usuario</h3>
 <mat-tab-group>
   <mat-tab>
     <div class="col-12">
@@ -10,48 +10,40 @@
       </ng-template>
       <div class="card card-primary mt-2 container">
         <!-- form start -->
-        <form role="form" ngNativeValidate [formGroup]="formUsuario" (ngSubmit)="crearUsuario()" action=""
+        <form role="form" ngNativeValidate [formGroup]="formUsuario" (ngSubmit)="eliminarUsuario()" action=""
           method="post">
           <div class="card-body form-row">
             <div class="form-group col-md-12">
               <label for="nombre">Nombre completo</label>
               <input formControlName="nombre" name="nombre" type="text" class="form-control"
-                placeholder="Nombre completo" required>
+                placeholder="Nombre completo" required readonly>
             </div>
             <div class="form-group col-md-6">
               <label for="email">E-mail</label>
               <input formControlName="email" name="email" type="email" class="form-control" placeholder="e-mail"
-                required>
-                <div class="invalid-feedback" >
-                  {{ formUsuario.controls['email'].errors?.serverError }}
-                </div>
+                required readonly>
             </div>
             <div class="form-group col-md-6">
               <label for="telefono">Teléfono</label>
               <input formControlName="telefono" name="telefono" type="text" class="form-control" placeholder="Teléfono"
-                required>
+                required readonly>
             </div>
             <div class="form-group col-md-6">
               <label for="rol">Rol</label>
-              <select class="form-control" id="roleNames" formControlName="roleNames" multiple>
+              <select class="form-control" id="roleNames" formControlName="roleNames" multiple readonly>
                 <option *ngFor="let rol of roleNames" [value]="rol">{{ rol }}</option>
               </select>
             </div>
             <div class="form-group col-md-6">
               <label for="codigo_gestion">Nro de abonado</label>
               <input formControlName="codigo_gestion" name="codigo_gestion" [disabled]="cargando" type="text" class="form-control"
-                placeholder="Código de gestión" required>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="password">Contraseña</label>
-              <input formControlName="password" name="password" [disabled]="cargando" type="password" class="form-control"
-                placeholder="Contraseña" required>
+                placeholder="Código de gestión" required readonly>
             </div>
           </div>
           <!-- /.card-body -->
           <div class="card-footer row justify-content-end">
-            <a routerLink="/usuarios" *ngIf="!cargando" type="button" class="btn btn-secondary mr-2">Cancelar</a>
-            <button *ngIf="!cargando" [disabled]="formUsuario.invalid" type="submit" class="btn btn-primary">Guardar</button>
+              <a routerLink="/usuarios" *ngIf="!cargando" type="button" class="btn btn-secondary mr-2">Cancelar</a>
+            <button *ngIf="!cargando" type="submit" class="btn btn-danger">Eliminar</button>
             <button *ngIf="cargando" [disabled]="true" class="btn btn-primary">
               <i class="fa fa-spin fa-sync"></i>
               Por favor espere...
@@ -61,5 +53,13 @@
       </div>
     </div>
   </mat-tab>
+  <!--
+  <mat-tab>
+    <ng-template mat-tab-label>
+      Mensajes Push
+    </ng-template>
+    <app-mensajes></app-mensajes>
+  </mat-tab>
+  -->
 </mat-tab-group>
 

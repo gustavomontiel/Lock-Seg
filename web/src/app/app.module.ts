@@ -38,6 +38,7 @@ import { EditarParametroComponent } from './dashboard/parametro/editar-parametro
 import { CrearPromocionComponent } from './dashboard/promocion/crear-promocion/crear-promocion.component';
 import { EditarPromocionComponent } from './dashboard/promocion/editar-promocion/editar-promocion.component';
 import { PromocionesComponent } from './dashboard/promocion/promociones/promociones.component';
+import { EliminarUsuarioComponent } from './dashboard/usuario/eliminar-usuario/eliminar-usuario.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { PromocionesComponent } from './dashboard/promocion/promociones/promocio
     CrearPromocionComponent,
     EditarPromocionComponent,
     PromocionesComponent,
+    EliminarUsuarioComponent,
 
   ],
   imports: [

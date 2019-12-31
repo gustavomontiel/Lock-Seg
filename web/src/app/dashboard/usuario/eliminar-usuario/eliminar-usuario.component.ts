@@ -1,19 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import Swal from 'sweetalert2';
-import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { User } from 'src/app/auth/user.model';
-import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
-  selector: 'app-editar-usuario',
-  templateUrl: './editar-usuario.component.html',
-  styleUrls: ['./editar-usuario.component.scss']
+  selector: 'app-eliminar-usuario',
+  templateUrl: './eliminar-usuario.component.html',
+  styleUrls: ['./eliminar-usuario.component.scss']
 })
-export class EditarUsuarioComponent implements OnInit, OnDestroy {
+export class EliminarUsuarioComponent implements OnInit, OnDestroy {
 
   cargando: boolean;
   subscription: Subscription;
@@ -71,11 +71,11 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
 
   }
 
-  actualizarUsuario() {
+  eliminarUsuario() {
 
     Swal.fire({
-      title: 'Guardar cambios?',
-      text: 'Confirma los cambios?',
+      title: 'Eliminar registro?',
+      text: 'Confirma la eliminación del registro?',
       type: 'question',
       showCancelButton: true,
     }).then((result) => {
@@ -84,19 +84,25 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
         const user = { ... this.formUsuario.value, id: this.usuario.id };
         console.log(user);
 
-        this.authService.updateUser( user ).subscribe(
+        this.authService.deleteUser(user).subscribe(
           resp => {
-            Swal.fire(
-              'Guardado!',
-              'Los cambios fueron guardados correctamente.',
-              'success'
-            );
+
+            Swal.fire({
+              title: 'Eliminado!',
+              text: 'El registro ha sido eliminado correctamente.',
+              type: 'success',
+              timer: 2000
+            }).then( res => {
+              const url = '/usuarios';
+              this.router.navigate([url]);
+            });
+
           },
           err => {
             console.log(err);
             Swal.fire(
               'Error!',
-              'Los cambios no fueron guardados.',
+              'No se pudo realizar la acción.',
               'error'
             );
           }
@@ -104,11 +110,6 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
       }
     });
 
-  }
-
-  cambioRol(e) {
-    console.log(e);
-    console.log(this.formUsuario);
   }
 
 }
