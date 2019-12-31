@@ -60,6 +60,14 @@
       </li>
 
       <li class="nav-item">
+        <a routerLink="/debito-automatico" class="nav-link" routerLinkActive="active">
+          <i class="menu-icon far fa-credit-card text-primary"></i>
+          <span class="menu-title">Débito automatico</span>
+          <span *ngIf="contactoService.cantContactos.atencion > 0" class="badge badge-primary right">{{ contactoService.cantContactos.debito }}</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
         <a routerLink="/promociones" class="nav-link">
           <i class="menu-icon fas fa-dollar-sign text-info"></i>
           <span class="menu-title">Promociones</span>

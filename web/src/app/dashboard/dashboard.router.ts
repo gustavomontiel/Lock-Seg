@@ -1,3 +1,4 @@
+import { DebitoAutomaticoComponent } from './contacto/debito-automatico/debito-automatico.component';
 import { EditarParametroComponent } from './parametro/editar-parametro/editar-parametro.component';
 import { AtencionClienteComponent } from './contacto/atencion-cliente/atencion-cliente.component';
 import { ServicioTecnicoComponent } from './contacto/servicio-tecnico/servicio-tecnico.component';
@@ -75,6 +76,13 @@ export const dashboardRoutes: Routes = [
   },
   { path: 'atencion-cliente',
     component: AtencionClienteComponent,
+    canActivate: [RoleGuard],
+    data: {
+      rolesPermitidos: ['administrativo', 'guardia']
+    }
+  },
+  { path: 'debito-automatico',
+    component: DebitoAutomaticoComponent,
     canActivate: [RoleGuard],
     data: {
       rolesPermitidos: ['administrativo', 'guardia']

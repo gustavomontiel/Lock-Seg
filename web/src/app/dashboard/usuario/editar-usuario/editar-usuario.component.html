@@ -21,7 +21,8 @@
             <div class="form-group col-md-6">
               <label for="email">E-mail</label>
               <input formControlName="email" name="email" type="email" class="form-control" placeholder="e-mail"
-                required>
+                required
+                [class.is-invalid] = "formUsuario.get('email').invalid && formUsuario.get('email').touched">
             </div>
             <div class="form-group col-md-6">
               <label for="telefono">Teléfono</label>

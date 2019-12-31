@@ -39,6 +39,7 @@ import { CrearPromocionComponent } from './dashboard/promocion/crear-promocion/c
 import { EditarPromocionComponent } from './dashboard/promocion/editar-promocion/editar-promocion.component';
 import { PromocionesComponent } from './dashboard/promocion/promociones/promociones.component';
 import { EliminarUsuarioComponent } from './dashboard/usuario/eliminar-usuario/eliminar-usuario.component';
+import { DebitoAutomaticoComponent } from './dashboard/contacto/debito-automatico/debito-automatico.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { EliminarUsuarioComponent } from './dashboard/usuario/eliminar-usuario/e
     EditarPromocionComponent,
     PromocionesComponent,
     EliminarUsuarioComponent,
+    DebitoAutomaticoComponent,
 
   ],
   imports: [

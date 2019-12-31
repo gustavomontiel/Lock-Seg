@@ -31,24 +31,8 @@
         <td mat-cell *matCellDef="let element"><span class="d-none d-sm-block">{{element.descripcion}}</span> </td>
       </ng-container>
 
-      <!--
-    <ng-container matColumnDef="acciones">
-      <th mat-header-cell *matHeaderCellDef> Acciones </th>
-      <td mat-cell *matCellDef="let element">
-        <div class="btn">
-          <button type="button"
-            class="btn btn-primary"
-            placement="top"
-            ngbTooltip="Ver"
-            >
-            <i class="fas fa-pencil-alt"></i>
-          </button>
-        </div>
-      </td>
-    </ng-container>
-  -->
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   </div>

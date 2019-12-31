@@ -8,6 +8,7 @@ import { AppState } from 'src/app/app.reducer';
 import { User } from 'src/app/auth/user.model';
 import { AuthService } from 'src/app/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { roleNames } from 'src/app/shared/guards/roleNames.data';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class CrearUsuarioComponent implements OnInit, OnDestroy {
 
   usuario: User;
   formUsuario: FormGroup;
-  roleNames = ['administrador', 'administrativo', 'guardia', 'cliente'];
+  roleNames = roleNames;
 
   constructor(
     public authService: AuthService,
@@ -78,15 +79,14 @@ export class CrearUsuarioComponent implements OnInit, OnDestroy {
             });
           },
           error => {
-            console.log('error en comp', error);
+            let msg = '';
             if (error instanceof HttpErrorResponse) {
-              console.log('if (error instanceof HttpErrorResponse) {');
-              const validationErrors = error.error;
+              const validationErrors = error.error.data;
               if ( error.status === 422 || error.status === 400) {
-                console.log('if (error.status === 422) {');
                 Object.keys(validationErrors).forEach(prop => {
                   const formControl = this.formUsuario.get(prop);
                   if (formControl) {
+                    msg += '<br>' + validationErrors[prop];
                     formControl.setErrors({
                       serverError: validationErrors[prop]
                     });
@@ -94,22 +94,18 @@ export class CrearUsuarioComponent implements OnInit, OnDestroy {
                 });
               }
             }
-            console.log(error);
+
             Swal.fire(
               'Error!',
-              'Los cambios no fueron guardados.',
+              'Los cambios no fueron guardados.' + msg,
               'error'
             );
+
           }
         );
       }
     });
 
-  }
-
-  cambioRol(e) {
-    console.log(e);
-    console.log(this.formUsuario);
   }
 
 }

@@ -39,10 +39,11 @@ export class AuthService {
     .pipe(
       map((resp: any) => {
         this.store.dispatch(new DesactivarLoadingAction());
+        console.log('resp serv:', resp);
         return resp;
       }),
       catchError(err => {
-        console.log('error:', err);
+        console.log('error serv:', err);
         this.store.dispatch(new DesactivarLoadingAction());
         return throwError(err);
       })

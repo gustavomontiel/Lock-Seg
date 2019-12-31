@@ -7,6 +7,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { User } from 'src/app/auth/user.model';
 import { AuthService } from 'src/app/auth/auth.service';
+import { roleNames } from 'src/app/shared/guards/roleNames.data';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-editar-usuario',
@@ -20,7 +22,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
 
   usuario: User;
   formUsuario: FormGroup;
-  roleNames = ['administrador', 'administrativo', 'guardia', 'cliente'];
+  roleNames = roleNames;
 
   constructor(
     public authService: AuthService,
@@ -92,13 +94,29 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
               'success'
             );
           },
-          err => {
-            console.log(err);
+          error => {
+            let msg = '';
+            if (error instanceof HttpErrorResponse) {
+              const validationErrors = error.error.data;
+              if ( error.status === 422 || error.status === 400) {
+                Object.keys(validationErrors).forEach(prop => {
+                  const formControl = this.formUsuario.get(prop);
+                  if (formControl) {
+                    msg += '<br>' + validationErrors[prop];
+                    formControl.setErrors({
+                      serverError: validationErrors[prop]
+                    });
+                  }
+                });
+              }
+            }
+
             Swal.fire(
               'Error!',
-              'Los cambios no fueron guardados.',
+              'Los cambios no fueron guardados.' + msg,
               'error'
             );
+
           }
         );
       }

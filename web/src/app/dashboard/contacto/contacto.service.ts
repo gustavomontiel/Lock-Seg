@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { map, catchError } from 'rxjs/operators';
 import { Contacto } from './contacto.model';
 import { throwError, interval } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,14 @@ export class ContactoService {
     panico: 0,
     atencion: 0,
     movil: 0,
-    servicio: 0
+    servicio: 0,
+    debito: 0
   };
 
   constructor(
     public http: HttpClient,
-    private router: Router
+    private router: Router,
+    public authService: AuthService,
   ) {
     this.getCantidades();
     this.comtrolarCatContactos();
@@ -41,7 +44,7 @@ export class ContactoService {
     return this.http.get(url).pipe(
       map((respuesta: any) => {
         Swal.close();
-        return respuesta.data.filter( ( contacto: Contacto ) => contacto.tipo === tipo );
+        return respuesta.data.filter((contacto: Contacto) => contacto.tipo === tipo);
       })
     );
   }
@@ -62,18 +65,18 @@ export class ContactoService {
       console.log(url);
 
       return this.http.put(url, { tipo: contacto.tipo, titulo: contacto.titulo })
-      .pipe(
-        map((resp: any) => {
-          Swal.close();
-          console.log(resp);
-          return resp;
-        }),
-        catchError(err => {
-          console.log('Error:', err);
-          Swal.close();
-          return throwError(err);
-        })
-      );
+        .pipe(
+          map((resp: any) => {
+            Swal.close();
+            console.log(resp);
+            return resp;
+          }),
+          catchError(err => {
+            console.log('Error:', err);
+            Swal.close();
+            return throwError(err);
+          })
+        );
     } else {
       console.log('no se puede actualizar un objeto sin id');
     }
@@ -81,32 +84,40 @@ export class ContactoService {
 
   getCantidades() {
 
-    const url = environment.APIEndpoint + '/contactos';
+    if (this.authService.isAuth()) {
 
-    this.http.get(url).pipe(
-      map((respuesta: any) => {
-        return respuesta.data;
-      })
-    ).subscribe(
-      res => {
-        if ( res ) {
-          const atencion = res.filter((contacto: Contacto) => contacto.tipo === 'atencion' && contacto.notificado_el === null);
-          this.cantContactos.atencion = atencion.length;
+      const url = environment.APIEndpoint + '/contactos';
 
-          const movil = res.filter((contacto: Contacto) => contacto.tipo === 'movil' && contacto.notificado_el === null);
-          this.cantContactos.movil = movil.length;
+      this.http.get(url).pipe(
+        map((respuesta: any) => {
+          return respuesta.data;
+        })
+      ).subscribe(
+        res => {
+          if (res) {
+            const atencion = res.filter((contacto: Contacto) => contacto.tipo === 'atencion' && contacto.notificado_el === null);
+            this.cantContactos.atencion = atencion.length;
 
-          const panico = res.filter((contacto: Contacto) => contacto.tipo === 'panico' && contacto.notificado_el === null);
-          this.cantContactos.panico = panico.length;
+            const movil = res.filter((contacto: Contacto) => contacto.tipo === 'movil' && contacto.notificado_el === null);
+            this.cantContactos.movil = movil.length;
 
-          const servicio = res.filter((contacto: Contacto) => contacto.tipo === 'servicio' && contacto.notificado_el === null);
-          this.cantContactos.servicio = servicio.length;
+            const panico = res.filter((contacto: Contacto) => contacto.tipo === 'panico' && contacto.notificado_el === null);
+            this.cantContactos.panico = panico.length;
+
+            const servicio = res.filter((contacto: Contacto) => contacto.tipo === 'servicio' && contacto.notificado_el === null);
+            this.cantContactos.servicio = servicio.length;
+
+            const debito = res.filter((contacto: Contacto) => contacto.tipo === 'debito' && contacto.notificado_el === null);
+            this.cantContactos.debito = debito.length;
+          }
+        },
+        err => {
+          console.log(err);
         }
-      },
-      err => {
-        console.log(err);
-      }
-    );
+      );
+
+    }
+
   }
 
   comtrolarCatContactos() {
@@ -122,7 +133,7 @@ export class ContactoService {
 
       let url = environment.APIEndpoint + '/contacto/silenciar';
       url += '/' + contacto.id;
-      return this.http.put( url, contacto );
+      return this.http.put(url, contacto);
 
     } else {
       console.log('no se puede actualizar un objeto sin id');
