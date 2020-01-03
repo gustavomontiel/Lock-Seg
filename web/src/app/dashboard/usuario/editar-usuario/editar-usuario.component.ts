@@ -24,6 +24,8 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
   formUsuario: FormGroup;
   roleNames = roleNames;
 
+  formPassword: FormGroup;
+
   constructor(
     public authService: AuthService,
     public router: Router,
@@ -44,6 +46,10 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
       telefono: new FormControl('', Validators.required),
       roleNames: new FormControl([], [Validators.required]),
       codigo_gestion: new FormControl('', Validators.required),
+    });
+
+    this.formPassword = new FormGroup({
+      password: new FormControl(null, Validators.required),
     });
 
     this.activatedRoute.params.subscribe(params => {
@@ -83,10 +89,9 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
     }).then((result) => {
 
       if (result.value) {
-        const user = { ... this.formUsuario.value, id: this.usuario.id };
-        console.log(user);
+        this.usuario.password = this.formPassword.get('password').value;
 
-        this.authService.updateUser( user ).subscribe(
+        this.authService.updateUser( this.usuario ).subscribe(
           resp => {
             Swal.fire(
               'Guardado!',
@@ -124,9 +129,55 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
 
   }
 
-  cambioRol(e) {
-    console.log(e);
-    console.log(this.formUsuario);
+  actualizarPassword() {
+
+    Swal.fire({
+      title: 'Combiar contraseña?',
+      text: 'Confirma el cambio de contraseña?',
+      type: 'question',
+      showCancelButton: true,
+    }).then((result) => {
+
+      if (result.value) {
+        const user = { ... this.formUsuario.value, id: this.usuario.id };
+        console.log(user);
+
+        this.authService.updateUser( user ).subscribe(
+          resp => {
+            Swal.fire(
+              'Guardado!',
+              'La contraseña ha sido actualizada correctamente.',
+              'success'
+            );
+          },
+          error => {
+            let msg = '';
+            if (error instanceof HttpErrorResponse) {
+              const validationErrors = error.error.data;
+              if ( error.status === 422 || error.status === 400) {
+                Object.keys(validationErrors).forEach(prop => {
+                  const formControl = this.formUsuario.get(prop);
+                  if (formControl) {
+                    msg += '<br>' + validationErrors[prop];
+                    formControl.setErrors({
+                      serverError: validationErrors[prop]
+                    });
+                  }
+                });
+              }
+            }
+
+            Swal.fire(
+              'Error!',
+              'Los cambios no fueron guardados.' + msg,
+              'error'
+            );
+
+          }
+        );
+      }
+    });
+
   }
 
 }

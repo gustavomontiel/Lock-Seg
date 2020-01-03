@@ -1,1 +1,1 @@
-export const roleNames = ['administrador', 'administrativo', 'guardia', 'cliente'];
+export const roleNames = ['administrador', 'administrativo', 'guardia', 'cliente', 'baja'];

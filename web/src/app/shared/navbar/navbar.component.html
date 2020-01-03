@@ -10,16 +10,16 @@
     </div>
 
     <div class="navbar-menu-wrapper d-flex align-items-center">
-<!--
+
       <ul class="navbar-nav navbar-nav-right">
 
         <li class="nav-item d-none d-sm-inline-block">
-          <a class="nav-link" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-            <span class="profile-text">Hello, Richard V.Welsh !</span>
-            <img class="img-xs rounded-circle" src="assets/images/faces/face1.jpg" alt="Profile image">
-          </a>
+          <span class="profile-text">{{ authService.getUsuario().nombre }}</span>&nbsp;
+           <img class="img-xs rounded-circle" src="assets/images/faces/user.png" alt="Profile image">
+
         </li>
       </ul>
+<!--
       <button class="navbar-toggler navbar-toggler-right d-sm-none align-self-center" type="button" data-toggle="offcanvas">
         <span class="icon-menu"></span>
       </button>

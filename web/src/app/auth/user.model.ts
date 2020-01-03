@@ -8,6 +8,7 @@ export class User {
   public telefono?: number;
   public roleNames?: any[];
   public cliente?: any;
+  public password?: string;
   public id?: number;
   // tslint:disable-next-line: variable-name
   public codigo_gestion?: string;
