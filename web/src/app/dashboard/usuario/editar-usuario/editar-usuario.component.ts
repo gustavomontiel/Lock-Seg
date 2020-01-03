@@ -49,7 +49,6 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
     });
 
     this.formPassword = new FormGroup({
-      password: new FormControl(null, Validators.required),
       password_nuevo: new FormControl(null, Validators.required)
     });
 
