@@ -192,4 +192,32 @@ export class AuthService {
 
   }
 
+  cambiarPassword( id: number, pass: any ) {
+
+    if ( pass ) {
+
+      this.store.dispatch(new ActivarLoadingAction());
+
+      let url = environment.APIEndpoint + '/actualizar-password';
+      url += '/' + id;
+
+      return this.http.put(url, pass)
+      .pipe(
+        map((resp: any) => {
+          this.store.dispatch(new DesactivarLoadingAction());
+          return resp;
+        }),
+        catchError(err => {
+          console.log('Error:', err);
+          this.store.dispatch(new DesactivarLoadingAction());
+          return throwError(err);
+        })
+      );
+    } else {
+      console.log('no se puede actualizar la contraseña');
+
+    }
+
+  }
+
 }

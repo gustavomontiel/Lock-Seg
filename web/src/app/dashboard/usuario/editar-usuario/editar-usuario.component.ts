@@ -50,6 +50,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
 
     this.formPassword = new FormGroup({
       password: new FormControl(null, Validators.required),
+      password_nuevo: new FormControl(null, Validators.required)
     });
 
     this.activatedRoute.params.subscribe(params => {
@@ -89,9 +90,11 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
     }).then((result) => {
 
       if (result.value) {
-        this.usuario.password = this.formPassword.get('password').value;
 
-        this.authService.updateUser( this.usuario ).subscribe(
+        const user = { ... this.formUsuario.value, id: this.usuario.id };
+        console.log(user);
+
+        this.authService.updateUser( user ).subscribe(
           resp => {
             Swal.fire(
               'Guardado!',
@@ -139,10 +142,10 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
     }).then((result) => {
 
       if (result.value) {
-        const user = { ... this.formUsuario.value, id: this.usuario.id };
-        console.log(user);
 
-        this.authService.updateUser( user ).subscribe(
+        const pass = this.formPassword.value;
+
+        this.authService.cambiarPassword( this.usuario.id, pass ).subscribe(
           resp => {
             Swal.fire(
               'Guardado!',
