@@ -1,0 +1,35 @@
+
+<ion-content>
+  <div>
+    <ion-img class="ion-align-self-center" src="/assets/imagenes/logo_g.png"></ion-img>
+  </div>
+  <ion-label class="ion-padding" color="danger" floating> {{ mensaje }} </ion-label>
+  <form [formGroup]="cambiarPass" ngNativeValidate (submit)="cambiarPassword()" class="ion-padding">
+    <ion-grid class="ion-padding">
+      <ion-row>
+        <ion-col>
+          <ion-list>
+            <ion-item>
+              <ion-label class="lock-label" position="floating">Nueva Contraseña</ion-label>
+              <ion-input type="password" formControlName="password"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label class="lock-label" position="floating">Repetir Contraseña</ion-label>
+              <ion-input type="password" formControlName="passwordDos"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="ion-padding">
+      <ion-button class="lock-button" [disabled]="cambiarPass.invalid" expand="block" type="submit">ingresar</ion-button>
+    </div>
+    </form>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="lock-footer">
+    <p>www.guazuseguridad.com.ar</p>
+    <p>(0376) 4433870 / 4441054</p>
+  </ion-toolbar>
+</ion-footer>
