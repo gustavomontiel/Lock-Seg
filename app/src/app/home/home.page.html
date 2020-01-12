@@ -1,59 +1,43 @@
-<ion-header>
-  <ion-toolbar class="lock-color">
-    <!--ion-title>
-        <img src="/assets/imagenes/logo_g.png"/>
-    </!--ion-title-->
-    <ion-buttons slot="end">
-      <ion-button (click)="logoutUser()">
-          <ion-icon slot="icon-only" name="log-out"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-header [verVolver]="false"></app-header>
 
 <ion-content class="ion-padding">
-    <ion-list lines="full">
-        <ion-list-header>
-          <ion-img class="ion-align-self-center" src="/assets/imagenes/logo_g.png"></ion-img>
-        </ion-list-header>
+  <ion-list lines="full">
+    <ion-list-header>
+      <ion-img class="ion-align-self-center" src="/assets/imagenes/logo_g.png"></ion-img>
+    </ion-list-header>
 
-        <ion-item class="panico" (click)="insertarContacto()">
-            <ion-img slot="start" src="/assets/imagenes/panico.png"></ion-img>
-            <ion-label class="lock-label">Botón de Pánico</ion-label>
-        </ion-item>
+    <ion-item class="panico" (click)="insertarContacto()">
+      <ion-img slot="start" src="/assets/imagenes/panico.png"></ion-img>
+      <ion-label class="lock-label">Botón de Pánico</ion-label>
+    </ion-item>
 
-        <ion-item [routerLink]="['/mi-alarma']">
-          <ion-img slot="start" src="/assets/imagenes/alarma.png"></ion-img>
-          <ion-label class="lock-label">Alarma</ion-label>
-        </ion-item>
+    <ion-item [routerLink]="['/mi-alarma']">
+      <ion-img slot="start" src="/assets/imagenes/alarma.png"></ion-img>
+      <ion-label class="lock-label">Alarma</ion-label>
+    </ion-item>
 
-        <ion-item [routerLink]="['/gps']">
-          <ion-img slot="start" src="/assets/imagenes/gps.png"></ion-img>
-          <ion-label class="lock-label">GPS</ion-label>
-        </ion-item>
+    <ion-item [routerLink]="['/gps']">
+      <ion-img slot="start" src="/assets/imagenes/gps.png"></ion-img>
+      <ion-label class="lock-label">GPS</ion-label>
+    </ion-item>
 
-        <ion-item [routerLink]="['/facturas']">
-          <ion-img slot="start" src="/assets/imagenes/facturas.png"></ion-img>
-          <ion-label class="lock-label">Facturas</ion-label>
-        </ion-item>
+    <ion-item [routerLink]="['/facturas']">
+      <ion-img slot="start" src="/assets/imagenes/facturas.png"></ion-img>
+      <ion-label class="lock-label">Facturas</ion-label>
+    </ion-item>
 
-        <ion-item [routerLink]="['/soporte']">
-          <ion-img slot="start" src="/assets/imagenes/soporte.png"></ion-img>
-          <ion-label class="lock-label">Soporte</ion-label>
-        </ion-item>
+    <ion-item [routerLink]="['/soporte']">
+      <ion-img slot="start" src="/assets/imagenes/soporte.png"></ion-img>
+      <ion-label class="lock-label">Soporte</ion-label>
+    </ion-item>
 
-        <ion-item [routerLink]="['/promoiones']">
-          <ion-img slot="start" src="/assets/imagenes/promociones.png"></ion-img>
-          <ion-label class="lock-label">Promociones</ion-label>
-        </ion-item>
-        
-    </ion-list>
+    <ion-item [routerLink]="['/promoiones']">
+      <ion-img slot="start" src="/assets/imagenes/promociones.png"></ion-img>
+      <ion-label class="lock-label">Promociones</ion-label>
+    </ion-item>
+
+  </ion-list>
 
 </ion-content>
 
-<ion-footer>
-    <ion-toolbar class="lock-footer">
-      <p>www.guazuseguridad.com.ar</p>
-      <p>(0376) 4433870 / 4441054</p>
-    </ion-toolbar>
-  </ion-footer>
+<app-footer></app-footer>

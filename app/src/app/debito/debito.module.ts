@@ -7,6 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { DebitoPage } from './debito.page';
+import { SharedModule } from '../shared/shared.module';
 
 
 const routes: Routes = [
@@ -22,7 +23,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedModule
   ],
   declarations: [DebitoPage]
 })

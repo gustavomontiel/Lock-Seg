@@ -1,27 +1,17 @@
-<ion-header>
-    <ion-toolbar class="lock-color">
-        <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
-        </ion-buttons>
-        <!--ion-title><img src="/assets/imagenes/logo_g.png"/></ion-title-->
-    </ion-toolbar>
-  </ion-header>
+<app-header [verTitulo]="false"></app-header>
 
 <ion-content class="ion-padding">
-    <ion-list lines="full">
-        <ion-list-header>
-            <ion-img class="ion-align-self-center" src="/assets/imagenes/logo_g.png"></ion-img>
-        </ion-list-header>
-        <ion-item [routerLink]="['/historial-alarma']">
-          <ion-img slot="start" src="/assets/imagenes/historial.png"></ion-img>
-          <ion-label class="lock-label">Historial</ion-label>
-        </ion-item>
-    </ion-list>
+
+  <ion-list lines="full">
+    <ion-list-header>
+      <ion-img class="ion-align-self-center" src="/assets/imagenes/logo_g.png"></ion-img>
+    </ion-list-header>
+    <ion-item [routerLink]="['/historial-alarma']">
+      <ion-img slot="start" src="/assets/imagenes/historial.png"></ion-img>
+      <ion-label class="lock-label">Historial</ion-label>
+    </ion-item>
+  </ion-list>
+
 </ion-content>
 
-<ion-footer>
-    <ion-toolbar class="lock-footer">
-      <p>www.guazuseguridad.com.ar</p>
-      <p>(0376) 4433870 / 4441054</p>
-    </ion-toolbar>
-  </ion-footer>
+<app-footer></app-footer>

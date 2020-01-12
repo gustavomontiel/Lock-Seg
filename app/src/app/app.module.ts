@@ -13,16 +13,22 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { TokenInterceptor } from './services/token.interceptor';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+  ],
   entryComponents: [],
-  imports: [BrowserModule,
+  imports: [
+    BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     IonicStorageModule.forRoot(),
-    HttpClientModule],
+    HttpClientModule,
+    SharedModule
+  ],
   providers: [
     InAppBrowser,
     StatusBar,
