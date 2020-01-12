@@ -165,6 +165,36 @@ class UserController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function actualizarPasswordById(Request $request, $id)
+    {
+        $input = $request->all();
+        $user = User::find($id);
+
+        if (is_null($user)) {
+            return response()->json(['error' => 'true', 'message' => 'Usuario no encontrado.'], 404);
+        }
+
+        $validator = Validator::make($input, [
+            'password_nuevo' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => 'true', 'data' => $validator->errors(), 'message' => 'Error en la validación de datos.'], 400);
+        }
+
+        $user->password = Hash::make($input['password_nuevo']);
+        $user->save();
+
+        return response()->json(['error' => 'false', 'message' => 'Contraseña actualizada correctamente.']);
+    }
+
+    /**
      * Importar clientes de un csv exportado desde el ERP de la empresa.
      *
      * @param  CsvImportRequest  $request

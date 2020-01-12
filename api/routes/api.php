@@ -78,6 +78,11 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         'as' => 'users.password',
         'uses' => 'UserController@actualizarPassword'
     ]);
+
+    $router->put('/actualizar-password/{id}', [
+        'as' => 'users.passwordById',
+        'uses' => 'UserController@actualizarPasswordById'
+    ]);
     
     /* Contactos Routes */
     $router->get('/contactos', [
