@@ -97,7 +97,7 @@ ion-list-header{
 }
 
 ion-item{
-    --background: #1c1c1c !important;
+    --background: rgb(39, 39, 41) !important;
 }
 
 ion-item:hover{
@@ -145,13 +145,14 @@ h2 {
     --background: #009fdb !important;
 }*/
 
- .item{
+ .item {
     --background: #1c1c1c;
     --border-width: 7px;
     --border-style: solid;
     --border-color: #000;
+    margin:4px auto;
  }
-
+ 
  ion-item.panico.item-label.item{
     --background: #009fdb !important;
  }
@@ -163,3 +164,7 @@ iframe {
 ion-card{
     margin-bottom: 50px !important;
 }
+
+ion-item > ion-img {
+    width:17%;
+ }

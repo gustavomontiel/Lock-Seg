@@ -3,16 +3,16 @@
 <ion-content class="ion-padding">
     <ion-list lines="full">
         <ion-list-header>
-            <ion-img class="ion-align-self-center" src="/assets/imagenes/logo_g.png"></ion-img>
+            <ion-img class="ion-align-self-center ion-margin-horizontal" src="/assets/imagenes/logo_g.png"></ion-img>
         </ion-list-header>
 
         <ion-item [routerLink]="['/ver-factura']">
-          <ion-img slot="start" src="/assets/imagenes/ver_facturas.png"></ion-img>
+          <ion-img class="ion-margin-horizontal" slot="start" src="/assets/imagenes/ver_facturas.png"></ion-img>
           <ion-label class="lock-label">Ver Factura</ion-label>
         </ion-item>
 
         <ion-item [routerLink]="['/pagar-factura']">
-          <ion-img slot="start" src="/assets/imagenes/facturas.png"></ion-img>
+          <ion-img class="ion-margin-horizontal" slot="start" src="/assets/imagenes/facturas.png"></ion-img>
           <ion-label class="lock-label">Pagar Factura</ion-label>
         </ion-item>
     </ion-list>
