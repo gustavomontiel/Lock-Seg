@@ -1,8 +1,8 @@
 <app-header [verTitulo]="true"></app-header>
 
-<ion-content>
+<ion-content class="ion-padding-start ion-padding-end">
     
-    <div class="ion-padding">
+    <div>
         <ion-button class="lock-button" expand="block" [routerLink]="['/pagomiscuentas']">Pago mis cuentas</ion-button>
         <ion-button class="lock-button" expand="block" (click)="traerURI('rapipago')" >Rapipago</ion-button>
         <ion-button class="lock-button" expand="block" (click)="traerURI('pagofacil')">Pago Fácil</ion-button>
