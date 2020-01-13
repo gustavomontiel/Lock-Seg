@@ -5,6 +5,7 @@ import { ToastController, Platform } from '@ionic/angular';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,7 @@ export class AuthService {
       password: password
     };
 
-    const url = 'http://lock-api.grupo-sim.com.ar/auth/login';
+    const url = environment.APIEndpoint + '/auth/login';
 
     return this.http.post(url, usuario).pipe(
       map((resp: any) => {
@@ -54,10 +55,6 @@ export class AuthService {
         return throwError(err);
       })
     );
-  
-
-
-
 
   }
 
@@ -70,6 +67,34 @@ export class AuthService {
 
   isAuthenticated() {
     return this.authState.value;
+  }
+
+  cambiarPass(password: string, passwordNuevo: string) {
+
+    const usuario = {
+      password,
+      password_nuevo: passwordNuevo,
+    };
+
+    console.log(usuario);
+
+    const url = environment.APIEndpoint + '/actualizar-password';
+
+    return this.http.put(url, usuario).pipe(
+      map((resp: any) => {
+        this.storage.set('USER_INFO', resp).then((response) => {
+          this.router.navigate(['home']);
+          this.authState.next(true);
+          console.log(response);
+          return response;
+        });
+      }),
+      catchError(err => {
+        console.log('error', err);
+        return throwError(err);
+      })
+    );
+
   }
 
 }

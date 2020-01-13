@@ -6,7 +6,7 @@
 
   <div *ngFor="let promocion of promociones">
     <ion-card class="sombra">
-      <img [src]="'http://lock-api.grupo-sim.com.ar/'+promocion.imagen" />
+      <img [src]="urlImagenes +'/'+promocion.imagen" />
       <ion-card-header>
         <ion-card-title style="color:#ffffff;">{{promocion.titulo}}</ion-card-title>
       </ion-card-header>

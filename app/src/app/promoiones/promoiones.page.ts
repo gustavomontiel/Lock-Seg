@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InAppBrowser , InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
 import { PromocionesService } from '../services/promociones.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -16,6 +17,7 @@ export class PromoionesPage implements OnInit {
   
   promociones: any;
   promos: any;
+  public urlImagenes = '';
 
   constructor(
     private theInAppBrowser: InAppBrowser,
@@ -24,6 +26,7 @@ export class PromoionesPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.urlImagenes = environment.APIEndpoint;
     this.getPromociones();
   }
 

@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { from } from 'rxjs';
 import { map, filter, mergeMap } from "rxjs/operators";
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -17,7 +18,7 @@ export class PromocionesService {
 
   getPromocionesAPI() {
 
-    const url = 'http://lock-api.grupo-sim.com.ar/promociones';
+    const url = environment.APIEndpoint + '/promociones';
 
     return this.http.get(url).pipe(
       map((respuesta: any) => {

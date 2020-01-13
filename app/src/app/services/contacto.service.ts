@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
-import { map } from "rxjs/operators";
+import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -18,7 +19,7 @@ export class ContactoService {
 
   insertarContacto(body) {
 
-    const url = 'http://lock-api.grupo-sim.com.ar/contactos';
+    const url = environment.APIEndpoint + '/contactos';
 
     return this.http.post(url, body).pipe(
       map((respuesta: any) => {
@@ -28,6 +29,5 @@ export class ContactoService {
     );
 
   }
-
 
 }

@@ -14,7 +14,8 @@ const routes: Routes = [
   { path: 'movil-domicilio', loadChildren: './movil-domicilio/movil-domicilio.module#MovilDomicilioPageModule' },
   { path: 'servicio-tecnico', loadChildren: './servicio-tecnico/servicio-tecnico.module#ServicioTecnicoPageModule' },
   { path: 'atencion-cliente', loadChildren: './atencion-cliente/atencion-cliente.module#AtencionClientePageModule' },
-  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },  { path: 'ver-factura', loadChildren: './ver-factura/ver-factura.module#VerFacturaPageModule' },
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
+  { path: 'ver-factura', loadChildren: './ver-factura/ver-factura.module#VerFacturaPageModule' },
   { path: 'pagomiscuentas', loadChildren: './pagomiscuentas/pagomiscuentas.module#PagomiscuentasPageModule' },
   { path: 'rapipago', loadChildren: './rapipago/rapipago.module#RapipagoPageModule' },
   { path: 'pagofacil', loadChildren: './pagofacil/pagofacil.module#PagofacilPageModule' },
@@ -25,7 +26,7 @@ const routes: Routes = [
   { path: 'banco-galicia', loadChildren: './banco-galicia/banco-galicia.module#BancoGaliciaPageModule' },
   { path: 'banco-bbva', loadChildren: './banco-bbva/banco-bbva.module#BancoBbvaPageModule' },
   { path: 'debito', loadChildren: './debito/debito.module#DebitoPageModule' },
-
+  { path: 'cambiar-password', loadChildren: './cambiar-pass/cambiar-pass.module#CambiarPassPageModule' },
 
 ];
 

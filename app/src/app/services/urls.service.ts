@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { from } from 'rxjs';
-import { map, filter, mergeMap } from "rxjs/operators";
-
+import { map, filter, mergeMap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class UrlsService {
 
   getUrl(descripcion: string) {
 
-    const url = 'http://lock-api.grupo-sim.com.ar/parametros/descripcion/' + descripcion;
+    const url = environment.APIEndpoint + '/parametros/descripcion/' + descripcion;
 
     return this.http.get(url).pipe(
       map((respuesta: any) => {
