@@ -41,7 +41,7 @@ export class ServicioTecnicoPage implements OnInit {
 
   }
 
-  private insertarContacto() {
+  insertarContacto() {
     this.storage.get('USER_INFO').then((response) => {
       if (response) {
         // console.log(response.data.user.email);

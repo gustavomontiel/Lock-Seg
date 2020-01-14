@@ -38,7 +38,7 @@ export class CambiarPassPage implements OnInit, OnDestroy {
     });
   }
 
-  private cambiarPassword() {
+  cambiarPassword() {
     console.log(this.cambiarPass.value);
 
     this.authService.cambiarPass(
