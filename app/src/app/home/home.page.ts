@@ -7,6 +7,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContactoService } from '../services/contacto.service';
 import { Storage } from '@ionic/storage';
 import { ToastController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -44,7 +45,8 @@ export class HomePage {
     private contactoService: ContactoService,
     private sanitizer: DomSanitizer,
     private storage: Storage,
-    public toastController: ToastController
+    public toastController: ToastController,
+    public alertController: AlertController
   ) { }
 
   public openWithInAppBrowser(url: string) {
@@ -85,6 +87,32 @@ export class HomePage {
       closeButtonText: "OK"
     });
     toast.present();
+  }
+
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      header: 'Botón de pánico',
+      message: 'Está a punto de confimar el envío de una moto a su domicilio',
+      cssClass: 'alertConfirmacion',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('cancelar');
+          }
+        }, {
+          text: 'Ok',
+          handler: () => {
+            console.log('ok');
+            this.insertarContacto();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
 }

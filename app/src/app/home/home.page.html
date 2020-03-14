@@ -6,9 +6,9 @@
       <ion-img class="ion-align-self-center ion-margin-horizontal" src="/assets/imagenes/logo_g.png"></ion-img>
     </ion-list-header>
 
-    <ion-item class="panico" (click)="insertarContacto()">
+    <ion-item class="panico" (click)="presentAlertConfirm()">
       <ion-img class="ion-margin-horizontal" slot="start" src="/assets/imagenes/panico.png"></ion-img>
-      <ion-label class="lock-label">Botón de Pánico</ion-label>
+      <ion-label class="lock-label"  >Botón de Pánico</ion-label>
     </ion-item>
 
     <ion-item [routerLink]="['/mi-alarma']">
