@@ -176,3 +176,17 @@ ion-item > ion-img {
  .alertConfirmacion .alert-message {
     color: #ffffff ;
  }
+
+ ion-spinner{
+     --color: #ffffff;
+ }
+
+ 
+
+
+.loading-wrapper {
+    --background: transparent;
+    --spinner-color:#F94701;
+    color:#ffffff;
+    box-shadow: none;
+  }
