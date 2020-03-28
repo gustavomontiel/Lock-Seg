@@ -1,17 +1,9 @@
-<app-header [verTitulo]="false"></app-header>
+<app-header [verTitulo]="true"></app-header>
 
 <ion-content class="ion-padding-start ion-padding-end">
-
-  <ion-list lines="full" class="ion-no-padding">
-    <ion-list-header>
-      <ion-img class="ion-align-self-center ion-margin-horizontal" src="/assets/imagenes/logo_g.png"></ion-img>
-    </ion-list-header>
-    <ion-item [routerLink]="['/historial-alarma']">
-      <ion-img class="ion-margin-horizontal" slot="start" src="/assets/imagenes/historial.png"></ion-img>
-      <ion-label class="lock-label">Historial</ion-label>
-    </ion-item>
-  </ion-list>
-
+    <div *ngIf="urlHistorial" style="overflow:auto;-webkit-overflow-scrolling:touch">
+      <iframe style="width:100%;height:600px" [src]="urlHistorial"></iframe>
+    </div>
 </ion-content>
 
 <app-footer></app-footer>
