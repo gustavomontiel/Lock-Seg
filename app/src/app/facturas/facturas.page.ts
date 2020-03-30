@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InAppBrowser , InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
+import { UrlsService } from '../services/urls.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-facturas',
@@ -25,7 +27,15 @@ export class FacturasPage implements OnInit {
     presentationstyle : 'pagesheet',//iOS only 
     fullscreen : 'yes',//Windows only    
   };
-  constructor(private theInAppBrowser: InAppBrowser) {  }
+
+  urlPagar: any;
+  parametro: any;
+  miURL: any;
+
+  constructor(
+    private theInAppBrowser: InAppBrowser,
+    private urlsService: UrlsService,
+    private sanitizer: DomSanitizer) {  }
 
   public openWithInAppBrowser(url : string){
       let target = "_blank";
@@ -37,6 +47,22 @@ export class FacturasPage implements OnInit {
   } 
 
   ngOnInit() {
+  }
+
+  public traerURI(url: string) {
+    
+    console.log(url);
+    this.urlsService.getUrl(url)
+      .subscribe(parametro => {
+        console.log(parametro);
+        this.urlPagar = parametro.data.valor;
+        console.log(this.urlPagar);
+        /*let target = "_blank";
+        //this.theInAppBrowser.create(this.urlPagar, target, this.options);*/
+        this.openWithInAppBrowser(this.urlPagar);
+      });
+
+    
   }
 
 }
