@@ -89,7 +89,7 @@ export class HomePage {
     toast.present();
   }
 
-  async presentAlertConfirm() {
+  async presentAlertConfirm(event: any) {
     const alert = await this.alertController.create({
       header: 'Botón de pánico',
       message: 'Está a punto de confimar el envío de una moto a su domicilio',
@@ -99,13 +99,13 @@ export class HomePage {
           text: 'Cancelar',
           role: 'cancel',
           cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('cancelar');
+          handler: () => {
+            event.stopPropagation();
           }
         }, {
           text: 'Ok',
           handler: () => {
-            console.log('ok');
+            event.stopPropagation();
             this.insertarContacto();
           }
         }
