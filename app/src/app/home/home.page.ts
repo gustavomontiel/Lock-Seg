@@ -8,6 +8,8 @@ import { ContactoService } from '../services/contacto.service';
 import { Storage } from '@ionic/storage';
 import { ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { PanicoPage } from '../modals/panico/panico.page';
 
 
 @Component({
@@ -46,7 +48,8 @@ export class HomePage {
     private sanitizer: DomSanitizer,
     private storage: Storage,
     public toastController: ToastController,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public modalController: ModalController
   ) { }
 
   public openWithInAppBrowser(url: string) {
@@ -117,6 +120,15 @@ export class HomePage {
     await alert.present();
     event.stopImmediatePropagation();
     event.stopPropagation();
+  }
+
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: PanicoPage,
+      cssClass: 'modalCss'
+    });
+    return await modal.present();
   }
 
 }

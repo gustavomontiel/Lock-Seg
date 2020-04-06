@@ -190,3 +190,24 @@ ion-item > ion-img {
     color:#ffffff;
     box-shadow: none;
   }
+
+
+.modalCss .modal-wrapper {
+    width: 80%;
+    height: 40%; 
+}
+
+.modalCss ion-content {
+    --padding-top: 20px;
+    --padding-start: 10px;
+    --padding-end:10px;
+}
+
+.modalCss ion-text {
+    color:#ffffff;
+    font-size: 20px; 
+}
+
+.modalCss div {
+    padding-top: 10px;
+}

@@ -26,7 +26,8 @@ const routes: Routes = [
   { path: 'banco-galicia', loadChildren: './banco-galicia/banco-galicia.module#BancoGaliciaPageModule' },
   { path: 'banco-bbva', loadChildren: './banco-bbva/banco-bbva.module#BancoBbvaPageModule' },
   { path: 'debito', loadChildren: './debito/debito.module#DebitoPageModule' },
-  { path: 'cambiar-password', loadChildren: './cambiar-pass/cambiar-pass.module#CambiarPassPageModule' },
+  { path: 'cambiar-password', loadChildren: './cambiar-pass/cambiar-pass.module#CambiarPassPageModule' },  { path: 'panico', loadChildren: './modals/panico/panico.module#PanicoPageModule' },
+
 
 ];
 

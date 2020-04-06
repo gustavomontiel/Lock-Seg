@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
 import { SharedModule } from '../shared/shared.module';
+import { PanicoPage } from '../modals/panico/panico.page';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { SharedModule } from '../shared/shared.module';
     ]),
     SharedModule
   ],
-  declarations: [HomePage]
+  declarations: [HomePage, PanicoPage],
+  entryComponents: [PanicoPage]
 })
 export class HomePageModule {}
