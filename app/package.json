@@ -28,7 +28,7 @@
     "@ionic/storage": "^2.2.0",
     "@types/jquery": "^3.3.31",
     "cordova-android": "^8.1.0",
-    "cordova-ios": "5.1.1",
+    "cordova-ios": "^5.1.1",
     "cordova-plugin-inappbrowser": "^3.2.0",
     "cordova-sqlite-storage": "^3.4.0",
     "core-js": "^2.6.11",
