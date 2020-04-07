@@ -193,12 +193,17 @@ ion-item > ion-img {
 
 
 .modalCss .modal-wrapper {
-    width: 80%;
-    height: 40%; 
+    width: 90%;
+    height: 70%; 
 }
 
+.modalCss .modal-wrapper  ion-title{
+   text-align: left;
+}
+
+
 .modalCss ion-content {
-    --padding-top: 20px;
+    --padding-top: 20%;
     --padding-start: 10px;
     --padding-end:10px;
 }
@@ -210,4 +215,5 @@ ion-item > ion-img {
 
 .modalCss div {
     padding-top: 10px;
+    text-align: center;
 }
