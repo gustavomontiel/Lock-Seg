@@ -26,15 +26,6 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.storage.get('USER_INFO').then((datos) => {
-        if(datos){
-          if (datos.data.user.email){
-            this.router.navigate(['home']);
-          } else {
-            this.router.navigate(['login']);
-          }
-        }
-      });
     });
   }
 }

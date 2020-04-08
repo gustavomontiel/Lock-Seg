@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 export class LoginPage implements OnInit {
   login: FormGroup;
   public mensaje: string;
+  correo: any;
+  nada: string;
 
   constructor(
     private authService: AuthService,
@@ -21,13 +23,6 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    /*this.storage.get('USER_INFO').then((datos) => {
-      if(datos){
-        if (datos.data.user.email){
-          this.router.navigate(['home']);
-        } 
-      }
-    });*/
     this.crearForm();
   }
 
@@ -35,6 +30,17 @@ export class LoginPage implements OnInit {
     this.login = new FormGroup({
       usuario: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
+    });
+
+    this.storage.get('USER_INFO').then((datos) => {
+      if(datos){
+        console.log(datos);
+        if (datos.data.user.email){
+          //this.router.navigate(['home']);
+          console.log(datos.data.user.email);
+          this.login.setValue({usuario:datos.data.user.email,password:''});
+        }
+      } 
     });
   }
 
