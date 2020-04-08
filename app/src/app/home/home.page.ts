@@ -92,9 +92,7 @@ export class HomePage {
     toast.present();
   }
 
-  async presentAlertConfirm(event: any) {
-    console.log(event);
-    
+  async presentAlertConfirm() {
     const alert = await this.alertController.create({
       header: 'Botón de pánico',
       message: 'Está a punto de confimar el envío de una moto a su domicilio',
@@ -105,7 +103,6 @@ export class HomePage {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            event.stopPropagation();
           }
         }, {
           text: 'Ok',
@@ -118,17 +115,15 @@ export class HomePage {
     });
 
     await alert.present();
-    event.stopImmediatePropagation();
-    event.stopPropagation();
   }
 
 
-  async presentModal() {
-    const modal = await this.modalController.create({
-      component: PanicoPage,
-      cssClass: 'modalCss'
-    });
-    return await modal.present();
-  }
+  // async presentModal() {
+  //   const modal = await this.modalController.create({
+  //     component: PanicoPage,
+  //     cssClass: 'modalCss'
+  //   });
+  //   return await modal.present();
+  // }
 
 }

@@ -22,11 +22,14 @@ export class PanicoPage implements OnInit {
   ngOnInit() {
   }
 
-  async closeModal(){
+  async closeModal(event: any){
+    console.log(event);
     await this.modalController.dismiss();
+    event.preventDefault();
+    event.stopPropagation();
   }
 
-  insertarContacto() {
+  insertarContacto(event: any) {
     this.storage.get('USER_INFO').then((response) => {
       if (response) {
         //console.log(response.data.user.email);
@@ -36,7 +39,7 @@ export class PanicoPage implements OnInit {
           .subscribe(contacto => {
             console.log("panico - lo hizo:" + contacto);
             this.presentToast();
-            this.closeModal();
+            this.closeModal(event);
           });
       }
     });
