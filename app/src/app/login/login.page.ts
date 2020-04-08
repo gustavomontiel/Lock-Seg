@@ -21,16 +21,13 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.storage.get('USER_INFO').then((datos) => {
+    /*this.storage.get('USER_INFO').then((datos) => {
       if(datos){
         if (datos.data.user.email){
           this.router.navigate(['home']);
         } 
-      }//else {
-        //this.crearForm();
-     // }
-    });
-    
+      }
+    });*/
     this.crearForm();
   }
 
