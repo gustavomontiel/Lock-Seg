@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,9 +16,21 @@ export class LoginPage implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private storage: Storage,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    this.storage.get('USER_INFO').then((datos) => {
+      if(datos){
+        if (datos.data.user.email){
+          this.router.navigate(['home']);
+        } 
+      }//else {
+        //this.crearForm();
+     // }
+    });
+    
     this.crearForm();
   }
 
