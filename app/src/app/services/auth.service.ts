@@ -45,9 +45,11 @@ export class AuthService {
     return this.http.post(url, usuario).pipe(
       map((resp: any) => {
         this.storage.set('USER_INFO', resp).then((response) => {
-          this.router.navigate(['home']);
-          this.authState.next(true);
-          return response;
+          this.storage.set('EMAIL', resp.data.user.email).then((email) => {
+            this.router.navigate(['home']);
+            this.authState.next(true);
+            return email;
+          });
         });
       }),
       catchError(err => {
@@ -60,6 +62,7 @@ export class AuthService {
 
   logout() {
     this.storage.remove('USER_INFO').then(() => {
+      console.log('eliminado');
       this.router.navigate(['login']);
       this.authState.next(false);
     });
