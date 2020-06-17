@@ -14,7 +14,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { TokenInterceptor } from './services/token.interceptor';
 import { SharedModule } from './shared/shared.module';
-
+import { ThemeableBrowser } from '@ionic-native/themeable-browser/ngx';
 
 @NgModule({
   declarations: [
@@ -33,6 +33,7 @@ import { SharedModule } from './shared/shared.module';
     InAppBrowser,
     StatusBar,
     SplashScreen,
+    ThemeableBrowser,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],

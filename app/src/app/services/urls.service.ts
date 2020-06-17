@@ -18,14 +18,17 @@ export class UrlsService {
 
   getUrl(descripcion: string) {
 
-    const url = environment.APIEndpoint + '/parametros/descripcion/' + descripcion;
-
+    const url = environment.APIEndpoint + 'parametros/descripcion/' + descripcion;
     return this.http.get(url).pipe(
       map((respuesta: any) => {
         return respuesta;
       }),
-
+      
     );
+    
+
   }
+
+  
 
 }

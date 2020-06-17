@@ -8,6 +8,10 @@ import { Storage } from '@ionic/storage';
 import { ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
+import { ThemeableBrowser, ThemeableBrowserOptions, ThemeableBrowserObject } from '@ionic-native/themeable-browser/ngx'
+import { UrlsService } from '../services/urls.service';
+import { LoadingController } from '@ionic/angular';
+import { finalize } from 'rxjs/operators';
 
 
 @Component({
@@ -38,6 +42,33 @@ export class HomePage {
   };
 
   contacto: any;
+  urlHistorial: any;
+  parametro: any;
+  loading: any;
+
+  optionsThemeable: ThemeableBrowserOptions = {
+    statusbar: {
+      color: '#ffffffff'
+    },
+    toolbar: {
+      height: 44,
+      color: '#F58220'
+    },
+    title: {
+      color: '#003264ff',
+      showPageTitle: false,
+      staticText: 'Pago de Facturas'
+    },
+    closeButton: {
+      wwwImage: 'assets/imgs/back.png',
+      wwwImagePressed: 'assets/imgs/back.png',
+      wwwImageDensity: 2,
+      align: 'left',
+      event: 'closePressed'
+    },
+    backButtonCanClose: true
+  };
+
 
   constructor(
     private theInAppBrowser: InAppBrowser,
@@ -47,8 +78,16 @@ export class HomePage {
     private storage: Storage,
     public toastController: ToastController,
     public alertController: AlertController,
-    public modalController: ModalController
+    public modalController: ModalController,
+    private urlsService: UrlsService,
+    private themeableBrowser: ThemeableBrowser,
+    public loadingController: LoadingController,
+    
   ) { }
+
+  ngOnInit() {
+    this.getUrlHistorial();
+  }
 
   public openWithInAppBrowser(url: string) {
     const target = '_blank';
@@ -113,5 +152,46 @@ export class HomePage {
 
     await alert.present();
   }
+
+  async presentLoading() {
+    // Prepare a loading controller
+    this.loading = await this.loadingController.create({
+      message: 'Cargando ...'
+    });
+    // Present the loading controller
+    await this.loading.present();
+  }
+
+  private async getUrlHistorial() {
+    console.log('entra en el get historial');
+    await this.presentLoading();
+    
+    this.urlsService.getUrl('historial')
+      .pipe(
+          finalize(async () => {
+            // Hide the loading spinner on success or error
+            await this.loading.dismiss();
+          })
+      )
+      .subscribe(parametro => {
+       // this.urlHistorial = this.sanitizer.bypassSecurityTrustResourceUrl(parametro.data.valor);
+        this.urlHistorial = parametro.data.valor;
+      });
+    console.log('termina de cargar'+this.urlHistorial);
+ 
+  }
+
+  verAlarma(){
+
+    console.log('en teoría: '+this.urlHistorial);
+    const browser: ThemeableBrowserObject = this.themeableBrowser.create( 'https://www.energiademisiones.com.ar/', '_blank', this.optionsThemeable);
+    
+    /*browser.on('closePressed').subscribe(data => {
+      browser.close();
+    });*/
+  
+  }
+
+  
 
 }

@@ -11,7 +11,12 @@
       <ion-label class="lock-label">Botón de Pánico</ion-label>
     </ion-item>
 
-    <ion-item [routerLink]="['/mi-alarma']">
+    <!--ion-item [routerLink]="['/mi-alarma']">
+      <ion-img class="ion-margin-horizontal" slot="start" src="/assets/imagenes/alarma.png"></ion-img>
+      <ion-label class="lock-label">Alarma</ion-label>
+    </ion-item-->
+
+    <ion-item (click)="verAlarma()">
       <ion-img class="ion-margin-horizontal" slot="start" src="/assets/imagenes/alarma.png"></ion-img>
       <ion-label class="lock-label">Alarma</ion-label>
     </ion-item>

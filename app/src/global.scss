@@ -65,9 +65,9 @@ ion-content, ion-list{
    /* padding: 5% 10%;*/
 }
 
-div.lock-boton:hover{
-    --background: #009fdb;
-}
+//div.lock-boton:hover{
+    //--background: #009fdb;
+//}
 
 .lock-boton a {
     display: flex!important;
@@ -190,7 +190,7 @@ ion-item > ion-img {
 
 .modalCss .modal-wrapper {
     width: 90%;
-    height: 70%; 
+    height: 70%;
 }
 
 .modalCss .modal-wrapper  ion-title{

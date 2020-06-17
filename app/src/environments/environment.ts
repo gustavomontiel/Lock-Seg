@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  APIEndpoint: 'https://api.guazuseguridad.com/',
+  //APIEndpoint: 'https://api.guazuseguridad.com/',
+  APIEndpoint: 'https://lock-api.grupo-sim.com.ar/',
 };
 
 /*
