@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MiAlarmaPage } from '../mi-alarma/mi-alarma.page';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
 import { AuthService } from '../services/auth.service';
@@ -8,7 +8,7 @@ import { Storage } from '@ionic/storage';
 import { ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
-import { ThemeableBrowser, ThemeableBrowserOptions, ThemeableBrowserObject } from '@ionic-native/themeable-browser/ngx'
+import { ThemeableBrowser, ThemeableBrowserOptions, ThemeableBrowserObject } from '@ionic-native/themeable-browser/ngx';
 import { UrlsService } from '../services/urls.service';
 import { LoadingController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
@@ -20,7 +20,7 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['home.page.scss'],
 })
 
-export class HomePage {
+export class HomePage implements OnInit {
   miAlarma = MiAlarmaPage;
 
   options: InAppBrowserOptions = {
@@ -57,7 +57,7 @@ export class HomePage {
     title: {
       color: '#003264ff',
       showPageTitle: false,
-      staticText: 'Pago de Facturas'
+      staticText: 'Tu Mina'
     },
     closeButton: {
       wwwImage: 'assets/imgs/back.png',
@@ -82,7 +82,7 @@ export class HomePage {
     private urlsService: UrlsService,
     private themeableBrowser: ThemeableBrowser,
     public loadingController: LoadingController,
-    
+
   ) { }
 
   ngOnInit() {
@@ -165,33 +165,33 @@ export class HomePage {
   private async getUrlHistorial() {
     console.log('entra en el get historial');
     await this.presentLoading();
-    
+
     this.urlsService.getUrl('historial')
       .pipe(
-          finalize(async () => {
-            // Hide the loading spinner on success or error
-            await this.loading.dismiss();
-          })
+        finalize(async () => {
+          // Hide the loading spinner on success or error
+          await this.loading.dismiss();
+        })
       )
       .subscribe(parametro => {
-       // this.urlHistorial = this.sanitizer.bypassSecurityTrustResourceUrl(parametro.data.valor);
+        // this.urlHistorial = this.sanitizer.bypassSecurityTrustResourceUrl(parametro.data.valor);
         this.urlHistorial = parametro.data.valor;
       });
-    console.log('termina de cargar'+this.urlHistorial);
- 
+    console.log('termina de cargar' + this.urlHistorial);
+
   }
 
-  verAlarma(){
+  verAlarma() {
 
-    console.log('en teoría: '+this.urlHistorial);
-    const browser: ThemeableBrowserObject = this.themeableBrowser.create( 'https://www.energiademisiones.com.ar/', '_blank', this.optionsThemeable);
-    
+    console.log('en teoría: ' + this.urlHistorial);
+    // tslint:disable-next-line: max-line-length
+    //const browser: ThemeableBrowserObject = this.themeableBrowser.create('https://www.energiademisiones.com.ar/', '_blank', this.optionsThemeable);
+    const browser: ThemeableBrowserObject = this.themeableBrowser.create(this.urlHistorial, '_blank', this.optionsThemeable);
+
     /*browser.on('closePressed').subscribe(data => {
       browser.close();
     });*/
-  
-  }
 
-  
+  }
 
 }
