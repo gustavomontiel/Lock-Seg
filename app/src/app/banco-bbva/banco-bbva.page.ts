@@ -25,11 +25,8 @@ export class BancoBbvaPage implements OnInit {
   }
 
   private getUrlBancoFrances() {
-    console.log('Frances');
-    this.urlsService.getUrl('bancofrances')
-      .subscribe(parametro => {
-        this.urlBancoFrances = this.sanitizer.bypassSecurityTrustResourceUrl(parametro.data.valor);
-      });
+    const urlParametro = this.urlsService.getParametro('bancofrances');
+    this.urlBancoFrances = this.sanitizer.bypassSecurityTrustResourceUrl(urlParametro);
   }
 
 }

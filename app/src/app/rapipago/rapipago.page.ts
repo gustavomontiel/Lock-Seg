@@ -24,11 +24,8 @@ export class RapipagoPage implements OnInit {
   }
 
   private getUrlRapipago() {
-    console.log('rapipago');
-    this.urlsService.getUrl('rapipago')
-      .subscribe(parametro => {
-        this.urlRapipago = this.sanitizer.bypassSecurityTrustResourceUrl(parametro.data.valor);
-      });
+    const urlParametro = this.urlsService.getParametro('rapipago');
+    this.urlRapipago = this.sanitizer.bypassSecurityTrustResourceUrl(urlParametro);
   }
 
 }

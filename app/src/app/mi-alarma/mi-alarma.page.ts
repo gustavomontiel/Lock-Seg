@@ -63,22 +63,8 @@ export class MiAlarmaPage implements OnInit {
   }
 
   private async getUrlHistorial() {
-    console.log('entra en el ts');
-    await this.presentLoading();
-    this.urlsService.getUrl('historial')
-      .pipe(
-          finalize(async () => {
-            // Hide the loading spinner on success or error
-            await this.loading.dismiss();
-          })
-      )
-      .subscribe(parametro => {
-        this.urlHistorial = this.sanitizer.bypassSecurityTrustResourceUrl(parametro.data.valor);
-      });
-
-  
-    console.log('termina de cargar');
-    
+    const urlParametro = this.urlsService.getParametro('historial');
+    this.urlHistorial = this.sanitizer.bypassSecurityTrustResourceUrl(urlParametro);
   }
 
 }

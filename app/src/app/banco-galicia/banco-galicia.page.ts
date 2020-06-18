@@ -25,11 +25,8 @@ export class BancoGaliciaPage implements OnInit {
   }
 
   private getUrlBancoGalicia() {
-    console.log('Galicia');
-    this.urlsService.getUrl('bancogalicia')
-      .subscribe(parametro => {
-        this.urlBancoGalicia = this.sanitizer.bypassSecurityTrustResourceUrl(parametro.data.valor);
-      });
+    const urlParametro = this.urlsService.getParametro('bancofrances');
+    this.urlBancoGalicia = this.sanitizer.bypassSecurityTrustResourceUrl(urlParametro);
   }
 
 

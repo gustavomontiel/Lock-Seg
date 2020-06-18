@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UrlsService } from '../services/urls.service';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { LoadingController } from '@ionic/angular';
-import { finalize } from 'rxjs/operators';
+import { ThemeableBrowser, ThemeableBrowserObject } from '@ionic-native/themeable-browser/ngx';
+import { optionsThemeable } from '../shared/optionsThemeable';
+
 
 
 @Component({
@@ -18,37 +18,17 @@ export class VerFacturaPage implements OnInit {
 
   constructor(
     private urlsService: UrlsService,
-    private sanitizer: DomSanitizer,
-    public loadingController: LoadingController
+    private themeableBrowser: ThemeableBrowser
   ) { }
 
   ngOnInit() {
     this.getUrlVerFacturas();
   }
 
-
-  async presentLoading() {
-    // Prepare a loading controller
-    this.loading = await this.loadingController.create({
-      message: 'Cargando ...'
-    });
-    // Present the loading controller
-    await this.loading.present();
-  }
-
   private async getUrlVerFacturas() {
-    console.log('ver facturas');
-    await this.presentLoading();
-    this.urlsService.getUrl('ver-facturas')
-      .pipe(
-        finalize(async () => {
-          // Hide the loading spinner on success or error
-          await this.loading.dismiss();
-        })
-      )
-      .subscribe(parametro => {
-        this.urlVerFacturas = this.sanitizer.bypassSecurityTrustResourceUrl(parametro.data.valor);
-      });
+    this.urlVerFacturas = this.urlsService.getParametro('ver-facturas');
+    optionsThemeable.title.staticText = 'Ver facturas';
+    const browser: ThemeableBrowserObject = this.themeableBrowser.create(this.urlVerFacturas, '_blank', optionsThemeable);
   }
 
 }

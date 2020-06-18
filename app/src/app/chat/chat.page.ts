@@ -31,15 +31,8 @@ export class ChatPage implements OnInit {
   }
 
   private getUrlChat() {
-
-    this.urlsService.getUrl('chat')
-      .subscribe(
-        parametro => {
-
-          this.urlChat = this.sanitizer.bypassSecurityTrustResourceUrl(parametro.data.valor);
-
-        }
-      );
+    const urlParametro = this.urlsService.getParametro('chat');
+    this.urlChat = this.sanitizer.bypassSecurityTrustResourceUrl(urlParametro);
   }
 
 }

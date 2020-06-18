@@ -24,11 +24,9 @@ export class PagomiscuentasPage implements OnInit {
   }
 
   private getUrlPagomiscuentas() {
-    console.log('pago mis cuentas');
-    this.urlsService.getUrl('pagomiscuentas')
-      .subscribe(parametro => {
-        this.urlPagomiscuentas = this.sanitizer.bypassSecurityTrustResourceUrl(parametro.data.valor);
-      });
+    const urlParametro = this.urlsService.getParametro('pagomiscuentas');
+    console.log(urlParametro)
+    this.urlPagomiscuentas = this.sanitizer.bypassSecurityTrustResourceUrl(urlParametro);
   }
 
 }

@@ -25,11 +25,8 @@ export class BancoMacroPage implements OnInit {
   }
 
   private getUrlBancoMacro() {
-    console.log('macro');
-    this.urlsService.getUrl('bancomacro')
-      .subscribe(parametro => {
-        this.urlBancoMacro = this.sanitizer.bypassSecurityTrustResourceUrl(parametro.data.valor);
-      });
+    const urlParametro = this.urlsService.getParametro('bancomacro');
+    this.urlBancoMacro = this.sanitizer.bypassSecurityTrustResourceUrl(urlParametro);
   }
 
 }
