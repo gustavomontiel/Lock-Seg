@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MiAlarmaPage } from '../mi-alarma/mi-alarma.page';
 import { AuthService } from '../services/auth.service';
 import { ContactoService } from '../services/contacto.service';
 import { Storage } from '@ionic/storage';
@@ -19,7 +18,6 @@ import { optionsThemeable } from '../shared/optionsThemeable';
 })
 
 export class HomePage implements OnInit {
-  miAlarma = MiAlarmaPage;
 
   contacto: any;
   url: any;
@@ -99,7 +97,7 @@ export class HomePage implements OnInit {
 
   verAlarma() {
     this.url = this.urlsService.getParametro('historial');
-    optionsThemeable.title.staticText = 'ALARMA';
+    optionsThemeable.title.staticText = 'Alarma';
     const browser: ThemeableBrowserObject = this.themeableBrowser.create(this.url, '_blank', optionsThemeable);
   }
 

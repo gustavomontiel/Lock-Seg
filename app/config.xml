@@ -3,7 +3,7 @@
     <name>GUAZÚ</name>
     <description>Aplicación para clientes de GUAZÚ Seguridad</description>
     <author email="gsimisiones@gmail.com" href="https://grupo-sim.com.ar/">Grupo SIM</author>
-    <content original-src="index.html" src="http://localhost:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -108,7 +108,6 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-plugin-ionic-webview" spec="^5.0.0" />
     <plugin name="cordova-plugin-themeablebrowser" spec="^0.2.18" />
-    <allow-navigation href="http://localhost:8100" sessionid="c0cf0ceb" />
     <engine name="ios" spec="^5.1.1" />
     <engine name="android" spec="^7.0.0" />
 </widget>

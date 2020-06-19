@@ -2,29 +2,27 @@ import { ThemeableBrowserOptions } from '@ionic-native/themeable-browser/ngx';
 
 export const optionsThemeable: ThemeableBrowserOptions = {
     statusbar: {
-      color: '#ffffffff'
+      color: '#000000'
     },
     toolbar: {
-      height: 44,
-      color: '#F58220'
+      height: 50,
+      color: '#000000'
     },
     title: {
-      color: '#003264ff',
-      showPageTitle: false,
-      staticText: ''
+      color: '#ffffff',
+      showPageTitle: false
     },
     backButton: {
-      image: 'back',
-      imagePressed: 'back_pressed',
+      wwwImage: '/assets/imagenes/volver.png',
       align: 'left',
-      event: 'backPressed'
-  },
-    closeButton: {
-      wwwImage: 'assets/imgs/back.png',
-      wwwImagePressed: 'assets/imgs/back.png',
-      wwwImageDensity: 2,
-      align: 'left',
+      event: 'backPressed',
+   },
+   closeButton: {
+      image: 'close',
+      wwwImage: '/assets/imagenes/cerrar.png',
+      align: 'right',
       event: 'closePressed'
     },
+
     backButtonCanClose: true
   };
