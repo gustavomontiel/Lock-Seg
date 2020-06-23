@@ -12,6 +12,7 @@ import { Storage } from '@ionic/storage';
 export class LoginPage implements OnInit {
   login: FormGroup;
   public mensaje: string;
+  dpass: string;
 
   constructor(
     private authService: AuthService,
@@ -34,25 +35,26 @@ export class LoginPage implements OnInit {
   }
 
   private obtenerEmail() {
+    console.log(this.storage);
     this.storage.get('EMAIL').then((datos) => {
       if (datos) {
-        console.log(datos);
+        //console.log('se supone email: '+datos);
         this.login.setValue({ usuario: datos, password: '' });
       }
-    });
+    }); 
   }
 
+
   loginUsuario() {
-    console.log(this.login.value);
     this.authService.loginUsuario(
       this.login.get('usuario').value,
       this.login.get('password').value,
     ).subscribe(usuario => {
       this.login.setValue({ usuario: '', password: '' });
-      console.log('usr:' + usuario);
+      //console.log('usr:' + usuario);
     },
       error => {
-        console.log('error en page:', error.error);
+        //console.log('error en page:', error.error);
         this.mensaje = error.error.message;
       });
   }
