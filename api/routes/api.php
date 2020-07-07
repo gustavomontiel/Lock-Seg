@@ -10,6 +10,34 @@ $router->get('/', function () {
     return response()->json(['message' => 'Bienvenidos a la API del sistema de GUAZÚ Seguridad.']);
 });
 
+/* Promociones Routes */
+$router->get('/promociones', [
+    'as' => 'promociones.index',
+    'uses' => 'PromocionController@index'
+]);
+
+/* Parametros Routes */
+$router->get('/parametros', [
+    'as' => 'parametros.index',
+    'uses' => 'ParametroController@index'
+]);
+
+$router->get('/parametros/{id}', [
+    'as' => 'parametros.show',
+    'uses' => 'ParametroController@show'
+]);
+
+$router->get('/parametros/descripcion/{descripcion}', [
+    'as' => 'parametros.showByDescripcion',
+    'uses' => 'ParametroController@showByDescripcion'
+]);
+
+/* Contactos Routes */
+$router->post('/contactos', [
+    'as' => 'contactos.store',
+    'uses' => 'ContactoController@store'
+]);
+
 /* Auth Routes */
 $router->group(['prefix' => 'auth', 'as' => 'auth'], function (Router $router) {
 
@@ -83,7 +111,7 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         'as' => 'users.passwordById',
         'uses' => 'UserController@actualizarPasswordById'
     ]);
-    
+
     /* Contactos Routes */
     $router->get('/contactos', [
         'as' => 'contactos.index',
@@ -93,11 +121,6 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
     $router->get('/contactos/{id}', [
         'as' => 'contactos.show',
         'uses' => 'ContactoController@show'
-    ]);
-
-    $router->post('/contactos', [
-        'as' => 'contactos.store',
-        'uses' => 'ContactoController@store'
     ]);
 
     $router->put('/contactos/{id}', [
@@ -156,28 +179,7 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         'uses' => 'MensajeController@showByUser'
     ]);
 
-    /* Parametros Routes */
-    $router->get('/parametros', [
-        'as' => 'parametros.index',
-        'uses' => 'ParametroController@index'
-    ]);
-
-    $router->get('/parametros/{id}', [
-        'as' => 'parametros.show',
-        'uses' => 'ParametroController@show'
-    ]);
-
-    $router->get('/parametros/descripcion/{descripcion}', [
-        'as' => 'parametros.showByDescripcion',
-        'uses' => 'ParametroController@showByDescripcion'
-    ]);
-
     /* Promociones Routes */
-    $router->get('/promociones', [
-        'as' => 'promociones.index',
-        'uses' => 'PromocionController@index'
-    ]);
-    
     $router->get('/promociones/{id}', [
         'as' => 'promociones.show',
         'uses' => 'PromocionController@show'
@@ -211,7 +213,7 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         ]);
 
         /* Parametros Routes */
-        
+
         $router->post('/parametros', [
             'as' => 'parametros.store',
             'uses' => 'ParametroController@store'
@@ -226,7 +228,5 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
             'as' => 'parametros.destroy',
             'uses' => 'ParametroController@destroy'
         ]);
-
-        
     });
 });
