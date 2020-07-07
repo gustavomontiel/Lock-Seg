@@ -1,6 +1,6 @@
-import { ThemeableBrowserOptions } from '@ionic-native/themeable-browser/ngx';
 
-export const optionsThemeable: ThemeableBrowserOptions = {
+
+export const option = {
     statusbar: {
       color: '#000000'
     },

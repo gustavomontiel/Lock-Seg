@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { UrlsService } from '../services/urls.service';
-import { ThemeableBrowser, ThemeableBrowserObject } from '@ionic-native/themeable-browser/ngx';
-import { optionsThemeable } from '../shared/optionsThemeable';
 
 @Component({
   selector: 'app-pagar-factura',
@@ -15,14 +14,14 @@ export class PagarFacturaPage implements OnInit {
   miURL: any;
 
   constructor(
-    private themeableBrowser: ThemeableBrowser,
+    private iab: InAppBrowser,
     private urlsService: UrlsService,
     ) { }
 
   public traerURI(url: string) {
     this.urlPagar = this.urlsService.getParametro(url);
-    optionsThemeable.title.staticText = 'Pagar Facturas';
-    const browser: ThemeableBrowserObject = this.themeableBrowser.create(this.urlPagar, '_blank', optionsThemeable);
+    const browser = this.iab.create(this.urlPagar);
+    browser.close();
   }
 
   

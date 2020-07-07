@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { ToastController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
 import { map } from 'rxjs/operators';
 
@@ -10,36 +9,38 @@ import { map } from 'rxjs/operators';
 })
 export class UrlsService {
 
-  parametros: any[];
+  parametros = [];
   loading: any;
 
   constructor(
     private http: HttpClient,
-    public toastController: ToastController,
     public loadingController: LoadingController,
   ) {
 
-    this.presentLoading();
-    const url = environment.APIEndpoint + 'parametros';
-    this.http.get(url).
-      subscribe(
-        (respuesta: any) => {
-          this.parametros = respuesta.data;
-        },
-        (error: any) => {
-          error = error;
-        },
-        () => {
-          this.loadingController.dismiss();
-        },
-      );
-
+    if ( this.parametros.length === 0 ) {
+      this.presentLoading();
+      const url = environment.APIEndpoint + 'parametros';
+    
+      console.log('this.presentLoading()');
+      
+      this.http.get(url).
+        subscribe(
+          (respuesta: any) => {
+            this.parametros = respuesta.data;
+            this.loadingController.dismiss();
+          },
+          (error: any) => {
+            error = error;
+            this.loadingController.dismiss();
+          }
+        );
+    }
   }
 
   async presentLoading() {
     // Prepare a loading controller
     this.loading = await this.loadingController.create({
-      message: 'Cargando ...'
+      message: 'Cargando ...XXX'
     });
     // Present the loading controller
     await this.loading.present();
@@ -47,7 +48,7 @@ export class UrlsService {
 
   getUrl(descripcion: string) {
     const url = environment.APIEndpoint + 'parametros/descripcion/' + descripcion;
-    return this.http.get(url).pipe(map( parametro => parametro ));
+    return this.http.get(url).pipe(map(parametro => parametro));
   }
 
   getParametro(descripcion: string) {

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { UrlsService } from '../services/urls.service';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { LoadingController } from '@ionic/angular';
-import { finalize } from 'rxjs/operators';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-historial-alarma',
@@ -17,29 +17,26 @@ export class HistorialAlarmaPage implements OnInit {
   constructor(
     private urlsService: UrlsService,
     private sanitizer: DomSanitizer,
-    public loadingController: LoadingController
+    private router: Router,
+    private iab: InAppBrowser
   ) { }
 
   ngOnInit() {
-    this.getUrlHistorial();
+    // this.getUrlHistorial();
+    this.verAlarma();
   }
 
-
-
-  async presentLoading() {
-    // Prepare a loading controller
-    this.loading = await this.loadingController.create({
-      message: 'Cargando ...'
-    });
-    // Present the loading controller
-    await this.loading.present();
+  verAlarma() {
+    const url = this.urlsService.getParametro('historial');
+    const browser = this.iab.create(url, '_self', { location:'yes', footer: 'yes' });
+    browser.close();
+    this.router.navigate(['home']);
   }
 
 
    private async getUrlHistorial() {
     const urlParametro = this.urlsService.getParametro('historial');
     this.urlHistorial = this.sanitizer.bypassSecurityTrustResourceUrl(urlParametro);
-
   }
 
 }
