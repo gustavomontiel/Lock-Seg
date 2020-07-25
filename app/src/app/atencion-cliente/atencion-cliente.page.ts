@@ -33,7 +33,6 @@ export class AtencionClientePage implements OnInit {
     });
     this.storage.get('USER_INFO').then((response) => {
       if (response) {
-        // console.log(response.data.user.email);
         this.atencion.controls.email.setValue(response.data.user.email);
       }
     });
@@ -43,12 +42,10 @@ export class AtencionClientePage implements OnInit {
   insertarContacto() {
     this.storage.get('USER_INFO').then((response) => {
       if (response) {
-        //console.log(response.data.user.email);
-        console.log('ingresa');
-        var body = { 'tipo': 'atencion', 'titulo': 'Solicitud de atenciónal cliente', 'descripcion': this.atencion.get('descripcion').value, 'user_id': response.data.user.id };
+        // tslint:disable-next-line: max-line-length
+        const body = { tipo: 'atencion', titulo: 'Solicitud de atenciónal cliente', descripcion: this.atencion.get('descripcion').value, user_id: response.data.user.id };
         this.contactoService.insertarContacto(body)
           .subscribe(contacto => {
-            console.log('atencion - lo hizo:' + contacto);
             this.presentToast();
           });
       }

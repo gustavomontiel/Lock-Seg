@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -25,20 +25,14 @@ export class AppComponent {
   }
 
   initializeApp() {
-    console.log('app initializeApp');
-    
+
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
       this.authService.authState.subscribe(state => {
-        
-        if (state) {
-          this.router.navigate(['home']);
-        } else {
-          this.router.navigate(['login']);
-        }
-
+        // tslint:disable-next-line: no-unused-expression
+        !state && this.router.navigate(['login']);
       });
 
     });

@@ -17,12 +17,10 @@ export class UrlsService {
     public loadingController: LoadingController,
   ) {
 
-    if ( this.parametros.length === 0 ) {
+    if (this.parametros.length === 0) {
       this.presentLoading();
       const url = environment.APIEndpoint + 'parametros';
-    
-      console.log('this.presentLoading()');
-      
+
       this.http.get(url).
         subscribe(
           (respuesta: any) => {
@@ -38,11 +36,9 @@ export class UrlsService {
   }
 
   async presentLoading() {
-    // Prepare a loading controller
     this.loading = await this.loadingController.create({
-      message: 'Cargando ...XXX'
+      message: 'Cargando ...'
     });
-    // Present the loading controller
     await this.loading.present();
   }
 

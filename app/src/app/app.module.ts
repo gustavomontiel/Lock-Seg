@@ -14,6 +14,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { TokenInterceptor } from './services/token.interceptor';
 import { SharedModule } from './shared/shared.module';
+
 import { HomePage } from './home/home.page';
 import { FacturasPage } from './facturas/facturas.page';
 import { SoportePage } from './soporte/soporte.page';
@@ -23,11 +24,9 @@ import { MovilDomicilioPage } from './movil-domicilio/movil-domicilio.page';
 import { ServicioTecnicoPage } from './servicio-tecnico/servicio-tecnico.page';
 import { AtencionClientePage } from './atencion-cliente/atencion-cliente.page';
 import { LoginPage } from './login/login.page';
-import { HistorialAlarmaPage } from './historial-alarma/historial-alarma.page';
 import { ChatPage } from './chat/chat.page';
 import { DebitoPage } from './debito/debito.page';
 import { CambiarPassPage } from './cambiar-pass/cambiar-pass.page';
-import { PanicoPage } from './modals/panico/panico.page';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -42,11 +41,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     ServicioTecnicoPage,
     AtencionClientePage,
     LoginPage,
-    HistorialAlarmaPage,
     ChatPage,
     DebitoPage,
     CambiarPassPage,
-    PanicoPage
   ],
   entryComponents: [],
   imports: [

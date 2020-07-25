@@ -23,7 +23,6 @@ export class PanicoPage implements OnInit {
   }
 
   async closeModal(event: any){
-    console.log(event);
     await this.modalController.dismiss();
     event.preventDefault();
     event.stopPropagation();
@@ -32,12 +31,9 @@ export class PanicoPage implements OnInit {
   insertarContacto(event: any) {
     this.storage.get('USER_INFO').then((response) => {
       if (response) {
-        //console.log(response.data.user.email);
-        console.log('ingresa');
-        var body = { "tipo": "panico", "titulo": "Botón de Panico", "descripcion": "Llamada urgente", "user_id": response.data.user.id };
+        const body = { tipo: 'panico', titulo: 'Botón de Panico', descripcion: 'Llamada urgente', user_id: response.data.user.id };
         this.contactoService.insertarContacto(body)
           .subscribe(contacto => {
-            console.log("panico - lo hizo:" + contacto);
             this.presentToast();
             this.closeModal(event);
           });
@@ -52,7 +48,7 @@ export class PanicoPage implements OnInit {
       position: 'bottom',
       color: 'danger',
       showCloseButton: true,
-      closeButtonText: "OK"
+      closeButtonText: 'OK'
     });
     toast.present();
   }

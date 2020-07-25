@@ -26,20 +26,9 @@ export class AuthService {
 
   isLoggedIn() {
     this.storage.get('USER_INFO').then((response) => {
-      console.log('isLoggedIn', response);
-      
       if (response) {
         this.authState.next(true);
-        
-        /*
-        const url = environment.APIEndpoint + 'auth/verify/' + response.data.token;
-        this.http.get(url).subscribe(
-          resp => {this.authState.next(true)},
-          error => {this.authState.next(false)},
-        )
-        */
       }
-
     });
   }
 
@@ -47,7 +36,7 @@ export class AuthService {
 
     const usuario = {
       email: username,
-      password: password
+      password
     };
 
     const url = environment.APIEndpoint + '/auth/login';
@@ -55,8 +44,6 @@ export class AuthService {
     return this.http.post(url, usuario).pipe(
       map((resp: any) => {
         this.storage.set('USER_INFO', resp).then((response) => {
-          
-          console.log(resp.data.user);
 
           this.storage.set('EMAIL', resp.data.user.email).then((email) => {
             this.router.navigate(['home']);
@@ -91,8 +78,6 @@ export class AuthService {
       password,
       password_nuevo: passwordNuevo,
     };
-
-    console.log(usuario);
 
     const url = environment.APIEndpoint + '/actualizar-password';
 

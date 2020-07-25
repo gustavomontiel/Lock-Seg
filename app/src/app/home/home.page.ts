@@ -43,11 +43,9 @@ export class HomePage implements OnInit {
   insertarContacto() {
     this.storage.get('USER_INFO').then((response) => {
       if (response) {
-        console.log('ingresa');
         const body = { tipo: 'panico', titulo: 'Botón de Panico', descripcion: 'Llamada urgente', user_id: response.data.user.id };
         this.contactoService.insertarContacto(body)
           .subscribe(contacto => {
-            console.log('panico - lo hizo:' + contacto);
             this.presentToast();
           });
       }
@@ -92,7 +90,6 @@ export class HomePage implements OnInit {
   }
 
   verAlarma() {
-    let options = 'location=no,toolbarposition=bottom,toolbarcolor=#488aff';
     this.url = this.urlsService.getParametro('historial');
     const browser = this.iab.create(this.url);
     browser.close();

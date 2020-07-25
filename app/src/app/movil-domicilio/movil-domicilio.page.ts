@@ -33,7 +33,6 @@ export class MovilDomicilioPage implements OnInit {
     });
     this.storage.get('USER_INFO').then((response) => {
       if (response) {
-        console.log(response.data.user.email);
         this.movil.controls.email.setValue(response.data.user.email);
       }
     });
@@ -43,12 +42,10 @@ export class MovilDomicilioPage implements OnInit {
   insertarContacto() {
     this.storage.get('USER_INFO').then((response) => {
       if (response) {
-        // console.log(response.data.user.email);
-        console.log('ingresa');
-        var body = { 'tipo': 'movil', 'titulo': 'Solicitud de móvil', 'descripcion': this.movil.get('descripcion').value, 'user_id': response.data.user.id };
+        // tslint:disable-next-line: max-line-length
+        const body = { tipo: 'movil', titulo: 'Solicitud de móvil', descripcion: this.movil.get('descripcion').value, user_id: response.data.user.id };
         this.contactoService.insertarContacto(body)
           .subscribe(contacto => {
-            console.log('aparentemente lo hizo:' + contacto);
             this.presentToast();
           });
       }
@@ -63,7 +60,7 @@ export class MovilDomicilioPage implements OnInit {
       position: 'bottom',
       color:'danger',
       showCloseButton: true,
-      closeButtonText: "OK"
+      closeButtonText: 'OK'
     });
     toast.present();
   }

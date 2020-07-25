@@ -34,7 +34,6 @@ export class ServicioTecnicoPage implements OnInit {
     });
     this.storage.get('USER_INFO').then((response) => {
       if (response) {
-        console.log(response);
         this.servicio.controls.email.setValue(response.data.user.email);
       }
     });
@@ -44,12 +43,10 @@ export class ServicioTecnicoPage implements OnInit {
   insertarContacto() {
     this.storage.get('USER_INFO').then((response) => {
       if (response) {
-        // console.log(response.data.user.email);
-        console.log('ingresa');
-        var body = { 'tipo': 'servicio', 'titulo': 'Solicitud de servico técnico', 'descripcion': this.servicio.get('descripcion').value, 'user_id': response.data.user.id };
+        // tslint:disable-next-line: max-line-length
+        const body = { tipo: 'servicio', titulo: 'Solicitud de servico técnico', descripcion: this.servicio.get('descripcion').value, user_id: response.data.user.id };
         this.contactoService.insertarContacto(body)
           .subscribe(contacto => {
-            console.log('servicio - lo hizo:' + contacto);
             this.presentToast();
           });
       }

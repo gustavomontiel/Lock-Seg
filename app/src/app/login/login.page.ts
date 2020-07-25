@@ -35,10 +35,8 @@ export class LoginPage implements OnInit {
   }
 
   private obtenerEmail() {
-    console.log(this.storage);
     this.storage.get('EMAIL').then((datos) => {
       if (datos) {
-        //console.log('se supone email: '+datos);
         this.login.setValue({ usuario: datos, password: '' });
       }
     }); 
@@ -51,10 +49,9 @@ export class LoginPage implements OnInit {
       this.login.get('password').value,
     ).subscribe(usuario => {
       this.login.setValue({ usuario: '', password: '' });
-      //console.log('usr:' + usuario);
     },
       error => {
-        //console.log('error en page:', error.error);
+        console.log('error en page:', error.error);
         this.mensaje = error.error.message;
       });
   }

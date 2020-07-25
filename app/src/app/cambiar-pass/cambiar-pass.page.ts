@@ -39,13 +39,11 @@ export class CambiarPassPage implements OnInit, OnDestroy {
   }
 
   cambiarPassword() {
-    console.log(this.cambiarPass.value);
-
     this.authService.cambiarPass(
       this.cambiarPass.get('password').value,
       this.cambiarPass.get('passwordDos').value,
     ).subscribe(usuario => {
-      console.log('usr:' + usuario);
+      return usuario;
     },
       error => {
         console.log('error en page:', error.error);

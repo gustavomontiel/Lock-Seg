@@ -20,7 +20,7 @@ export class PagarFacturaPage implements OnInit {
 
   public traerURI(url: string) {
     this.urlPagar = this.urlsService.getParametro(url);
-    const browser = this.iab.create(this.urlPagar);
+    const browser = this.iab.create(this.urlPagar, '_system');
     browser.close();
   }
 
