@@ -91,14 +91,15 @@ export class HomePage implements OnInit {
 
   verAlarma() {
     this.url = this.urlsService.getParametro('historial');
-    const browser = this.iab.create(this.url);
-    browser.close();
+    console.log(this.url);
+    const browser = this.iab.create(this.url, '_blank');
+    // browser.close();
   }
 
   verGps() {
     this.url = this.urlsService.getParametro('gps');
-    const browser = this.iab.create(this.url);
-    browser.close();
+    const browser = this.iab.create(this.url, '_blank');
+    // browser.close();
   }
 
 }

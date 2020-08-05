@@ -27,8 +27,8 @@ export class FacturasPage implements OnInit {
   public verFacturas(url: string) {
     this.urlPagar = this.urlsService.getParametro(url);
     console.log(this.urlPagar);
-    const browser = this.iab.create(this.urlPagar);
-    browser.close();
+    const browser = this.iab.create(this.urlPagar, '_blank');
+    // browser.close();
     this.router.navigate(['facturas']);
   }
 
