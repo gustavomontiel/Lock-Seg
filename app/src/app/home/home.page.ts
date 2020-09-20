@@ -7,13 +7,14 @@ import { LoadingController } from '@ionic/angular';
 import { ContactoService } from '../services/contacto.service';
 import { AuthService } from '../services/auth.service';
 import { UrlsService } from '../services/urls.service';
+import { Platform } from '@ionic/angular';
 
 
-@Component({
+@Component( {
   selector: 'app-home',
   templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
-})
+  styleUrls: [ 'home.page.scss' ],
+} )
 
 export class HomePage implements OnInit {
 
@@ -30,7 +31,8 @@ export class HomePage implements OnInit {
     public alertController: AlertController,
     private urlsService: UrlsService,
     public loadingController: LoadingController,
-    private iab: InAppBrowser
+    private iab: InAppBrowser,
+    public platform: Platform
   ) { }
 
   ngOnInit() {
@@ -41,31 +43,31 @@ export class HomePage implements OnInit {
   }
 
   insertarContacto() {
-    this.storage.get('USER_INFO').then((response) => {
-      if (response) {
+    this.storage.get( 'USER_INFO' ).then( ( response ) => {
+      if ( response ) {
         const body = { tipo: 'panico', titulo: 'Botón de Panico', descripcion: 'Llamada urgente', user_id: response.data.user.id };
-        this.contactoService.insertarContacto(body)
-          .subscribe(contacto => {
+        this.contactoService.insertarContacto( body )
+          .subscribe( contacto => {
             this.presentToast();
-          });
+          } );
       }
-    });
+    } );
   }
 
   async presentToast() {
-    const toast = await this.toastController.create({
+    const toast = await this.toastController.create( {
       message: 'Hemos recibido su pedido de ayuda. Estamos en camino.',
       duration: 48000,
       position: 'bottom',
       color: 'danger',
       showCloseButton: true,
       closeButtonText: 'OK'
-    });
+    } );
     toast.present();
   }
 
   async presentAlertConfirm() {
-    const alert = await this.alertController.create({
+    const alert = await this.alertController.create( {
       header: 'Botón de pánico',
       message: 'Está a punto de confimar el envío de una moto a su domicilio',
       cssClass: 'alertConfirmacion',
@@ -84,22 +86,19 @@ export class HomePage implements OnInit {
           }
         }
       ]
-    });
+    } );
 
     await alert.present();
   }
 
   verAlarma() {
-    this.url = this.urlsService.getParametro('historial');
-    console.log(this.url);
-    const browser = this.iab.create(this.url, '_blank');
-    // browser.close();
+    this.url = this.urlsService.getParametro( 'historial' );
+    const browser = this.iab.create( this.url, ( this.platform.is( 'android' ) ? '_blank' : '_system') );
   }
 
   verGps() {
-    this.url = this.urlsService.getParametro('gps');
-    const browser = this.iab.create(this.url, '_blank');
-    // browser.close();
+    this.url = this.urlsService.getParametro( 'gps' );
+    const browser = this.iab.create( this.url, ( this.platform.is( 'android' ) ? '_blank' : '_system') );
   }
 
 }

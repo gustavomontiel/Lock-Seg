@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { UrlsService } from '../services/urls.service';
 import { Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
 
 
 @Component({
@@ -18,18 +19,16 @@ export class FacturasPage implements OnInit {
   constructor(
     private urlsService: UrlsService,
     private router: Router,
-    private iab: InAppBrowser
+    private iab: InAppBrowser,
+    public platform: Platform
   ) { }
 
   ngOnInit() {
   }
 
-  public verFacturas(url: string) {
-    this.urlPagar = this.urlsService.getParametro(url);
-    console.log(this.urlPagar);
-    const browser = this.iab.create(this.urlPagar, '_blank');
-    // browser.close();
-    this.router.navigate(['facturas']);
+  public verFacturas() {
+    const url = this.urlsService.getParametro('ver-facturas');
+    const browser = this.iab.create( url, ( this.platform.is( 'android' ) ? '_blank' : '_system') );
   }
 
 
