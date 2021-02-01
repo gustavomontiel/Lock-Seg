@@ -4,7 +4,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Storage } from '@ionic/storage';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -19,6 +19,7 @@ export class AppComponent {
     private statusBar: StatusBar,
     private storage: Storage,
     private router: Router,
+    public activatedRoute: ActivatedRoute,
     private authService: AuthService
   ) {
     this.initializeApp();
@@ -27,12 +28,18 @@ export class AppComponent {
   initializeApp() {
 
     this.platform.ready().then(() => {
+      
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
       this.authService.authState.subscribe(state => {
         // tslint:disable-next-line: no-unused-expression
-        !state && this.router.navigate(['login']);
+        // console.log(this.activatedRoute.snapshot);
+        
+        let ruta = this.activatedRoute.snapshot['_routerState'].url 
+        console.log('ruta', ruta);
+        ruta = ( ruta != '' && !!ruta ) ? ruta : 'home';
+        state ? this.router.navigate([ruta]) : this.router.navigate(['login']);
       });
 
     });
