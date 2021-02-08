@@ -96,13 +96,13 @@ export class HomePage implements OnInit {
   verAlarma() {
     this.url = this.urlsService.getParametro( 'historial' );
     // const browser = this.iab.create( this.url, ( this.platform.is( 'android' ) ? '_blank' : '_system'), inappbrowserOption );
-    const browser = this.iab.create( this.url, '_self', inappbrowserOption );
+    const browser = this.iab.create( this.url, '_blank', inappbrowserOption );
   }
 
   verGps() {
     this.url = this.urlsService.getParametro( 'gps' );
     // const browser = this.iab.create( this.url, ( this.platform.is( 'android' ) ? '_blank' : '_system'), inappbrowserOption ); 
-    const browser = this.iab.create( this.url, '_self', inappbrowserOption );
+    const browser = this.iab.create( this.url, '_blank', inappbrowserOption );
   }
 
 }

@@ -31,7 +31,7 @@ export class FacturasPage implements OnInit {
     const url = this.urlsService.getParametro('ver-facturas');
     // const browser = this.iab.create( url, '_system', inappbrowserOptionSistem );
     // const browser = this.iab.create( url, ( this.platform.is( 'android' ) ? '_blank' : '_system'), inappbrowserOption );
-    const browser = this.iab.create( url, '_self', inappbrowserOption );
+    const browser = this.iab.create( url, '_blank', inappbrowserOption );
   }
 
 

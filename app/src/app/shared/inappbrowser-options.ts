@@ -1,2 +1,2 @@
-export const inappbrowserOption = 'location=no,toolbarcolor=#000000,footer=no,footercolor=#000000,hardwareback=yes';
-export const inappbrowserOptionSistem = 'location=no,toolbarcolor=#000000,footer=no,footercolor=#000000,hardwareback=yes';
+export const inappbrowserOption = 'location=no,toolbarcolor=#000000,footer=yes,footercolor=#000000,closebuttoncaption=Cerrar,hardwareback=yes';
+export const inappbrowserOptionSistem = 'location=no,toolbarcolor=#000000,footer=yes,footercolor=#000000,closebuttoncaption=Cerrar,hardwareback=yes';
