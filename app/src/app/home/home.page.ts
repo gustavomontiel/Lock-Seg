@@ -100,7 +100,8 @@ export class HomePage implements OnInit {
 
   verGps() {
     this.url = this.urlsService.getParametro( 'gps' );
-    const browser = this.iab.create( this.url, '_blank', 'location=yes,hideurlbar=yes,toolbarcolor=#000000,closebuttoncaption=Cerrar,hardwareback=yes' );
+    const browser = this.iab.create( this.url, '_blank', inappbrowserOption );
+    // const browser = this.iab.create( this.url, '_blank', 'location=yes,hideurlbar=yes,footer=no,closebuttoncaption=Cerrar,hardwareback=yes' );
   }
 
 }
