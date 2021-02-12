@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.guazu.app" version="1.1.7" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.guazu.app" version="1.2.3" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>GUAZÚ Seguridad</name>
     <description>Aplicación para clientes de GUAZÚ Seguridad</description>
     <author email="gsimisiones@gmail.com" href="https://grupo-sim.com.ar/">Grupo SIM</author>
@@ -14,7 +14,7 @@
     <allow-navigation href="*" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="android-minSdkVersion" value="22" />
-    <preference name="android-targetSdkVersion" value="28" />
+    <preference name="android-targetSdkVersion" value="29" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="SplashMaintainAspectRatio" value="true" />
