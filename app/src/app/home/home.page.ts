@@ -8,7 +8,7 @@ import { ContactoService } from '../services/contacto.service';
 import { AuthService } from '../services/auth.service';
 import { UrlsService } from '../services/urls.service';
 import { Platform } from '@ionic/angular';
-import { inappbrowserOption } from '../shared/inappbrowser-options';
+import { InappBrowserOptionService } from '../services/inapp-browser-option.service';
 
 
 @Component( {
@@ -33,7 +33,8 @@ export class HomePage implements OnInit {
     private urlsService: UrlsService,
     public loadingController: LoadingController,
     private iab: InAppBrowser,
-    public platform: Platform
+    public platform: Platform,
+    public iabOptionService: InappBrowserOptionService
   ) { }
 
   ngOnInit() {
@@ -95,13 +96,12 @@ export class HomePage implements OnInit {
 
   verAlarma() {
     this.url = this.urlsService.getParametro( 'historial' );
-    const browser = this.iab.create( this.url, '_blank', inappbrowserOption );
+    const browser = this.iab.create( this.url, '_blank', this.iabOptionService.inappbrowserOption );
   }
 
   verGps() {
     this.url = this.urlsService.getParametro( 'gps' );
-    const browser = this.iab.create( this.url, '_blank', inappbrowserOption );
-    // const browser = this.iab.create( this.url, '_blank', 'location=yes,hideurlbar=yes,footer=no,closebuttoncaption=Cerrar,hardwareback=yes' );
+    const browser = this.iab.create( this.url, '_blank', this.iabOptionService.inappbrowserOption );
   }
 
 }

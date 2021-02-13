@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { UrlsService } from '../services/urls.service';
-import { Platform } from '@ionic/angular';
-import { inappbrowserOption, inappbrowserOptionSistem } from '../shared/inappbrowser-options';
+import { InappBrowserOptionService } from '../services/inapp-browser-option.service';
 
 
 @Component({
@@ -20,7 +19,7 @@ export class FacturasPage implements OnInit {
   constructor(
     private urlsService: UrlsService,
     private iab: InAppBrowser,
-    public platform: Platform
+    public iabOptionService: InappBrowserOptionService
   ) { }
 
   ngOnInit() {
@@ -29,9 +28,7 @@ export class FacturasPage implements OnInit {
 
   public verFacturas() {
     const url = this.urlsService.getParametro('ver-facturas');
-    // const browser = this.iab.create( url, '_system', inappbrowserOptionSistem );
-    // const browser = this.iab.create( url, ( this.platform.is( 'android' ) ? '_blank' : '_system'), inappbrowserOption );
-    const browser = this.iab.create( url, '_blank', inappbrowserOption );
+    const browser = this.iab.create( url, '_blank', this.iabOptionService.inappbrowserOption );
   }
 
 

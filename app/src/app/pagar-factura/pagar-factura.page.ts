@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { InappBrowserOptionService } from '../services/inapp-browser-option.service';
 import { UrlsService } from '../services/urls.service';
 import { inappbrowserOptionSistem } from '../shared/inappbrowser-options';
 
@@ -17,14 +18,14 @@ export class PagarFacturaPage implements OnInit {
   constructor(
     private iab: InAppBrowser,
     private urlsService: UrlsService,
+    public iabOptionService: InappBrowserOptionService
   ) { }
 
 
   public traerURI( url: string ) {
 
     this.urlPagar = this.urlsService.getParametro( url );
-
-    const browser = this.iab.create( this.urlPagar, '_system', inappbrowserOptionSistem );
+    const browser = this.iab.create( this.urlPagar, '_system', this.iabOptionService.inappbrowserOptionSistem );
   
   }
 

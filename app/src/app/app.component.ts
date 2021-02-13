@@ -14,10 +14,9 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   constructor(
-    private platform: Platform,
+    public platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private storage: Storage,
     private router: Router,
     public activatedRoute: ActivatedRoute,
     private authService: AuthService
