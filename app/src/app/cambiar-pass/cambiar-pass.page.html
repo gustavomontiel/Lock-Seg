@@ -3,9 +3,20 @@
   <div>
     <ion-img class="ion-align-self-center ion-margin-horizontal" src="/assets/imagenes/logo_g.png"></ion-img>
   </div>
-  <ion-label class="ion-padding" color="danger" floating> {{ mensaje }} </ion-label>
-  <form [formGroup]="cambiarPass" ngNativeValidate (submit)="cambiarPassword()" class="ion-padding">
-    <ion-grid class="ion-padding">
+  <ion-list class="mb-0">
+    <ion-item>
+      <ion-label class="" color="primary"> {{ usuario?.data.user.nombre }} </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="" color="primary"> {{ usuario?.data.user.email }} </ion-label>
+    </ion-item>
+    <ion-item *ngIf="mensaje">
+      <ion-label class="" color="danger"> {{ mensaje }} </ion-label>
+    </ion-item>
+  </ion-list>
+  
+  <form [formGroup]="cambiarPass" ngNativeValidate (submit)="cambiarPassword()" class="ion-padding pt-0">
+    <ion-grid class="ion-padding pb-0 pt-0">
       <ion-row>
         <ion-col>
           <ion-list>
@@ -27,8 +38,9 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <div class="ion-padding">
-      <ion-button class="lock-button" [disabled]="cambiarPass.invalid" expand="block" type="submit">Cambiar contraseña</ion-button>
+    <div class="ion-padding pt-0">
+      <ion-button class="lock-button" [disabled]="cambiarPass.invalid" expand="block" type="submit">Cambiar contraseña
+      </ion-button>
     </div>
   </form>
 </ion-content>

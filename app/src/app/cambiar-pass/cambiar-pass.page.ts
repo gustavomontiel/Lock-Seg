@@ -10,6 +10,7 @@ import { AuthService } from '../services/auth.service';
 export class CambiarPassPage implements OnInit, OnDestroy {
   cambiarPass: FormGroup;
   public mensaje: string;
+  public usuario: any;
 
   inputPasswordType = 'password';
   passwordIcon = 'eye-off';
@@ -18,7 +19,11 @@ export class CambiarPassPage implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-  ) { }
+  ) { 
+    this.usuario = this.authService.usuario;
+    console.log(this.usuario);
+    
+  }
 
   ngOnInit() {
     this.crearForm();

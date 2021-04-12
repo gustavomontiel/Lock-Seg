@@ -12,6 +12,7 @@ import { environment } from "src/environments/environment";
 })
 export class AuthService {
   authState = new BehaviorSubject(true);
+  usuario: any;
   constructor(
     private router: Router,
     private storage: Storage,
@@ -25,6 +26,7 @@ export class AuthService {
 
   isLoggedIn() {
     this.storage.get("USER_INFO").then((response) => {
+      this.usuario = response;
       if (response) {
         this.authState.next(true);
       }
@@ -41,10 +43,11 @@ export class AuthService {
 
     return this.http.post(url, usuario).pipe(
       map((resp: any) => {
+        this.usuario = resp;
         this.storage.set("USER_INFO", resp).then((response) => {
           this.storage.set("EMAIL", resp.data.user.email).then((email) => {
-            this.router.navigate(["home"]);
             this.authState.next(true);
+            this.router.navigate(["home"]);
             return email;
           });
         });
