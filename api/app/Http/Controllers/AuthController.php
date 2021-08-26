@@ -59,6 +59,30 @@ class AuthController extends Controller
     }
 
     /**
+     * Login with Email
+     *
+     * @bodyParam email string required The email
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function loginEmail(Request $request)
+    {
+        $user = User::byEmail($request->input('email'));
+        //Now log in the user if exists
+        if ($user == null) {
+            return response()->json(['message' => trans('messages.login_failed')], 401);
+        }
+
+        $token = Auth::login($user);
+        if (!$token) {
+            return response()->json(['message' => trans('messages.login_failed')], 401);
+        }
+
+        return response()->json(['data' => ['user' => Auth::user(), 'token' => $token]]);
+    }
+
+    /**
      * Register
      *
      * @bodyParam nombre string optional - Nombre y apellido
@@ -77,7 +101,7 @@ class AuthController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
         $idCliente = $request->input('id_cliente');
-        
+
         $user = User::createFromValues($nombre, $username, $email, $password);
 
         $user->cliente()->attach($idCliente);

@@ -50,6 +50,10 @@ $router->group(['prefix' => 'auth', 'as' => 'auth'], function (Router $router) {
         'as' => 'login',
         'uses' => 'AuthController@login',
     ]);
+    $router->post('/login-email', [
+        'as' => 'loginEmail',
+        'uses' => 'AuthController@loginEmail',
+    ]);
     $router->get('/verify/{token}', [
         'as' => 'verify',
         'uses' => 'AuthController@verify'

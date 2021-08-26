@@ -156,7 +156,7 @@ class PasetoAuthGuard implements Guard
      * @throws PasetoException
      * @throws InvalidPurposeException
      */
-    private function login($user)
+    public function login($user)
     {
         $this->setUser($user);
 
