@@ -1,0 +1,48 @@
+<app-header [verTitulo]="false"></app-header>
+<ion-content>
+  <div>
+    <ion-img class="ion-align-self-center ion-margin-horizontal" src="/assets/imagenes/logo_g.png"></ion-img>
+  </div>
+  <ion-list class="mb-0">
+    <ion-item>
+      <ion-label class="" color="primary"> {{ usuario?.data.user.nombre }} </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="" color="primary"> {{ usuario?.data.user.email }} </ion-label>
+    </ion-item>
+    <ion-item *ngIf="mensaje">
+      <ion-label class="" color="danger"> {{ mensaje }} </ion-label>
+    </ion-item>
+  </ion-list>
+  
+  <form [formGroup]="cambiarPass" ngNativeValidate (submit)="cambiarPassword()" class="ion-padding pt-0">
+    <ion-grid class="ion-padding pb-0">
+      <ion-row>
+        <ion-col>
+          <ion-list>
+            <ion-item>
+              <ion-label class="lock-label" position="floating">Contraseña actual</ion-label>
+              <ion-input [type]="inputPasswordType" formControlName="password"></ion-input>
+              <ion-button (click)="toggleInputPasswordType()" slot="end" class="btn_eye_icon">
+                <ion-icon [name]="passwordIcon"></ion-icon>
+              </ion-button>
+            </ion-item>
+            <ion-item>
+              <ion-label class="lock-label" position="floating">Nueva Contraseña</ion-label>
+              <ion-input [type]="inputNewPasswordType" formControlName="passwordDos"></ion-input>
+              <ion-button (click)="toggleInputNewPasswordType()" slot="end" class="btn_eye_icon">
+                <ion-icon [name]="newPasswordIcon"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="ion-padding pt-0">
+      <ion-button class="lock-button" [disabled]="cambiarPass.invalid" expand="block" type="submit">Cambiar contraseña
+      </ion-button>
+    </div>
+  </form>
+</ion-content>
+
+<app-footer></app-footer>

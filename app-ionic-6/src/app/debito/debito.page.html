@@ -1,0 +1,26 @@
+<app-header [verTitulo]="true"></app-header>
+
+<ion-content>
+
+  <div class="ion-padding">
+    <ion-text>
+      <h2>Solicite adhesión al débito automático</h2>
+    </ion-text>
+
+    <form [formGroup]="debito">
+      <ion-item>
+        <ion-label class="lock-label">Abonado:</ion-label>
+        <ion-input formControlName="email" readonly="true"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="lock-label" position="floating">Motivo:</ion-label>
+        <ion-textarea formControlName="descripcion"></ion-textarea>
+      </ion-item>
+      <ion-button (click)="insertarContacto()" class="lock-button" expand="block" type="submit" block>Solicitar
+      </ion-button>
+    </form>
+  </div>
+
+</ion-content>
+
+<app-footer></app-footer>

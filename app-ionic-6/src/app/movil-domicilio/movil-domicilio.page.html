@@ -1,0 +1,25 @@
+<app-header [verTitulo]="false"></app-header>
+
+<ion-content class="ion-padding-start ion-padding-end">
+
+
+  <ion-text>
+    <ion-img class="ion-align-self-center ion-margin-horizontal" src="/assets/imagenes/logo_g.png"></ion-img>
+    <h2>Solicite un móvil a su domicilio</h2>
+  </ion-text>
+
+  <form [formGroup]="movil">
+    <ion-item>
+      <ion-label class="lock-label">Abonado:</ion-label>
+      <ion-input formControlName="email" readonly="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="lock-label" position="floating">Motivo:</ion-label>
+      <ion-textarea formControlName="descripcion"></ion-textarea>
+    </ion-item>
+    <ion-button (click)="insertarContacto()" class="lock-button" expand="block" type="submit" block>Solicitar
+    </ion-button>
+  </form>
+
+</ion-content>
+<app-footer></app-footer>

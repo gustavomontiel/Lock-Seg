@@ -1,0 +1,219 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+lock-header {
+    margin: 0%;
+}
+
+.lock-color{
+    /*--background: #009fdb;*/
+    --background: #000000;
+    color: #ffffff;
+    text-align: center;
+}
+
+.lock-color img{
+   width: 180px;
+   display:inline-block;
+}
+
+ion-content, ion-list{
+    --background: #000000;
+}
+
+
+.lock-footer{
+    --background: #000000;
+    color: white;
+    font-size: 11px;
+    text-align: center;
+}
+
+.lock-button{
+    --background: #009fdb;
+    color: white;
+}
+
+.lock-label{
+    /*color:#009fdb;*/
+    color:#ffffff;
+    font-size: 11px;
+}
+
+.lock-boton{
+    border: solid 1px;
+   /* padding: 5% 10%;*/
+}
+
+//div.lock-boton:hover{
+    //--background: #009fdb;
+//}
+
+.lock-boton a {
+    display: flex!important;
+    align-content: center!important;
+    align-items: center!important;
+}
+
+.lock-boton a:hover {
+    --background: #009fdb;
+}
+
+.lock-boton a ion-img{
+    --background: #009fdb;
+}
+
+.lock-boton a ion-label{
+    width: 80%;
+    font-size: 14px;
+}
+
+ion-list{
+    background-color: #000000 !important;
+}
+
+ion-list-header{
+    padding-left: 0px;
+}
+
+ion-item{
+    --background: rgb(39, 39, 41) !important;
+}
+
+/*hover color item*/
+.item-complex .item-content, .item{
+    background-color: #009fdb !important;
+}
+
+
+ion-item ion-img{
+    width: 20%;
+}
+
+ion-item ion-label.lock-label{
+    --color: #ffffff !important;
+    font-size: 20px !important;
+}
+
+.sombra{
+    box-shadow: 0px 4px 8px 0px #009fdb !important;
+    -webkit-box-shadow: 0px 4px 8px 0px #009fdb;
+    -moz-box-shadow: 0px 4px 8px 0px #009fdb;
+}
+ion-input{
+    --color: #ffffff !important;
+    border-bottom: white solid 1px;
+}
+
+ion-textarea{
+    --color: #ffffff !important;
+    border-bottom: white solid 1px;
+}
+
+h2 {
+    text-align: center;
+    color: #ffffff !important;
+}
+
+
+/*
+.item-complex .item-content:hover{
+    --background: #009fdb !important;
+}*/
+
+ .item {
+    --background: #1c1c1c;
+    --border-width: 7px;
+    --border-style: solid;
+    --border-color: #000;
+    margin:4px auto;
+ }
+ 
+ ion-item.panico.item-label.item{
+    --background: #009fdb !important;
+ }
+
+iframe {
+    border: none;
+}
+
+ion-card{
+    margin-bottom: 50px !important;
+}
+
+ion-item > ion-img {
+    width:17%;
+ }
+
+ .alertConfirmacion {
+    --background: #000000 ;
+ }
+
+ .alertConfirmacion .alert-message {
+    color: #ffffff ;
+ }
+
+ ion-spinner{
+     --color: #ffffff;
+ }
+
+ 
+
+
+.loading-wrapper {
+    --background: transparent;
+    --spinner-color:#F94701;
+    color:#ffffff;
+    box-shadow: none;
+  }
+
+
+.modalCss .modal-wrapper {
+    width: 90%;
+    height: 70%;
+}
+
+.modalCss .modal-wrapper  ion-title{
+   text-align: left;
+}
+
+
+.modalCss ion-content {
+    --padding-top: 20%;
+    --padding-start: 10px;
+    --padding-end:10px;
+}
+
+.modalCss ion-text {
+    color:#ffffff;
+    font-size: 20px; 
+}
+
+.modalCss div {
+    padding-top: 10px;
+    text-align: center;
+}

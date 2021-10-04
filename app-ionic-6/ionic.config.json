@@ -1,0 +1,7 @@
+{
+  "name": "guazu",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

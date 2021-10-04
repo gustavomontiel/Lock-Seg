@@ -1,0 +1,36 @@
+<ion-content class="ion-padding-start ion-padding-end">
+  <div>
+    <ion-img class="ion-align-self-center ion-margin" src="/assets/imagenes/logo_g.png"></ion-img>
+  </div>
+  <ion-label class="ion-padding" color="danger" floating> {{ mensaje }} </ion-label>
+  <form [formGroup]="login" ngNativeValidate (submit)="loginUsuario()" class="ion-padding">
+    <ion-grid class="ion-padding">
+      <ion-row>
+        <ion-col>
+          <ion-list>
+            <ion-item>
+              <ion-label class="lock-label" position="floating">Usuario</ion-label>
+              <ion-input type="email" formControlName="usuario"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label class="lock-label" position="floating">Contraseña</ion-label>
+              <ion-input type="password" formControlName="password"></ion-input>
+            </ion-item>
+        
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="ion-padding">
+      <ion-button class="lock-button" [disabled]="login.invalid" expand="block" type="submit">ingresar</ion-button>
+    </div>
+    <div class="ion-padding">
+      <ion-button expand="full" (click)="openAppleSignIn()" *ngIf="showAppleSignIn">
+        <ion-icon name="logo-apple" slot="start"></ion-icon>
+        Sign in with Apple.
+      </ion-button>
+    </div>
+  </form>
+</ion-content>
+
+<app-footer></app-footer>

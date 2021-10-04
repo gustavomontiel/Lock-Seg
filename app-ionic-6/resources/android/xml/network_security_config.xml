@@ -1,0 +1,12 @@
+<network-security-config>
+   <base-config cleartextTrafficPermitted="true">
+       <trust-anchors>
+           <certificates src="system" />
+       </trust-anchors>
+   </base-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain>localhost</domain>
+        <domain includeSubdomains="true">190.183.130.74</domain>
+		<domain includeSubdomains="true">guazuseguridad.com.ar</domain>
+    </domain-config>
+</network-security-config>

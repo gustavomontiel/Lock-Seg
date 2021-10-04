@@ -1,0 +1,23 @@
+<ion-menu side="end" menuId="menu_1" contentId="principal">
+  <ion-header>
+    <ion-toolbar color="dark">
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-menu-toggle>
+        <ion-item [routerLink]="['/cambiar-password']" color="dark">
+          <ion-icon slot="start" name="key"></ion-icon>
+          <ion-label>Cambiar contraseña</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item  color="dark" (click)="authService.logout()">
+          <ion-icon slot="start" name="log-out"></ion-icon>
+          <ion-label>Salir</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+</ion-menu>
