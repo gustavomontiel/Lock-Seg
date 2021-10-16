@@ -13,10 +13,11 @@ import { LoginPage } from './login/login.page';
 import { ChatPage } from './chat/chat.page';
 import { DebitoPage } from './debito/debito.page';
 import { CambiarPassPage } from './cambiar-pass/cambiar-pass.page';
+import { AuthGuard } from './services/auth-guard.service';
 
 const routes: Routes = [
 
-  { path: 'home', component: HomePage },
+  { path: 'home', component: HomePage, canActivate: [AuthGuard] },
   { path: 'facturas', component: FacturasPage },
   { path: 'pagar-factura', component: PagarFacturaPage },
   { path: 'debito', component: DebitoPage },
@@ -27,7 +28,7 @@ const routes: Routes = [
   { path: 'atencion-cliente', component: AtencionClientePage },
   { path: 'promociones', component: PromocionesPage },
   { path: 'login', component: LoginPage },
-  { path: 'cambiar-password', component: CambiarPassPage },
+  { path: 'cambiar-password', component: CambiarPassPage, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: AppComponent },
 ];
