@@ -2,7 +2,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.guazu.app',
-  appName: 'Guazú Seg.',
+  appName: 'Guazú',
   webDir: 'www',
   bundledWebRuntime: false
 };

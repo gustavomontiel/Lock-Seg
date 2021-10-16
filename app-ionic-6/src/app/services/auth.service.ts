@@ -47,6 +47,10 @@ export class AuthService {
     });
   }
 
+  isAuthenticated() {
+    return this.authState.value;
+  }
+
   loginUsuario(username: string, password: string) {
     const usuario = {
       email: username,

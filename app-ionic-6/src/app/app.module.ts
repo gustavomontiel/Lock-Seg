@@ -30,6 +30,7 @@ import { CambiarPassPage } from './cambiar-pass/cambiar-pass.page';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { SignInWithApple } from '@ionic-native/sign-in-with-apple/ngx';
+import { AuthGuard } from './services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { SignInWithApple } from '@ionic-native/sign-in-with-apple/ngx';
     // NativeStorage,
     SignInWithApple,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

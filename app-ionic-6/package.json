@@ -26,6 +26,7 @@
     "@capacitor/haptics": "1.1.0",
     "@capacitor/keyboard": "1.1.0",
     "@capacitor/status-bar": "1.0.3",
+    "@ionic-native/core": "^5.36.0",
     "@ionic-native/in-app-browser": "^5.36.0",
     "@ionic-native/sign-in-with-apple": "^5.36.0",
     "@ionic-native/splash-screen": "^5.36.0",

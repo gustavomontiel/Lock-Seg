@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.guazu.app" version="1.2.3" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>GUAZÚ Seguridad</name>
+<widget id="com.guazu.app" version="1.3.1" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>GUAZÚ</name>
     <description>Aplicación para clientes de GUAZÚ Seguridad</description>
     <author email="gsimisiones@gmail.com" href="https://grupo-sim.com.ar/">Grupo SIM</author>
     <content src="index.html" />
