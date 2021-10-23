@@ -1,0 +1,106 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>deitresPanel</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+<app-header [verTitulo]="true"></app-header>
+<ion-content>
+  <ion-card>
+    <ion-item>
+      <ion-avatar slot="start">
+        <ion-icon name="apps-outline" size="large"></ion-icon>
+      </ion-avatar>
+      <ion-label *ngIf="panel">
+        <ion-text color="{{ panel.triggered ? 'danger' : ''}}">
+          <h3>Panel: XXX XXX {{ panel.triggered ? 'DISPARADA!' : ''}}</h3>
+          <p>{{ panel.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p>
+        </ion-text>
+      </ion-label>
+      <ion-avatar slot="end" *ngIf="panel">
+        <ion-icon *ngIf="panel.triggered" name="volume-high-outline" color="danger" size="large"></ion-icon>
+        <!-- <ion-icon *ngIf="!panel.triggered" name="volume-mute-outline" size="large"></ion-icon> -->
+      </ion-avatar>
+    </ion-item>
+
+    <!-- <img *ngIf="panel && panel.triggered" src="/assets/imagenes/panel-triggered.png" alt="ion">
+    <img *ngIf="panel && !panel.triggered" src="/assets/imagenes/panel.png" alt="ion"> -->
+    <!-- <ion-card-header>
+      <ion-card-title *ngIf="panel"></ion-card-title>
+    </ion-card-header> -->
+    <ion-card-content>
+      <ion-item>
+        <ion-row *ngIf="panel">
+          <ion-col class="ion-padding">
+            <button>
+              <ion-icon color="success" *ngIf="panel.armed" name="shield-checkmark-outline" size="large"></ion-icon>
+              <ion-icon color="warning" *ngIf="!panel.armed" name="shield-half-outline" size="large"></ion-icon>
+              <div> Panel {{ panel.armed ? 'Armado' : 'No Armado'}}</div>
+            </button>
+          </ion-col>
+          <ion-col class="ion-padding">
+            <button>
+              <ion-icon name="checkbox-outline" size="large"></ion-icon>
+              <div>{{ this.panel.armedZones.length }} Zonas Armadas</div>
+            </button>
+          </ion-col>
+          <ion-col class="ion-padding">
+            <button>
+              <ion-icon name="close-circle-outline" size="large"></ion-icon>
+              <div>{{ this.panel.excludedZones.length }} Zonas Excluidas</div>
+            </button>
+          </ion-col>
+          
+        </ion-row>
+      </ion-item>
+    </ion-card-content>
+
+    <ion-footer>
+      <ion-button expand="block" *ngIf="panel && panel.armed" (click)="desarmarPanel()">Desarmar Panel</ion-button>
+      <ion-button expand="block" *ngIf="panel && !panel.armed" (click)="armarPanel()">Armar Panel</ion-button>
+    </ion-footer>
+    
+    <ion-list>
+      <ion-list-header>
+        Zonas:
+      </ion-list-header>
+
+      <ion-item *ngFor="let zona of zonas">
+        <ion-avatar slot="start">
+          <ion-icon name="grid-outline" size="large"></ion-icon>
+        </ion-avatar>
+        <ion-label>
+          <ion-text>
+            <h3>{{ zona.name }}</h3>
+          </ion-text>
+        </ion-label>
+        <ion-button expand="block" *ngIf="zona.enabled && zona.excludable" (click)="excluirZona(zona.zoneID)" color="success">Excluir</ion-button>
+        <ion-button expand="block" *ngIf="zona.enabled && !zona.excludable" (click)="incluirZona(zona.zoneID)" color="danger">Incluir</ion-button>
+      </ion-item>
+
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-icon name="grid-outline" size="large"></ion-icon>
+        </ion-avatar>
+        <ion-label *ngIf="panel">
+          <ion-text>
+            <h3>Comedor</h3>
+          </ion-text>
+        </ion-label>
+        <ion-button expand="block" *ngIf="panel && panel.armed" (click)="desarmarPanel()" color="success">Excluir</ion-button>
+      </ion-item>
+
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-icon name="grid-outline" size="large"></ion-icon>
+        </ion-avatar>
+        <ion-label *ngIf="panel">
+          <ion-text>
+            <h3>Garage</h3>
+          </ion-text>
+        </ion-label>
+        <ion-button expand="block" *ngIf="panel && panel.armed" (click)="desarmarPanel()" color="danger">Incluir</ion-button>
+      </ion-item>
+      
+    </ion-list>
+  </ion-card>
+  </ion-content>

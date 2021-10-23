@@ -9,15 +9,16 @@ import { UrlsService } from '../services/urls.service';
 import { Platform } from '@ionic/angular';
 import { InappBrowserOptionService } from '../services/inapp-browser-option.service';
 import { StorageService } from '../services/storage.service';
+import { DeitresService } from '../services/deitres.service';
+import { actionSheetController } from '@ionic/core';
+import { Router } from '@angular/router';
 
-
-@Component( {
+@Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
-  styleUrls: [ 'home.page.scss' ],
-} )
+  styleUrls: ['home.page.scss'],
+})
 export class HomePage implements OnInit {
-
   contacto: any;
   url: any;
   parametro: any;
@@ -33,8 +34,10 @@ export class HomePage implements OnInit {
     public loadingController: LoadingController,
     private iab: InAppBrowser,
     public platform: Platform,
-    public iabOptionService: InappBrowserOptionService
-  ) { }
+    public iabOptionService: InappBrowserOptionService,
+    private deitresService: DeitresService,
+    public router: Router,
+  ) {}
 
   ngOnInit() {
   }
@@ -44,25 +47,28 @@ export class HomePage implements OnInit {
   }
 
   insertarContacto() {
-    this.storageService.get( 'USER_INFO' ).then( ( response ) => {
-      if ( response ) {
-        
-        const user_info = typeof response === 'string' ? JSON.parse(response) : response;
-        
-        
-        const body = { tipo: 'panico', titulo: 'Botón de Panico', descripcion: 'Llamada urgente', user_id: user_info.data.user.id };
-        this.contactoService.insertarContacto( body )
-          .subscribe( contacto => {
-            this.presentToast();
-          } );
+    this.storageService.get('USER_INFO').then((response) => {
+      if (response) {
+        const user_info =
+          typeof response === 'string' ? JSON.parse(response) : response;
+
+        const body = {
+          tipo: 'panico',
+          titulo: 'Botón de Panico',
+          descripcion: 'Llamada urgente',
+          user_id: user_info.data.user.id,
+        };
+        this.contactoService.insertarContacto(body).subscribe((contacto) => {
+          this.presentToast();
+        });
       }
-    } );
+    });
   }
 
   async presentToast() {
-    const toast = await this.toastController.create( {
+    const toast = await this.toastController.create({
       message: 'Hemos recibido su pedido de ayuda. Estamos en camino.',
-      duration: 48000,
+      duration: 30000,
       position: 'bottom',
       color: 'danger',
       buttons: [
@@ -70,14 +76,14 @@ export class HomePage implements OnInit {
           text: 'Ok',
           role: 'cancel',
           cssClass: 'secondary',
-        }
-      ]
-    } );
+        },
+      ],
+    });
     toast.present();
   }
 
   async presentAlertConfirm() {
-    const alert = await this.alertController.create( {
+    const alert = await this.alertController.create({
       header: 'Botón de pánico',
       message: 'Está a punto de confimar el envío de una moto a su domicilio',
       cssClass: 'alertConfirmacion',
@@ -86,29 +92,94 @@ export class HomePage implements OnInit {
           text: 'Cancelar',
           role: 'cancel',
           cssClass: 'secondary',
-          handler: () => {
-          }
-        }, {
+          handler: () => {},
+        },
+        {
           text: 'Ok',
           cssClass: 'secondary',
           handler: () => {
             this.insertarContacto();
-          }
-        }
-      ]
-    } );
+          },
+        },
+      ],
+    });
 
     await alert.present();
   }
 
   verAlarma() {
-    this.url = this.urlsService.getParametro( 'historial' );
-    const browser = this.iab.create( this.url, '_blank', this.iabOptionService.inappbrowserOption );
+    this.url = this.urlsService.getParametro('historial');
+    const browser = this.iab.create(
+      this.url,
+      '_blank',
+      this.iabOptionService.inappbrowserOption
+    );
   }
 
   verGps() {
-    this.url = this.urlsService.getParametro( 'gps' );
-    const browser = this.iab.create( this.url, '_blank', this.iabOptionService.inappbrowserOption );
+    this.url = this.urlsService.getParametro('gps');
+    const browser = this.iab.create(
+      this.url,
+      '_blank',
+      this.iabOptionService.inappbrowserOption
+    );
   }
 
+  async seleccionarCuenta() {
+
+    this.deitresService.getToken();
+    let cuenta;
+    const cuentas = this.authService.getCuentasPanel();
+
+    if (cuentas.length < 1) return cuenta;
+    if (cuentas.length === 1) return cuentas[0].account;
+
+    const buttons = [];
+    cuentas.forEach((item) => {
+      buttons.push({
+        text: item.descripcion,
+        role: item.account,
+        cssClass: 'actionSel',
+      });
+    });
+    buttons.push({ text: 'Cancelar', role: 'cancel', cssClass: 'cancel' });
+
+    const actionSheet = await actionSheetController.create({
+      mode: 'ios',
+      header: 'Seleccione una cuenta:',
+      buttons: buttons,
+    });
+    actionSheet.present();
+
+    const { role: account } = await actionSheet.onDidDismiss();
+    if (account !== 'cancel') {
+      cuenta = account;
+    }
+    return cuenta;
+  }
+
+  async abrirPanelDeitres() {
+    const account = await this.seleccionarCuenta();
+    if (account) {
+      this.router.navigate( [ 'deitres-panel', account, '01'] );
+      console.log('llama');
+    }
+  }
+
+  async presentToastSinCuenta() {
+    const toast = await this.toastController.create({
+      message: 'No tiene cuenta para realizar la acción.',
+      duration: 30000,
+      position: 'bottom',
+      color: 'danger',
+      buttons: [
+        {
+          text: 'Ok',
+          role: 'cancel',
+          cssClass: 'secondary',
+        },
+      ],
+    });
+    toast.present();
+  }
 }

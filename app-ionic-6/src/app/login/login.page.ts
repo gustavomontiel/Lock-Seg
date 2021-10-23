@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
 import { Device } from '@capacitor/device';
 import { SignInWithApple as SignInWithAppleNgx, AppleSignInResponse, AppleSignInErrorResponse, ASAuthorizationAppleIDRequest } from '@ionic-native/sign-in-with-apple/ngx';
+import { Router } from '@angular/router';
 
 // var SignInWithApple: any;
 
@@ -22,6 +23,7 @@ export class LoginPage implements OnInit {
   constructor(
     private authService: AuthService,
     private storageService: StorageService,
+    private router: Router,
     private signInWithApple: SignInWithAppleNgx
   ) { }
 
@@ -35,6 +37,9 @@ export class LoginPage implements OnInit {
 
   ionViewWillEnter() {
     this.obtenerEmail();
+    if (this.authService.isAuthenticated()){
+      this.router.navigate(["home"]);
+    }
   }
 
   private crearForm() {

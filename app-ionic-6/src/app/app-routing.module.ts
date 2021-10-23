@@ -29,8 +29,17 @@ const routes: Routes = [
   { path: 'promociones', component: PromocionesPage },
   { path: 'login', component: LoginPage },
   { path: 'cambiar-password', component: CambiarPassPage, canActivate: [AuthGuard] },
+  {
+    path: 'deitres-panel',
+    loadChildren: () => import('./deitres-panel/deitres-panel.module').then( m => m.DeitresPanelPageModule)
+  },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', component: AppComponent },
+  { path: '**', component: AppComponent },  {
+    path: 'deitres-zonas-panel',
+    loadChildren: () => import('./deitres-zonas-panel/deitres-zonas-panel.module').then( m => m.DeitresZonasPanelPageModule)
+  },
+
+
 ];
 
 @NgModule({

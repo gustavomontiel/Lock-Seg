@@ -31,6 +31,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { SignInWithApple } from '@ionic-native/sign-in-with-apple/ngx';
 import { AuthGuard } from './services/auth-guard.service';
+import { LoadingInterceptor } from './services/loading.interceptor';
+import { ErrorInterceptor } from './services/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,7 @@ import { AuthGuard } from './services/auth-guard.service';
     LoginPage,
     ChatPage,
     DebitoPage,
-    CambiarPassPage,
+    CambiarPassPage
   ],
   entryComponents: [],
   imports: [
@@ -68,6 +70,8 @@ import { AuthGuard } from './services/auth-guard.service';
     SignInWithApple,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     AuthGuard
   ],
   bootstrap: [AppComponent]

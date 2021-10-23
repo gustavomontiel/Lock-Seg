@@ -217,3 +217,12 @@ ion-item > ion-img {
     padding-top: 10px;
     text-align: center;
 }
+
+
+.action-sheet-button.actionSel {
+    color: var(--ion-color-secondary-tint)
+}
+
+.action-sheet-button.cancel {
+    color: var(--ion-color-warning-shade);
+}

@@ -15,31 +15,25 @@ export class UrlsService {
     private http: HttpClient,
     public loadingController: LoadingController
   ) {
+    this.getParametros();  
+  }
+
+  getParametros() {
     if (this.parametros.length === 0) {
-      this.presentLoading().then(() => {
-        const url = environment.APIEndpoint + "parametros";
+      const url = environment.APIEndpoint + "parametros";
 
-        this.http.get(url).subscribe(
-          (respuesta: any) => {
-            this.loadingController.dismiss();
-            this.parametros = respuesta.data;
-          },
-          (error: any) => {
-            this.loadingController.dismiss();
-            error = error;
-          }
-        );
-      });
-    }
+      this.http.get(url).subscribe(
+        (respuesta: any) => {
+          this.loadingController.dismiss();
+          this.parametros = respuesta.data;
+        },
+        (error: any) => {
+          this.loadingController.dismiss();
+          error = error;
+        }
+      );
   }
-
-  async presentLoading() {
-    this.loading = await this.loadingController.create({
-      message: "Cargando ...",
-    });
-    await this.loading.present();
   }
-
   getUrl(descripcion: string) {
     const url =
       environment.APIEndpoint + "parametros/descripcion/" + descripcion;

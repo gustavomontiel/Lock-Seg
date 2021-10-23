@@ -135,4 +135,12 @@ export class AuthService {
       })
     );
   }
+
+  getCuentasPanel(){
+    // return [];
+    return [
+      { user_id: 59, account: '9995', descripcion: 'Casa' },
+      { user_id: 59, account: '9995', descripcion: 'Negocio' }
+    ]
+  }
 }
