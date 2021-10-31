@@ -18,8 +18,7 @@
             <div class="form-group col-md-6">
               <label for="email">E-mail</label>
               <input formControlName="email" name="email" type="email" class="form-control" placeholder="e-mail"
-                required
-                [class.is-invalid] = "formUsuario.get('email').invalid && formUsuario.get('email').touched">
+                required [class.is-invalid]="formUsuario.get('email').invalid && formUsuario.get('email').touched">
             </div>
             <div class="form-group col-md-6">
               <label for="telefono">Teléfono</label>
@@ -34,14 +33,15 @@
             </div>
             <div class="form-group col-md-6">
               <label for="codigo_gestion">Nro de abonado</label>
-              <input formControlName="codigo_gestion" name="codigo_gestion" [disabled]="cargando" type="text" class="form-control"
-                placeholder="Código de gestión" required>
+              <input formControlName="codigo_gestion" name="codigo_gestion" [disabled]="cargando" type="text"
+                class="form-control" placeholder="Código de gestión" required>
             </div>
           </div>
           <!-- /.card-body -->
           <div class="card-footer row justify-content-end">
-              <a routerLink="/usuarios" *ngIf="!cargando" type="button" class="btn btn-secondary mr-2">Cancelar</a>
-            <button *ngIf="!cargando" [disabled]="formUsuario.invalid" type="submit" class="btn btn-primary">Guardar</button>
+            <a routerLink="/usuarios" *ngIf="!cargando" type="button" class="btn btn-secondary mr-2">Cancelar</a>
+            <button *ngIf="!cargando" [disabled]="formUsuario.invalid" type="submit"
+              class="btn btn-primary">Guardar</button>
             <button *ngIf="cargando" [disabled]="true" class="btn btn-primary">
               <i class="fa fa-spin fa-sync"></i>
               Por favor espere...
@@ -68,14 +68,75 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer row justify-content-end">
-            <a routerLink="/usuarios" *ngIf="!cargando" type="button" class="btn btn-secondary mr-2">Cancelar</a>
-          <button *ngIf="!cargando" [disabled]="formPassword.invalid" type="submit" class="btn btn-primary">Actualizar contraseña</button>
+          <a routerLink="/usuarios" *ngIf="!cargando" type="button" class="btn btn-secondary mr-2">Cancelar</a>
+          <button *ngIf="!cargando" [disabled]="formPassword.invalid" type="submit" class="btn btn-primary">Actualizar
+            contraseña</button>
           <button *ngIf="cargando" [disabled]="true" class="btn btn-primary">
             <i class="fa fa-spin fa-sync"></i>
             Por favor espere...
           </button>
         </div>
       </form>
+    </div>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <i class="fas fa-th text-primary"></i>&nbsp;Paneles Deitres
+    </ng-template>
+    <div class="card card-primary mt-2 container">
+      <form role="form" ngNativeValidate [formGroup]="formDeitresAccount"
+        (ngSubmit)="grabarDeitresAccount()" method="post">
+        <div class="card-body form-row">
+          <div class="form-group col-md-2">
+            <input formControlName="account" name="account" type="string" class="form-control" placeholder="Nro cuenta"
+              required>
+          </div>
+          <div class="form-group col-md-6">
+            <input formControlName="descripcion" name="descripcion" type="string" class="form-control"
+              placeholder="Descripción" required>
+          </div>
+          <div class="form-group col-md-4">
+            <button *ngIf="!cargando" [disabled]="formDeitresAccount.pristine" type="button" class="btn btn-secondary mr-2" (click)="cancelarFormDeitresAccount()" >Cancelar</button>
+            <button *ngIf="!cargando" [disabled]="formDeitresAccount.invalid" type="submit"
+              class="btn btn-primary">Guardar
+              Panel</button>
+            <button *ngIf="cargando" [disabled]="true" class="btn btn-primary">
+              <i class="fa fa-spin fa-sync"></i>
+              Por favor espere...
+            </button>
+          </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer row justify-content-end">
+        </div>
+      </form>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="account">
+          <th mat-header-cell *matHeaderCellDef> Nro de cuenta </th>
+          <td mat-cell *matCellDef="let element"> {{element.account}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="descripcion">
+          <th mat-header-cell *matHeaderCellDef> Descripción </th>
+          <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="btn">
+              <button type="button" (click)="editarFormDeitresAccount(element)" class="btn btn-primary" placement="top" ngbTooltip="Editar" [disabled]="cargando">
+                <i class="fas fa-pencil-alt"></i>
+              </button>
+              <button type="button" class="btn btn-danger ml-1"  [disabled]="cargando" (click)="eliminarFormDeitresAccount(element)"
+                placement="top" ngbTooltip="Eliminar"><i class="fas fa-trash-alt">
+                </i></button>
+            </div>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
     </div>
   </mat-tab>
   <!--
