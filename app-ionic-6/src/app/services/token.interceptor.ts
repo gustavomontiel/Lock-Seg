@@ -27,8 +27,9 @@ export class TokenInterceptor implements HttpInterceptor {
         return from(this.storageService.get('USER_INFO'))
             .pipe(
                 switchMap(userInfo => {
+                    userInfo = typeof userInfo === 'string' ? JSON.parse(userInfo) : userInfo;
                     
-                    if (userInfo && userInfo.data && userInfo.data.token) {
+                    if (userInfo && userInfo.data && userInfo.data.token && !request.url.includes('deitres.com')) {
                         request = request.clone({
                             setHeaders: {
                                 Authorization: userInfo.data.token

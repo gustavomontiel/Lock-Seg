@@ -129,7 +129,7 @@ export class HomePage implements OnInit {
 
     this.deitresService.getToken();
     let cuenta;
-    const cuentas = this.authService.getCuentasPanel();
+    const cuentas = await this.authService.getCuentasPanel().toPromise();
 
     if (cuentas.length < 1) return cuenta;
     if (cuentas.length === 1) return cuentas[0].account;

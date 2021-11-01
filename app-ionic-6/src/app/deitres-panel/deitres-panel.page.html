@@ -32,21 +32,22 @@
         <ion-row *ngIf="panel">
           <ion-col class="ion-padding">
             <button>
-              <ion-icon color="success" *ngIf="panel.armed" name="shield-checkmark-outline" size="large"></ion-icon>
-              <ion-icon color="warning" *ngIf="!panel.armed" name="shield-half-outline" size="large"></ion-icon>
-              <div> Panel {{ panel.armed ? 'Armado' : 'No Armado'}}</div>
+              <ion-icon color="success" *ngIf="panel && panel.success && panel.armed" name="shield-checkmark-outline" size="large"></ion-icon>
+              <ion-icon color="warning" *ngIf="panel && panel.success && !panel.armed" name="shield-half-outline" size="large"></ion-icon>
+              <ion-icon name="close-outline" *ngIf="!panel || !panel.success" size="large"></ion-icon>
+              <div> Panel {{ panel ? (panel.armed ? 'Armado' : 'No Armado') : 'Sin conexión'}}</div>
             </button>
           </ion-col>
           <ion-col class="ion-padding">
             <button>
               <ion-icon name="checkbox-outline" size="large"></ion-icon>
-              <div>{{ this.panel.armedZones.length }} Zonas Armadas</div>
+              <div>{{ this.panel.armedZones ? this.panel.armedZones.length : '' }} Zonas Armadas</div>
             </button>
           </ion-col>
           <ion-col class="ion-padding">
             <button>
               <ion-icon name="close-circle-outline" size="large"></ion-icon>
-              <div>{{ this.panel.excludedZones.length }} Zonas Excluidas</div>
+              <div>{{ this.panel.excludedZones ? this.panel.excludedZones.length : '' }} Zonas Excluidas</div>
             </button>
           </ion-col>
           
@@ -77,7 +78,7 @@
         <ion-button expand="block" *ngIf="zona.enabled && !zona.excludable" (click)="incluirZona(zona.zoneID)" color="danger">Incluir</ion-button>
       </ion-item>
 
-      <ion-item>
+      <!-- <ion-item>
         <ion-avatar slot="start">
           <ion-icon name="grid-outline" size="large"></ion-icon>
         </ion-avatar>
@@ -99,7 +100,7 @@
           </ion-text>
         </ion-label>
         <ion-button expand="block" *ngIf="panel && panel.armed" (click)="desarmarPanel()" color="danger">Incluir</ion-button>
-      </ion-item>
+      </ion-item> -->
       
     </ion-list>
   </ion-card>

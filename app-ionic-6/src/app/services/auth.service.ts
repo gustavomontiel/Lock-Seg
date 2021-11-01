@@ -137,10 +137,18 @@ export class AuthService {
   }
 
   getCuentasPanel(){
-    // return [];
-    return [
-      { user_id: 59, account: '9995', descripcion: 'Casa' },
-      { user_id: 59, account: '9995', descripcion: 'Negocio' }
-    ]
+   
+    const url = environment.APIEndpoint + "cuentas/user/" + this.usuario.data.user.id;
+
+    return this.http.get(url).pipe(
+      map((resp: any) => {
+        console.log(resp);
+        return resp.data.cuentas;
+      }),
+      catchError((err) => {
+        console.log("error", err);
+        return throwError(err);
+      })
+    );
   }
 }
