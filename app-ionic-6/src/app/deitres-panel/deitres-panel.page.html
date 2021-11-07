@@ -11,8 +11,8 @@
         <ion-icon name="apps-outline" size="large"></ion-icon>
       </ion-avatar>
       <ion-label *ngIf="panel">
-        <ion-text color="{{ panel.triggered ? 'danger' : ''}}">
-          <h3>Panel: XXX XXX {{ panel.triggered ? 'DISPARADA!' : ''}}</h3>
+        <ion-text color="{{ panel.success ? (panel.triggered ? 'danger' : '') : 'danger'}}">
+          <h3>Panel: {{ deitresService.panelSeleccionado.descripcion }} {{ panel.success ? (panel.triggered ? 'DISPARADA!' : '') : '(NO ENCONTRADO)'}}</h3>
           <p>{{ panel.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p>
         </ion-text>
       </ion-label>
@@ -34,7 +34,7 @@
             <button>
               <ion-icon color="success" *ngIf="panel && panel.success && panel.armed" name="shield-checkmark-outline" size="large"></ion-icon>
               <ion-icon color="warning" *ngIf="panel && panel.success && !panel.armed" name="shield-half-outline" size="large"></ion-icon>
-              <ion-icon name="close-outline" *ngIf="!panel || !panel.success" size="large"></ion-icon>
+              <ion-icon color="danger" name="close-outline" *ngIf="!panel || !panel.success" size="large"></ion-icon>
               <div> Panel {{ panel ? (panel.armed ? 'Armado' : 'No Armado') : 'Sin conexión'}}</div>
             </button>
           </ion-col>
@@ -56,11 +56,11 @@
     </ion-card-content>
 
     <ion-footer>
-      <ion-button expand="block" *ngIf="panel && panel.armed" (click)="desarmarPanel()">Desarmar Panel</ion-button>
-      <ion-button expand="block" *ngIf="panel && !panel.armed" (click)="armarPanel()">Armar Panel</ion-button>
+      <ion-button expand="block" [disabled]="!panel.success" *ngIf="panel && panel.armed" (click)="desarmarPanel()">Desarmar Panel</ion-button>
+      <ion-button expand="block" [disabled]="!panel.success" *ngIf="panel && !panel.armed" (click)="armarPanel()">Armar Panel</ion-button>
     </ion-footer>
     
-    <ion-list>
+    <ion-list *ngIf="panel">
       <ion-list-header>
         Zonas:
       </ion-list-header>
@@ -71,11 +71,11 @@
         </ion-avatar>
         <ion-label>
           <ion-text>
-            <h3>{{ zona.name }}</h3>
+            <h3>{{ zona.zoneID }} - {{ zona.name }}</h3>
           </ion-text>
         </ion-label>
-        <ion-button expand="block" *ngIf="zona.enabled && zona.excludable" (click)="excluirZona(zona.zoneID)" color="success">Excluir</ion-button>
-        <ion-button expand="block" *ngIf="zona.enabled && !zona.excludable" (click)="incluirZona(zona.zoneID)" color="danger">Incluir</ion-button>
+        <ion-button expand="block" [disabled]="!panel.success || !zona.enabled" *ngIf="zona.excludable && !zona.excluded" (click)="excluirZona(zona.zoneID)" color="success">Excluir</ion-button>
+        <ion-button expand="block" [disabled]="!panel.success || !zona.enabled" *ngIf="zona.excludable && zona.excluded" (click)="incluirZona(zona.zoneID)" color="danger">Incluir</ion-button>
       </ion-item>
 
       <!-- <ion-item>

@@ -21,7 +21,7 @@ export class BotonPanicoComponent implements OnInit, OnDestroy {
   tituloAnt: string;
 
   dataSource: any;
-  displayedColumns: string[] = ['created_at', 'user.codigo_gestion', 'user.nombre', 'titulo', 'notificado_el'];
+  displayedColumns: string[] = ['created_at', 'user.codigo_gestion', 'user.nombre', 'descripcion', 'notificado_el'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 

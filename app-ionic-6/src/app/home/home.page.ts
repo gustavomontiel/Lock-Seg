@@ -46,16 +46,17 @@ export class HomePage implements OnInit {
     this.authService.logout();
   }
 
-  insertarContacto() {
+  insertarContacto(account) {
     this.storageService.get('USER_INFO').then((response) => {
+
       if (response) {
         const user_info =
           typeof response === 'string' ? JSON.parse(response) : response;
-
+        const msg = 'Llamada urgente' + (account ? ' a ' + account : '' );
         const body = {
           tipo: 'panico',
           titulo: 'Botón de Panico',
-          descripcion: 'Llamada urgente',
+          descripcion: msg,
           user_id: user_info.data.user.id,
         };
         this.contactoService.insertarContacto(body).subscribe((contacto) => {
@@ -83,9 +84,12 @@ export class HomePage implements OnInit {
   }
 
   async presentAlertConfirm() {
+    const account = await this.seleccionarCuenta();
+    const nombreCuenta = this.deitresService.panelSeleccionado ? this.deitresService.panelSeleccionado.descripcion + ' (' + this.deitresService.panelSeleccionado.account + ')' : '';
+    const msg = 'Está a punto de confimar el envío de una moto' + ( nombreCuenta ? ' a ' + nombreCuenta : '' );
     const alert = await this.alertController.create({
       header: 'Botón de pánico',
-      message: 'Está a punto de confimar el envío de una moto a su domicilio',
+      message: msg,
       cssClass: 'alertConfirmacion',
       buttons: [
         {
@@ -98,7 +102,7 @@ export class HomePage implements OnInit {
           text: 'Ok',
           cssClass: 'secondary',
           handler: () => {
-            this.insertarContacto();
+            this.insertarContacto(nombreCuenta);
           },
         },
       ],
@@ -126,13 +130,17 @@ export class HomePage implements OnInit {
   }
 
   async seleccionarCuenta() {
-
+    
+    this.deitresService.panelSeleccionado = {};
     this.deitresService.getToken();
     let cuenta;
-    const cuentas = await this.authService.getCuentasPanel().toPromise();
+    const cuentas: any[] = await this.authService.getCuentasPanel().toPromise();
 
-    if (cuentas.length < 1) return cuenta;
-    if (cuentas.length === 1) return cuentas[0].account;
+    if (cuentas.length < 1 || !cuentas) return cuenta;
+    if (cuentas.length === 1) {
+      this.deitresService.panelSeleccionado = cuentas.find(item => item.account == account);
+      return cuentas[0].account;
+    }
 
     const buttons = [];
     cuentas.forEach((item) => {
@@ -154,6 +162,9 @@ export class HomePage implements OnInit {
     const { role: account } = await actionSheet.onDidDismiss();
     if (account !== 'cancel') {
       cuenta = account;
+      this.deitresService.panelSeleccionado = cuentas.find(item => item.account == account);
+      console.log(this.deitresService.panelSeleccionado);
+      
     }
     return cuenta;
   }
@@ -161,6 +172,7 @@ export class HomePage implements OnInit {
   async abrirPanelDeitres() {
     const account = await this.seleccionarCuenta();
     if (account) {
+      
       this.router.navigate( [ 'deitres-panel', account, '01'] );
       console.log('llama');
     }

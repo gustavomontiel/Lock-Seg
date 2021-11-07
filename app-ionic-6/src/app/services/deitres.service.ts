@@ -15,6 +15,7 @@ export class DeitresService {
   lastTime: number;
   clientId: string; // = 'CM6F6HjmsorOzSEp9EYp6VkWBFbCvplq'; // buena: CM6F6HjmsorOzSEp9EYp6VkWBFbCvplq
   clientSecret: string; // = 'j0oyKuqK6csJ8pxnlzus62st2vpVPZYhzRbnjT7BxAZdnEJp6vWETvsa3jHpzoBy';
+  public panelSeleccionado: any;
 
   constructor(
     private http: HttpClient, 
@@ -72,7 +73,7 @@ export class DeitresService {
   getHttpHeader() {
     return new HttpHeaders({
       Authorization: `Bearer ${this.deitresAccessToken}`,
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*'
     });
   }
 
@@ -112,8 +113,14 @@ export class DeitresService {
       const headers = this.getHttpHeader();
       return this.http.post(url, body, { headers: headers }).pipe(
         tap((data: any) => {
+          console.log('armarPanel', data);
+          
           if (!data.success) {
             this.toastService.presentToast(data.reason, 'danger')
+          } else {
+            const color = data.armed ? 'success' : 'danger';
+            const msg = data.message + (data.openZones[0] ? ': ' + data.openZones.join() : '');
+            this.toastService.presentToast(msg, color )
           }
         }),
         catchError((err) => {
@@ -227,7 +234,18 @@ export class DeitresService {
 
       const url = `https://api.citymesh.deitres.com/int/devices/exclude?account=${account}&zoneID=${zoneID}`;
       const headers = this.getHttpHeader();
-      return this.http.post(url, body, { headers: headers });
+      return this.http.post(url, body, { headers: headers }).pipe(
+        tap((data: any) => {
+          if (!data.success) {
+            this.toastService.presentToast(data.reason, 'danger')
+          }
+        }),
+        catchError((err) => {
+          const msg = err.error_description || 'Error, no se puedo realizar la acción';
+          this.toastService.presentToast(msg, 'danger')
+          return throwError(err);
+        })
+      );
 
     } else {
       return throwError('Error');

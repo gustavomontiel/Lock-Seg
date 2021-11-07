@@ -12,16 +12,17 @@ export class LoadingInterceptor implements HttpInterceptor {
   constructor(
     private loadingService: LoadingService
   ) {}    
+  
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
    
     this.loadingService.present();
+    console.log('LoadingInterceptor present');
     return next.handle(request).pipe(
        finalize(() => {
          console.log('LoadingInterceptor finalize');
-         
          this.loadingService.dismiss();
       }) 
     );

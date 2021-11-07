@@ -15,28 +15,29 @@ export class DeitresPanelPage implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private deitresService: DeitresService
+    public deitresService: DeitresService
   ) {
     console.log('DeitresPanelPage');
     activatedRoute.params.subscribe((params) => {
       this.account = params.account;
       this.userCode = params.userCode;
-      this.getPanelStatus();
-      this.getZonas();
+      this.getPanelStatus();      
     });
   }
 
   ngOnInit() {}
 
   getPanelStatus() {
+    console.log('getPanelStatus', this.deitresService.panelSeleccionado);
+    
     if (this.account) {
-      console.log('llama');
       this.deitresService
         .consultaPanel(this.account, this.userCode)
         .then((res) => {
           res.subscribe((res2) => {
+            console.log('this.panel getPanelStatus', res2);
             this.panel = res2;
-            console.log('this.panel', this.panel);
+            this.getZonas();
           });
         });
     }
@@ -48,8 +49,10 @@ export class DeitresPanelPage implements OnInit {
         .armarPanel(this.account, this.userCode)
         .then((res) => {
           res.subscribe((res2) => {
-            this.panel = res2;
-            console.log('this.panel', this.panel);
+            console.log('this.panel armarPanel', res2);
+            if (res2.armed) {
+              this.getPanelStatus();
+            }
           });
         });
     }
@@ -61,8 +64,10 @@ export class DeitresPanelPage implements OnInit {
         .desarmarPanel(this.account, this.userCode)
         .then((res) => {
           res.subscribe((res2) => {
-            this.panel = res2;
-            console.log('this.panel', this.panel);
+            console.log('this.panel desarmarPanel', res2);
+            if (!res2.armed) {
+              this.getPanelStatus();
+            }
           });
         });
     }
@@ -70,14 +75,14 @@ export class DeitresPanelPage implements OnInit {
 
   getZonas() {
     if (this.account) {
-      console.log('llama getZonas');
       this.deitresService.consultaZonas(this.account)
       .then((res) => {
         res.subscribe(
           (res) => {
             if (res.success) {
+              console.log('getZonas', res);
               this.zonas = res.zones;
-              console.log('this.zonas', this.zonas);
+              this.setearIncluidos();
             } else {
               console.log('error al buscar zonas');
             }
@@ -90,17 +95,35 @@ export class DeitresPanelPage implements OnInit {
     }
   }
 
+  setearIncluidos() {
+    this.panel.excludedZones && this.panel.excludedZones.forEach( zoneID => {
+      console.log(zoneID);
+      
+      const zona = this.zonas.find(x => x.zoneID === zoneID)
+      zona && (zona.excluded = true);
+    });
+    console.log('setearIncluidos', this.zonas);
+  }
+
   incluirZona(zoneID: string) {
     this.deitresService.incluirZona(this.account, zoneID).then((res) => {
       res.subscribe((res2) => {
         console.log('incluirZona', res2);
+        if (!res2.excluded) {
+          this.getPanelStatus();
+        }
       });
     });
   }
+
   excluirZona(zoneID: string) {
     this.deitresService.excluirZona(this.account, zoneID).then((res) => {
       res.subscribe((res2) => {
         console.log('excluirZona', res2);
+        if (res2.excluded) {
+          this.getPanelStatus();
+        }
+
       });
     });
   }
