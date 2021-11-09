@@ -85,30 +85,33 @@ export class HomePage implements OnInit {
 
   async presentAlertConfirm() {
     const account = await this.seleccionarCuenta();
-    const nombreCuenta = this.deitresService.panelSeleccionado ? this.deitresService.panelSeleccionado.descripcion + ' (' + this.deitresService.panelSeleccionado.account + ')' : '';
-    const msg = 'Está a punto de confimar el envío de una moto' + ( nombreCuenta ? ' a ' + nombreCuenta : '' );
-    const alert = await this.alertController.create({
-      header: 'Botón de pánico',
-      message: msg,
-      cssClass: 'alertConfirmacion',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {},
-        },
-        {
-          text: 'Ok',
-          cssClass: 'secondary',
-          handler: () => {
-            this.insertarContacto(nombreCuenta);
-          },
-        },
-      ],
-    });
+    if (account) {
 
-    await alert.present();
+      const nombreCuenta = this.deitresService.panelSeleccionado ? this.deitresService.panelSeleccionado.descripcion + ' (' + this.deitresService.panelSeleccionado.account + ')' : '';
+      const msg = 'Está a punto de confimar el envío de una moto' + ( nombreCuenta ? ' a ' + nombreCuenta : '' );
+      const alert = await this.alertController.create({
+        header: 'Botón de pánico',
+        message: msg,
+        cssClass: 'alertConfirmacion',
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {},
+          },
+          {
+            text: 'Ok',
+            cssClass: 'secondary',
+            handler: () => {
+              this.insertarContacto(nombreCuenta);
+            },
+          },
+        ],
+      });
+      
+      await alert.present();
+    }
   }
 
   verAlarma() {
@@ -172,7 +175,6 @@ export class HomePage implements OnInit {
   async abrirPanelDeitres() {
     const account = await this.seleccionarCuenta();
     if (account) {
-      
       this.router.navigate( [ 'deitres-panel', account, '01'] );
       console.log('llama');
     }

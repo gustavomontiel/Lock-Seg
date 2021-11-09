@@ -118,9 +118,19 @@ export class DeitresService {
           if (!data.success) {
             this.toastService.presentToast(data.reason, 'danger')
           } else {
-            const color = data.armed ? 'success' : 'danger';
-            const msg = data.message + (data.openZones[0] ? ': ' + data.openZones.join() : '');
-            this.toastService.presentToast(msg, color )
+            let color = 'success';
+            let msg = data.message ? data.message : '';
+
+            if (data.armed) {
+              msg += data.message ? data.message : 'Panel armado';
+            } else {
+              color = 'danger';
+              msg += data.message ? data.message : 'No se pudo armar el manel';
+            }
+            
+            msg += (data.openZones && data.openZones[0]) ? ': ' + data.openZones.join() : '';
+            this.toastService.presentToast(msg, color );
+
           }
         }),
         catchError((err) => {
@@ -153,6 +163,8 @@ export class DeitresService {
         tap((data: any) => {
           if (!data.success) {
             this.toastService.presentToast(data.reason, 'danger')
+          } else {
+            this.toastService.presentToast('Panel desarmado correctamente', 'success')
           }
         }),
         catchError((err) => {
@@ -206,7 +218,10 @@ export class DeitresService {
       return this.http.post(url, body, { headers: headers }).pipe(
         tap((data: any) => {
           if (!data.success) {
-            this.toastService.presentToast(data.reason, 'danger')
+            const msg = data.reason || data.message || 'Error desconocido'
+            this.toastService.presentToast(msg, 'danger')
+          } else {
+            this.toastService.presentToast('Zona incluida', 'success')
           }
         }),
         catchError((err) => {
@@ -237,7 +252,10 @@ export class DeitresService {
       return this.http.post(url, body, { headers: headers }).pipe(
         tap((data: any) => {
           if (!data.success) {
-            this.toastService.presentToast(data.reason, 'danger')
+            const msg = data.reason || data.message || 'Error desconocido'
+            this.toastService.presentToast(msg, 'danger')
+          } else {
+            this.toastService.presentToast('Zona exncluida', 'success')
           }
         }),
         catchError((err) => {
