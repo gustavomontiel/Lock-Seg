@@ -33,6 +33,7 @@ import { SignInWithApple } from '@ionic-native/sign-in-with-apple/ngx';
 import { AuthGuard } from './services/auth-guard.service';
 import { LoadingInterceptor } from './services/loading.interceptor';
 import { ErrorInterceptor } from './services/error.interceptor';
+import { HTTP } from '@ionic-native/http/ngx';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { ErrorInterceptor } from './services/error.interceptor';
     InAppBrowser,
     StatusBar,
     SplashScreen,
+    HTTP,
     // NativeStorage,
     SignInWithApple,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

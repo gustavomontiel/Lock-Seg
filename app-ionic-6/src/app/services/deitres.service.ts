@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UrlsService } from './urls.service';
 import { map } from 'rxjs/internal/operators/map';
-import { throwError } from 'rxjs';
+import { from, of, throwError } from 'rxjs';
 import { ToastService } from './toast.service';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { tap } from 'rxjs/operators';
+import { HTTP } from '@ionic-native/http/ngx';
+import { LoadingService } from './loading.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,11 +20,14 @@ export class DeitresService {
   public panelSeleccionado: any;
 
   constructor(
-    private http: HttpClient, 
+    private httpClient: HttpClient,
+    private http: HTTP,
     private urlsService: UrlsService,
-    private toastService: ToastService
-    ) {
+    private toastService: ToastService,
+    private loadingService: LoadingService
+  ) {
     console.log('DeitresService constructor');
+    this.http.setRequestTimeout(90);
   }
 
   isTimeToLogin(): boolean {
@@ -44,8 +49,28 @@ export class DeitresService {
     return params.toString();
   }
 
-  async getToken() {
+  getHttpHeader() {
+    return {
+      Authorization: `Bearer ${this.deitresAccessToken}`,
+    };
+  }
 
+  getBodyPanelParams(account, userCode) {
+    return {
+      account: account,
+      userCode: userCode,
+      type: 'total',
+    };
+  }
+
+  getBodyZonaParams(account, zoneID) {
+    return {
+      account: account,
+      zoneID: zoneID,
+    };
+  }
+
+  async getToken() {
     if (this.isTimeToLogin()) {
       this.deitresAccessToken = '';
 
@@ -55,45 +80,52 @@ export class DeitresService {
       });
 
       const url = ' https://auth.deitres.com/oauth/token';
-
-      await this.http.post(url, params, { headers: headers }).pipe(
-        map((data: any) => {
-          this.deitresAccessToken = data.access_token!;
-        }),
-        catchError((err) => {
-          const msg = err.error_description || 'Error, no se puedo realizar la acción';
-          this.toastService.presentToast(msg, 'danger')
-          return throwError(err);
-        })
-      ).toPromise();
       
-    } 
-  }
-
-  getHttpHeader() {
-    return new HttpHeaders({
-      Authorization: `Bearer ${this.deitresAccessToken}`,
-      'Access-Control-Allow-Origin': '*'
-    });
+      await this.httpClient
+        .post(url, params, { headers: headers })
+        .pipe(
+          map((data: any) => {
+            this.deitresAccessToken = data.access_token!;
+          }),
+          catchError((err) => {
+            const msg =
+              err.error_description || 'Error, no se puedo realizar la acción';
+            this.toastService.presentToast(msg, 'danger');
+            return throwError(err);
+          })
+        )
+        .toPromise();
+    }
   }
 
   async consultaPanel(account: string, userCode: string) {
     const i = await this.getToken();
 
     if (this.deitresAccessToken) {
+      
       const url = `https://api.citymesh.deitres.com/int/partition?account=${account}&userCode=${userCode}`;
       const headers = this.getHttpHeader();
-      return this.http.get(url, { headers: headers }).pipe(
-        tap((data: any) => {
-          if (!data.success) {
-            this.toastService.presentToast(data.reason, 'danger')
-          }
-        }),
-        catchError((err) => {
-          const msg = err.error_description || 'Error, no se puedo realizar la acción';
-          this.toastService.presentToast(msg, 'danger')
-          return throwError(err);
-        })
+      this.loadingService.present();
+      return from(
+        this.http
+          .get(url, {}, headers)
+          .then((data: any) => {
+            data = JSON.parse(data.data);
+            if (!data.success) {
+              this.toastService.presentToast(data.reason, 'danger');
+            }
+            return data;
+          })
+          .catch((err) => {
+            console.log('consultaPanel err', err);
+            const msg =
+              err.error_description || 'Error, no se puedo realizar la acción';
+            this.toastService.presentToast(msg, 'danger');
+            return err;
+          })
+          .finally(() => {
+            this.loadingService.dismiss();
+          })
       );
     }
   }
@@ -102,172 +134,198 @@ export class DeitresService {
     const i = await this.getToken();
 
     if (this.deitresAccessToken) {
-
-      const body = {
-        "account": account,
-        "userCode": userCode,
-        "type": "total"
-       }
-       
+      const body = this.getBodyPanelParams(account, userCode);
       const url = `https://api.citymesh.deitres.com/int/partition/arm?account=${account}&userCode=${userCode}&type=total`;
       const headers = this.getHttpHeader();
-      return this.http.post(url, body, { headers: headers }).pipe(
-        tap((data: any) => {
-          console.log('armarPanel', data);
-          
-          if (!data.success) {
-            this.toastService.presentToast(data.reason, 'danger')
-          } else {
-            let color = 'success';
-            let msg = data.message ? data.message : '';
 
-            if (data.armed) {
-              msg += data.message ? data.message : 'Panel armado';
+      this.loadingService.present();
+      return from(
+        this.http
+          .post(url, body, headers)
+          .then((data: any) => {
+            data = JSON.parse(data.data);
+            if (!data.success) {
+              this.toastService.presentToast(data.reason, 'danger');
             } else {
-              color = 'danger';
-              msg += data.message ? data.message : 'No se pudo armar el manel';
+              let color = 'success';
+              let msg = data.message ? data.message : '';
+
+              if (data.armed) {
+                msg += data.message ? data.message : 'Panel armado';
+              } else {
+                color = 'danger';
+                msg += data.message
+                  ? data.message
+                  : 'No se pudo armar el manel';
+              }
+
+              msg +=
+                data.openZones && data.openZones[0]
+                  ? ': ' + data.openZones.join()
+                  : '';
+              this.toastService.presentToast(msg, color);
             }
-            
-            msg += (data.openZones && data.openZones[0]) ? ': ' + data.openZones.join() : '';
-            this.toastService.presentToast(msg, color );
-
-          }
-        }),
-        catchError((err) => {
-          const msg = err.error_description || 'Error, no se puedo realizar la acción';
-          this.toastService.presentToast(msg, 'danger')
-          return throwError(err);
-        })
+            return data;
+          })
+          .catch((err) => {
+            const msg =
+              err.error_description || 'Error, no se puedo realizar la acción';
+            this.toastService.presentToast(msg, 'danger');
+            return err;
+          })
+          .finally(() => {
+            this.loadingService.dismiss();
+          })
       );
-
     } else {
       return throwError('Error');
     }
   }
-
 
   async desarmarPanel(account: string, userCode: string) {
     const i = await this.getToken();
 
     if (this.deitresAccessToken) {
-
-      const body = {
-        "account": account,
-        "userCode": userCode,
-        "type": "total"
-       }
-       
+      const body = this.getBodyPanelParams(account, userCode);
       const url = `https://api.citymesh.deitres.com/int/partition/disarm?account=${account}&userCode=${userCode}`;
       const headers = this.getHttpHeader();
-      return this.http.post(url, body, { headers: headers }).pipe(
-        tap((data: any) => {
-          if (!data.success) {
-            this.toastService.presentToast(data.reason, 'danger')
-          } else {
-            this.toastService.presentToast('Panel desarmado correctamente', 'success')
-          }
-        }),
-        catchError((err) => {
-          const msg = err.error_description || 'Error, no se puedo realizar la acción';
-          this.toastService.presentToast(msg, 'danger')
-          return throwError(err);
-        })
+
+      this.loadingService.present();
+      return from(
+        this.http
+          .post(url, body, headers)
+          .then((data: any) => {
+            data = JSON.parse(data.data);
+            if (!data.success) {
+              this.toastService.presentToast(data.reason, 'danger');
+            } else {
+              this.toastService.presentToast(
+                'Panel desarmado correctamente',
+                'success'
+              );
+            }
+            return data;
+          })
+          .catch((err) => {
+            const msg =
+              err.error_description || 'Error, no se puedo realizar la acción';
+            this.toastService.presentToast(msg, 'danger');
+            return err;
+          })
+          .finally(() => {
+            this.loadingService.dismiss();
+          })
       );
-      
     } else {
       return throwError('Error');
     }
   }
-
 
   async consultaZonas(account: string) {
     const i = await this.getToken();
     if (this.deitresAccessToken) {
       const url = `https://api.citymesh.deitres.com/int/devices?account=${account}`;
       const headers = this.getHttpHeader();
-      return this.http.get(url, { headers: headers }).pipe(
-        tap((data: any) => {
-          if (!data.success) {
-            this.toastService.presentToast(data.reason, 'danger')
-          }
-        }),
-        catchError((err) => {
-          const msg = err.error_description || 'Error, no se puedo realizar la acción';
-          this.toastService.presentToast(msg, 'danger')
-          return throwError(msg);
-        })
+
+      this.loadingService.present();
+      return from(
+        this.http
+          .get(url, {}, headers)
+          .then((data: any) => {
+            data = JSON.parse(data.data);
+            if (!data.success) {
+              this.toastService.presentToast(data.reason, 'danger');
+            }
+            return data;
+          })
+          .catch((err) => {
+            const msg =
+              err.error_description || 'Error, no se puedo realizar la acción';
+            this.toastService.presentToast(msg, 'danger');
+            return err;
+          })
+          .finally(() => {
+            this.loadingService.dismiss();
+          })
       );
     } else {
       return throwError('Error');
     }
   }
-
 
   async incluirZona(account: string, zoneID: string) {
     const i = await this.getToken();
 
     if (this.deitresAccessToken) {
-
-      const body = {
-        "account": account,
-        "zoneID": zoneID
-      }
+      const body = this.getBodyZonaParams(account, zoneID);
 
       const url = `https://api.citymesh.deitres.com/int/devices/include?account=${account}&zoneID=${zoneID}`;
       const headers = this.getHttpHeader();
-      return this.http.post(url, body, { headers: headers }).pipe(
-        tap((data: any) => {
-          if (!data.success) {
-            const msg = data.reason || data.message || 'Error desconocido'
-            this.toastService.presentToast(msg, 'danger')
-          } else {
-            this.toastService.presentToast('Zona incluida', 'success')
-          }
-        }),
-        catchError((err) => {
-          const msg = err.error_description || 'Error, no se puedo realizar la acción';
-          this.toastService.presentToast(msg, 'danger')
-          return throwError(err);
-        })
-      );
 
+      this.loadingService.present();
+      return from(
+        this.http
+          .post(url, body, headers)
+          .then((data: any) => {
+            data = JSON.parse(data.data);
+            if (!data.success) {
+              const msg = data.reason || data.message || 'Error desconocido';
+              this.toastService.presentToast(msg, 'danger');
+            } else {
+              this.toastService.presentToast('Zona incluida', 'success');
+            }
+            return data;
+          })
+          .catch((err) => {
+            const msg =
+              err.error_description || 'Error, no se puedo realizar la acción';
+            this.toastService.presentToast(msg, 'danger');
+            return err;
+          })
+          .finally(() => {
+            this.loadingService.dismiss();
+          })
+      );
     } else {
       return throwError('Error');
     }
   }
-
 
   async excluirZona(account: string, zoneID: string) {
     const i = await this.getToken();
 
     if (this.deitresAccessToken) {
-
-      const body = {
-        "account": account,
-        "zoneID": zoneID
-      }
+      const body = this.getBodyZonaParams(account, zoneID);
 
       const url = `https://api.citymesh.deitres.com/int/devices/exclude?account=${account}&zoneID=${zoneID}`;
       const headers = this.getHttpHeader();
-      return this.http.post(url, body, { headers: headers }).pipe(
-        tap((data: any) => {
-          if (!data.success) {
-            const msg = data.reason || data.message || 'Error desconocido'
-            this.toastService.presentToast(msg, 'danger')
-          } else {
-            this.toastService.presentToast('Zona exncluida', 'success')
-          }
-        }),
-        catchError((err) => {
-          const msg = err.error_description || 'Error, no se puedo realizar la acción';
-          this.toastService.presentToast(msg, 'danger')
-          return throwError(err);
-        })
-      );
 
+      this.loadingService.present();
+      return from(
+        this.http
+          .post(url, body, headers)
+          .then((data: any) => {
+            data = JSON.parse(data.data);
+            if (!data.success) {
+              const msg = data.reason || data.message || 'Error desconocido';
+              this.toastService.presentToast(msg, 'danger');
+            } else {
+              this.toastService.presentToast('Zona exncluida', 'success');
+            }
+            return data;
+          })
+          .catch((err) => {
+            const msg =
+              err.error_description || 'Error, no se puedo realizar la acción';
+            this.toastService.presentToast(msg, 'danger');
+            return err;
+          })
+          .finally(() => {
+            this.loadingService.dismiss();
+          })
+      );
     } else {
       return throwError('Error');
     }
   }
-
 }

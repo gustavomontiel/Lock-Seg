@@ -30,7 +30,7 @@
     <ion-card-content>
       <ion-item>
         <ion-row *ngIf="panel">
-          <ion-col class="ion-padding">
+          <ion-col class="">
             <button>
               <ion-icon color="success" *ngIf="panel && panel.success && panel.armed" name="shield-checkmark-outline" size="large"></ion-icon>
               <ion-icon color="warning" *ngIf="panel && panel.success && !panel.armed" name="shield-half-outline" size="large"></ion-icon>
@@ -38,13 +38,13 @@
               <div> Panel {{ panel ? (panel.armed ? 'Armado' : 'No Armado') : 'Sin conexión'}}</div>
             </button>
           </ion-col>
-          <ion-col class="ion-padding">
+          <ion-col class="">
             <button>
               <ion-icon name="checkbox-outline" size="large"></ion-icon>
               <div>{{ this.panel.armedZones ? this.panel.armedZones.length : '' }} Zonas Armadas</div>
             </button>
           </ion-col>
-          <ion-col class="ion-padding">
+          <ion-col class="">
             <button>
               <ion-icon name="close-circle-outline" size="large"></ion-icon>
               <div>{{ this.panel.excludedZones ? this.panel.excludedZones.length : '' }} Zonas Excluidas</div>
@@ -77,30 +77,6 @@
         <ion-button expand="block" [disabled]="!panel.success || !zona.enabled" *ngIf="zona.excludable && !zona.excluded" (click)="excluirZona(zona.zoneID)" color="success">Excluir</ion-button>
         <ion-button expand="block" [disabled]="!panel.success || !zona.enabled" *ngIf="zona.excludable && zona.excluded" (click)="incluirZona(zona.zoneID)" color="danger">Incluir</ion-button>
       </ion-item>
-
-      <!-- <ion-item>
-        <ion-avatar slot="start">
-          <ion-icon name="grid-outline" size="large"></ion-icon>
-        </ion-avatar>
-        <ion-label *ngIf="panel">
-          <ion-text>
-            <h3>Comedor</h3>
-          </ion-text>
-        </ion-label>
-        <ion-button expand="block" *ngIf="panel && panel.armed" (click)="desarmarPanel()" color="success">Excluir</ion-button>
-      </ion-item>
-
-      <ion-item>
-        <ion-avatar slot="start">
-          <ion-icon name="grid-outline" size="large"></ion-icon>
-        </ion-avatar>
-        <ion-label *ngIf="panel">
-          <ion-text>
-            <h3>Garage</h3>
-          </ion-text>
-        </ion-label>
-        <ion-button expand="block" *ngIf="panel && panel.armed" (click)="desarmarPanel()" color="danger">Incluir</ion-button>
-      </ion-item> -->
       
     </ion-list>
   </ion-card>

@@ -220,9 +220,15 @@ ion-item > ion-img {
 
 
 .action-sheet-button.actionSel {
-    color: var(--ion-color-secondary-tint)
+    color: var(--ion-color-secondary-tint);
+    background: #000;
 }
 
 .action-sheet-button.cancel {
     color: var(--ion-color-warning-shade);
+    background: rgb(39, 39, 41) !important;
+}
+
+.action-sheet-title {
+    background: rgb(39, 39, 41) !important;   
 }
