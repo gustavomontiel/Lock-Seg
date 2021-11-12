@@ -254,6 +254,11 @@ ion-item > ion-img {
     background: rgb(39, 39, 41) !important;
 }
 
+.action-sheet-cancel.sc-ion-action-sheet-ios::after {
+    background:  rgb(39, 39, 41) !important;
+    opacity: var(--button-background-selected-opacity);
+}
+
 .action-sheet-title {
     background: rgb(39, 39, 41) !important;   
 }
