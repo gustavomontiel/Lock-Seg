@@ -124,10 +124,35 @@ ion-item ion-label.lock-label{
     -webkit-box-shadow: 0px 4px 8px 0px #009fdb;
     -moz-box-shadow: 0px 4px 8px 0px #009fdb;
 }
+
 ion-input{
     --color: #ffffff !important;
     border-bottom: white solid 1px;
+    --background: rgb(39, 39, 41) !important;
 }
+
+
+ion-input input:-webkit-autofill,
+ion-input input:-webkit-autofill:hover, 
+ion-input input:-webkit-autofill:focus, 
+ion-input input:-webkit-autofill:active  {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: white !important;
+    height: 0px;
+    
+}
+
+
+#ion-input-0-lbl{
+    margin-bottom: 10px;
+}
+
+#ion-input-1-lbl{
+    margin-bottom: 10px;
+}
+
+
+
 
 ion-textarea{
     --color: #ffffff !important;
