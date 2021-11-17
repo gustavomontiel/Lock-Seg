@@ -98,10 +98,17 @@ ion-list{
 
 ion-list-header{
     padding-left: 0px;
+    color: #ffffff !important;
 }
+
+.list-header-inner{
+    color: #ffffff;
+}
+
 
 ion-item{
     --background: rgb(39, 39, 41) !important;
+    color: white !important;
 }
 
 /*hover color item*/
@@ -188,15 +195,32 @@ iframe {
 
 ion-card{
     margin-bottom: 50px !important;
+    background-color: #1c1c1c !important;
+}
+
+ion-card-content{
+    background-color: #1c1c1c;
+}
+
+.card-content-md{
+    background-color: #1c1c1c;
 }
 
 ion-item > ion-img {
     width:17%;
  }
 
- .alertConfirmacion {
+#principal > app-deitres-panel > ion-content > ion-card > ion-list > ion-item > ion-avatar > ion-icon{
+    color: #ffffff;
+}
+
+#principal > app-deitres-panel > ion-content > ion-card > ion-item{
+    background-color: #1c1c1c;
+}
+
+.alertConfirmacion {
     --background: #000000 ;
- }
+}
 
  .alertConfirmacion .alert-message {
     color: #ffffff ;
@@ -261,4 +285,42 @@ ion-item > ion-img {
 
 .action-sheet-title {
     background: rgb(39, 39, 41) !important;   
+}
+
+
+
+ion-col > button{
+    background: #53535B !important;   
+}
+
+ion-col > button > ion-icon{
+    color: #ffffff !important;
+}
+
+
+
+button.plabel{
+    color: #ffffff;
+}
+
+
+h3{
+    color: white !important;
+}
+
+
+.icon-inner{
+    color: white !important;
+}
+
+#principal > app-deitres-panel > ion-content > ion-card > ion-item > ion-avatar > ion-icon {
+    color: white !important;
+}
+
+#principal > app-deitres-panel > ion-content > ion-card > ion-item > ion-label > ion-text > p{
+    color: white !important;
+}
+
+#principal > app-deitres-panel > ion-content > ion-card > ion-card-content > ion-item > ion-row > ion-col > button > ion-icon > div.icon-inner{
+    color: white !important;
 }

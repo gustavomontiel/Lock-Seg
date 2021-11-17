@@ -30,24 +30,24 @@
     <ion-card-content>
       <ion-item>
         <ion-row *ngIf="panel">
-          <ion-col class="">
-            <button>
+          <ion-col class="col_panel">
+            <button class="bpanel">
               <ion-icon color="success" *ngIf="panel && panel.success && panel.armed" name="shield-checkmark-outline" size="large"></ion-icon>
               <ion-icon color="warning" *ngIf="panel && panel.success && !panel.armed" name="shield-half-outline" size="large"></ion-icon>
               <ion-icon color="danger" name="close-outline" *ngIf="!panel || !panel.success" size="large"></ion-icon>
-              <div> Panel {{ panel ? (panel.armed ? 'Armado' : 'No Armado') : 'Sin conexión'}}</div>
+              <div class="plabel"> Panel {{ panel ? (panel.armed ? 'Armado' : 'No Armado') : 'Sin conexión'}}</div>
             </button>
           </ion-col>
           <ion-col class="">
-            <button>
+            <button class="bpanel">
               <ion-icon name="checkbox-outline" size="large"></ion-icon>
-              <div>{{ this.panel.armedZones ? this.panel.armedZones.length : '' }} Zonas Armadas</div>
+              <div class="plabel">{{ this.panel.armedZones ? this.panel.armedZones.length : '' }} Zonas Armadas</div>
             </button>
           </ion-col>
           <ion-col class="">
-            <button>
+            <button class="bpanel">
               <ion-icon name="close-circle-outline" size="large"></ion-icon>
-              <div>{{ this.panel.excludedZones ? this.panel.excludedZones.length : '' }} Zonas Excluidas</div>
+              <div class="plabel">{{ this.panel.excludedZones ? this.panel.excludedZones.length : '' }} Zonas Excluidas</div>
             </button>
           </ion-col>
           
