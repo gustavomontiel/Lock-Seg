@@ -3,8 +3,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireAuthModule } from '@angular/fire/auth';
 
 // Angular Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -75,8 +73,6 @@ import { DebitoAutomaticoComponent } from './dashboard/contacto/debito-automatic
     ReactiveFormsModule,
     MaterialModule,
     BrowserAnimationsModule,
-    AngularFirestoreModule,
-    AngularFireAuthModule,
     StoreModule.forRoot( AppReducers ),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
