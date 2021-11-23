@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Guazú</string>
+    <string name="title_activity_main">Guazú</string>
+    <string name="package_name">com.guazu.app</string>
+    <string name="custom_url_scheme">com.guazu.app</string>
+</resources>

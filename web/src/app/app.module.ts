@@ -3,7 +3,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
@@ -76,7 +75,6 @@ import { DebitoAutomaticoComponent } from './dashboard/contacto/debito-automatic
     ReactiveFormsModule,
     MaterialModule,
     BrowserAnimationsModule,
-    AngularFireModule.initializeApp(environment.firebase, 'ingreso-egreso-app'),
     AngularFirestoreModule,
     AngularFireAuthModule,
     StoreModule.forRoot( AppReducers ),

@@ -1,0 +1,6 @@
+{
+	"appId": "com.guazu.app",
+	"appName": "Guazú",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
