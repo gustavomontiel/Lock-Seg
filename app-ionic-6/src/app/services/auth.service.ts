@@ -142,7 +142,9 @@ export class AuthService {
 
     return this.http.get(url).pipe(
       map((resp: any) => {
-        console.log(resp);
+        if (resp.error) {
+          return[];
+        }
         return resp.data.cuentas;
       }),
       catchError((err) => {

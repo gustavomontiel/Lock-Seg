@@ -138,8 +138,12 @@ export class HomePage implements OnInit {
     this.deitresService.getToken();
     let cuenta;
     const cuentas: any[] = await this.authService.getCuentasPanel().toPromise();
-
-    if (cuentas.length < 1 || !cuentas) return cuenta;
+    
+    if (cuentas.length < 1 || !cuentas) {
+      this.presentToastSinCuenta();
+      return cuenta;
+    }
+    
     if (cuentas.length === 1) {
       this.deitresService.panelSeleccionado = cuentas.find(item => item.account == account);
       return cuentas[0].account;
@@ -166,8 +170,6 @@ export class HomePage implements OnInit {
     if (account !== 'cancel') {
       cuenta = account;
       this.deitresService.panelSeleccionado = cuentas.find(item => item.account == account);
-      console.log(this.deitresService.panelSeleccionado);
-      
     }
     return cuenta;
   }
@@ -176,11 +178,11 @@ export class HomePage implements OnInit {
     const account = await this.seleccionarCuenta();
     if (account) {
       this.router.navigate( [ 'deitres-panel', account, '01'] );
-      console.log('llama');
     }
   }
 
   async presentToastSinCuenta() {
+
     const toast = await this.toastController.create({
       message: 'No tiene cuenta para realizar la acción.',
       duration: 30000,
@@ -194,6 +196,8 @@ export class HomePage implements OnInit {
         },
       ],
     });
+    
+    
     toast.present();
   }
 }
