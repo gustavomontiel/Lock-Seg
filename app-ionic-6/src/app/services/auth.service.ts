@@ -142,7 +142,7 @@ export class AuthService {
 
     return this.http.get(url).pipe(
       map((resp: any) => {
-        if (resp.error) {
+        if (resp.error==='true' || resp.error === true) {
           return[];
         }
         return resp.data.cuentas;

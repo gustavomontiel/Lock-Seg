@@ -33,8 +33,8 @@
             </div>
             <div class="form-group col-md-6">
               <label for="codigo_gestion">Nro de abonado</label>
-              <input formControlName="codigo_gestion" name="codigo_gestion" [disabled]="cargando" type="text"
-                class="form-control" placeholder="Código de gestión" required>
+              <input *ngIf="formUsuario.get('codigo_gestion').value.length > 0" formControlName="codigo_gestion" name="codigo_gestion" [disabled]="cargando" type="text"
+                class="form-control" placeholder="Código de gestión">
             </div>
           </div>
           <!-- /.card-body -->
@@ -81,22 +81,29 @@
   </mat-tab>
   <mat-tab>
     <ng-template mat-tab-label>
-      <i class="fas fa-th text-primary"></i>&nbsp;Paneles Deitres
+      <i class="fas fa-th text-primary"></i>&nbsp;Paneles (Cuentas)
     </ng-template>
     <div class="card card-primary mt-2 container">
-      <form role="form" ngNativeValidate [formGroup]="formDeitresAccount"
-        (ngSubmit)="grabarDeitresAccount()" method="post">
+      <form role="form" ngNativeValidate [formGroup]="formDeitresAccount" (ngSubmit)="grabarDeitresAccount()"
+        method="post">
         <div class="card-body form-row">
           <div class="form-group col-md-2">
             <input formControlName="account" name="account" type="string" class="form-control" placeholder="Nro cuenta"
               required>
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-4">
             <input formControlName="descripcion" name="descripcion" type="string" class="form-control"
               placeholder="Descripción" required>
           </div>
+          <div class="form-group col-md-2">
+            <select class="form-control" id="marca" formControlName="marca">
+              <option value="0">Marca</option>
+              <option value="1">Deitres</option>
+            </select>
+          </div>
           <div class="form-group col-md-4">
-            <button *ngIf="!cargando" [disabled]="formDeitresAccount.pristine" type="button" class="btn btn-secondary mr-2" (click)="cancelarFormDeitresAccount()" >Cancelar</button>
+            <button *ngIf="!cargando" [disabled]="formDeitresAccount.pristine" type="button"
+              class="btn btn-secondary mr-2" (click)="cancelarFormDeitresAccount()">Cancelar</button>
             <button *ngIf="!cargando" [disabled]="formDeitresAccount.invalid" type="submit"
               class="btn btn-primary">Guardar
               Panel</button>
@@ -125,11 +132,13 @@
           <th mat-header-cell *matHeaderCellDef> Acciones </th>
           <td mat-cell *matCellDef="let element">
             <div class="btn">
-              <button type="button" (click)="editarFormDeitresAccount(element)" class="btn btn-primary" placement="top" ngbTooltip="Editar" [disabled]="cargando">
+              <button type="button" (click)="editarFormDeitresAccount(element)" class="btn btn-primary" placement="top"
+                ngbTooltip="Editar" [disabled]="cargando">
                 <i class="fas fa-pencil-alt"></i>
               </button>
-              <button type="button" class="btn btn-danger ml-1"  [disabled]="cargando" (click)="eliminarFormDeitresAccount(element)"
-                placement="top" ngbTooltip="Eliminar"><i class="fas fa-trash-alt">
+              <button type="button" class="btn btn-danger ml-1" [disabled]="cargando"
+                (click)="eliminarFormDeitresAccount(element)" placement="top" ngbTooltip="Eliminar"><i
+                  class="fas fa-trash-alt">
                 </i></button>
             </div>
           </td>

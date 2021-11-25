@@ -51,7 +51,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
       email: new FormControl(null, [Validators.required, Validators.email]),
       telefono: new FormControl("", Validators.required),
       roleNames: new FormControl([], [Validators.required]),
-      codigo_gestion: new FormControl("", Validators.required),
+      codigo_gestion: new FormControl(""),
     });
 
     this.formPassword = new FormGroup({
@@ -61,7 +61,8 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
     this.formDeitresAccount = new FormGroup({
       id: new FormControl(null),
       account: new FormControl(null, Validators.required),
-      descripcion: new FormControl(null, Validators.required)
+      descripcion: new FormControl(null, Validators.required),
+      marca: new FormControl(0),
     });
 
     this.activatedRoute.params.subscribe((params) => {
@@ -210,7 +211,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
                 "success"
               ).then(
                 res => {
-                  this.setFormDeitresAccount(null, null, null);
+                  this.setFormDeitresAccount(null, null, null, 0);
                   this.getDeitresAccounts(this.usuario.id.toString());
                 }
               )
@@ -247,7 +248,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
                 "success"
               ).then(
                 res => {
-                  this.setFormDeitresAccount(null, null, null);
+                  this.setFormDeitresAccount(null, null, null, 0);
                   this.getDeitresAccounts(this.usuario.id.toString());
                 }
               )
@@ -281,16 +282,17 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
   }
 
   cancelarFormDeitresAccount() {
-    this.setFormDeitresAccount(null, null, null);
+    this.setFormDeitresAccount(null, null, null, 0);
     this.formDeitresAccount.markAsPristine();
   }
 
-  setFormDeitresAccount(id, account, descripcion) {
-    this.formDeitresAccount.setValue( { id: id, account: account, descripcion: descripcion } );
+  setFormDeitresAccount(id, account, descripcion, marca) {
+    marca = marca == '' || marca == null ? 0 : marca;
+    this.formDeitresAccount.setValue( { id: id, account: account, descripcion: descripcion, marca: marca } );
   }
 
   editarFormDeitresAccount(account) {
-    this.setFormDeitresAccount( account.id, account.account, account.descripcion );
+    this.setFormDeitresAccount( account.id, account.account, account.descripcion, account.marca );
     this.formDeitresAccount.markAsDirty();
   }
 

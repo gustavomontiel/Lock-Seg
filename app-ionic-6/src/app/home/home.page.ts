@@ -84,7 +84,7 @@ export class HomePage implements OnInit {
   }
 
   async presentAlertConfirm() {
-    const account = await this.seleccionarCuenta();
+    const account = await this.seleccionarCuenta(false);
     if (account) {
 
       const nombreCuenta = this.deitresService.panelSeleccionado ? this.deitresService.panelSeleccionado.descripcion + ' (' + this.deitresService.panelSeleccionado.account + ')' : '';
@@ -132,12 +132,17 @@ export class HomePage implements OnInit {
     );
   }
 
-  async seleccionarCuenta() {
+  async seleccionarCuenta(soloPanel = false) {
     
     this.deitresService.panelSeleccionado = {};
     this.deitresService.getToken();
     let cuenta;
-    const cuentas: any[] = await this.authService.getCuentasPanel().toPromise();
+    let cuentas: any[] = await this.authService.getCuentasPanel().toPromise();
+
+    if (soloPanel) {
+      cuentas = cuentas.filter( item => item.marca == 1 );
+    }
+    console.log('cuentas', cuentas);
     
     if (cuentas.length < 1 || !cuentas) {
       this.presentToastSinCuenta();
@@ -145,7 +150,6 @@ export class HomePage implements OnInit {
     }
     
     if (cuentas.length === 1) {
-      this.deitresService.panelSeleccionado = cuentas.find(item => item.account == account);
       return cuentas[0].account;
     }
 
@@ -175,7 +179,7 @@ export class HomePage implements OnInit {
   }
 
   async abrirPanelDeitres() {
-    const account = await this.seleccionarCuenta();
+    const account = await this.seleccionarCuenta( true );
     if (account) {
       this.router.navigate( [ 'deitres-panel', account, '01'] );
     }

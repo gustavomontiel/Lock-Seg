@@ -42,7 +42,7 @@ export class CrearUsuarioComponent implements OnInit, OnDestroy {
       email: new FormControl(null, [Validators.required, Validators.email]),
       telefono: new FormControl('', Validators.required),
       roleNames: new FormControl([], [Validators.required]),
-      codigo_gestion: new FormControl('', Validators.required),
+      codigo_gestion: new FormControl(''),
       password: new FormControl('', Validators.required),
     });
 
