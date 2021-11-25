@@ -30,7 +30,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
   deitresAccounts: any[] = [];
 
   dataSource: any;
-  displayedColumns: string[] = ['account', 'descripcion', 'acciones'];
+  displayedColumns: string[] = ['account', 'descripcion', 'marca', 'acciones'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
