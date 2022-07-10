@@ -12,6 +12,7 @@ import { StorageService } from '../services/storage.service';
 import { DeitresService } from '../services/deitres.service';
 import { actionSheetController } from '@ionic/core';
 import { Router } from '@angular/router';
+import { Plugins } from '@capacitor/core';
 
 @Component({
   selector: 'app-home',
@@ -122,22 +123,35 @@ export class HomePage implements OnInit {
     await alert.present();
   }
 
-  verAlarma() {
+  async verAlarma() {
+    const { Device } = Plugins;
+    let device = await Device.getInfo();
+
     this.url = this.urlsService.getParametro('historial');
-    const browser = this.iab.create(
-      this.url,
-      '_blank',
-      this.iabOptionService.inappbrowserOption
-    );
+    // const browser = this.iab.create(
+    //   this.url,
+    //   '_blank',
+    //   this.iabOptionService.inappbrowserOption
+    // );
+
+    const target = (device.platform === 'ios') ? '_system' : '_blank';
+    const browser = this.iab.create( this.url, target, this.iabOptionService.inappbrowserOption );
   }
 
-  verGps() {
+  async verGps() {
+
+    const { Device } = Plugins;
+    let device = await Device.getInfo();
+    
     this.url = this.urlsService.getParametro('gps');
-    const browser = this.iab.create(
-      this.url,
-      '_blank',
-      this.iabOptionService.inappbrowserOption
-    );
+    // const browser = this.iab.create(
+    //   this.url,
+    //   '_blank',
+    //   this.iabOptionService.inappbrowserOption
+    // );
+    const target = (device.platform === 'ios') ? '_system' : '_blank';
+    const browser = this.iab.create( this.url, target, this.iabOptionService.inappbrowserOption );
+
   }
 
   async seleccionarCuenta(soloPanel = false) {

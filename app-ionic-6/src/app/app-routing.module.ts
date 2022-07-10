@@ -34,7 +34,8 @@ const routes: Routes = [
     loadChildren: () => import('./deitres-panel/deitres-panel.module').then( m => m.DeitresPanelPageModule)
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', component: AppComponent },  {
+  { path: '**', component: AppComponent },
+  {
     path: 'deitres-zonas-panel',
     loadChildren: () => import('./deitres-zonas-panel/deitres-zonas-panel.module').then( m => m.DeitresZonasPanelPageModule)
   },

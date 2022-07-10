@@ -37,7 +37,7 @@ export class AppComponent {
          
         ruta = ( ruta !== '' && !ruta.includes('login') && !!ruta ) ? ruta : 'home';
 
-        state ? this.router.navigate([ruta]) : this.router.navigate(['login']);
+        state ? this.router.navigate([ruta], { replaceUrl: true }) : this.router.navigate(['login'], { skipLocationChange: true });
         
       });
 

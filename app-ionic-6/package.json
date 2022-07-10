@@ -25,6 +25,7 @@
     "@capacitor/core": "^3.2.4",
     "@capacitor/device": "^1.0.3",
     "@capacitor/haptics": "1.1.0",
+    "@capacitor/ios": "^3.2.5",
     "@capacitor/keyboard": "1.1.0",
     "@capacitor/status-bar": "1.0.3",
     "@ionic-native/core": "^5.36.0",
