@@ -1,0 +1,6 @@
+{
+	"appId": "com.guazuseguridad.app",
+	"appName": "Guazú",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

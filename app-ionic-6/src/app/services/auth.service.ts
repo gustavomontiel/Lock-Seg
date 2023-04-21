@@ -66,7 +66,7 @@ export class AuthService {
         this.storageService.set("USER_INFO", user_info).then((response) => {
           this.storageService.set("EMAIL", resp.data.user.email).then((email) => {
             this.authState.next(true);
-            this.router.navigate(["home"]);
+            this.router.navigate(["home"], { replaceUrl: true });
             return email;
           });
         });
@@ -108,7 +108,7 @@ export class AuthService {
     this.storageService.remove("USER_INFO").then(() => {
       this.usuario = null;
       this.authState.next(false);
-      this.router.navigate(["login"]);
+      this.router.navigate(["login"], { skipLocationChange: true });
     });
   }
 
