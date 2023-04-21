@@ -222,4 +222,19 @@ class UserController extends Controller
         }
         return response()->json(['error' => 'false', 'message' => 'Usuarios importados correctamente.']);
     }
+
+    public function getActiveStatus($id)
+    {
+        $user = User::where('id', $id)->first();
+
+        if (is_null($user)) {
+            return response()->json(['error' => 'true', 'message' => 'Usuario no encontrado.']);}
+
+        if ($user->activo == 1) {
+            return response()->json(['error' => 'false', 'activo' => $user->activo, 'message' => 'Usuario Activo']);
+        }else {
+            return response()->json(['error' => 'false', 'activo' => $user->activo , 'message' => 'Usuario Inactivo.']);        
+        }
+            /* Boolval( $user->activo) ? 'true' : 'false' */
+    }
 }

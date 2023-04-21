@@ -76,6 +76,11 @@ $router->group(['prefix' => 'auth', 'as' => 'auth'], function (Router $router) {
         'middleware' => 'auth'
     ]);
 });
+    $router->get('/active-status/{id}', [
+        'as' => 'users.show',
+        'uses' => 'UserController@getActiveStatus'
+    ]);
+
 
 /* Protected Routes */
 $router->group(['middleware' => 'auth'], function (Router $router) {
@@ -115,7 +120,8 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         'as' => 'users.passwordById',
         'uses' => 'UserController@actualizarPasswordById'
     ]);
-
+    
+    
     /* Contactos Routes */
     $router->get('/contactos', [
         'as' => 'contactos.index',
