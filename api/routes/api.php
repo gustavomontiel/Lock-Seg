@@ -38,6 +38,12 @@ $router->post('/contactos', [
     'uses' => 'ContactoController@store'
 ]);
 
+/* Cuentas Routes */
+$router->get('/cuentas/user/{id_user}', [
+    'as' => 'cuentas.showByUser',
+    'uses' => 'CuentaController@showByUser'
+]);
+
 /* Auth Routes */
 $router->group(['prefix' => 'auth', 'as' => 'auth'], function (Router $router) {
 
@@ -231,6 +237,32 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         $router->delete('/parametros/{id}', [
             'as' => 'parametros.destroy',
             'uses' => 'ParametroController@destroy'
+        ]);
+
+        /* Cuentas Routes */
+        $router->get('/cuentas', [
+            'as' => 'cuentas.index',
+            'uses' => 'CuentaController@index'
+        ]);
+
+        $router->post('/cuentas', [
+            'as' => 'cuentas.store',
+            'uses' => 'CuentaController@store'
+        ]);
+
+        $router->get('/cuentas/{id}', [
+            'as' => 'cuentas.show',
+            'uses' => 'CuentaController@show'
+        ]);
+
+        $router->put('/cuentas/{id}', [
+            'as' => 'cuentas.update',
+            'uses' => 'CuentaController@update'
+        ]);
+
+        $router->delete('/cuentas/{id}', [
+            'as' => 'cuentas.destroy',
+            'uses' => 'CuentaController@destroy'
         ]);
     });
 });
