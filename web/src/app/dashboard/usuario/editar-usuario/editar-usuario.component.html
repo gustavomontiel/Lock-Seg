@@ -32,9 +32,11 @@
               </select>
             </div>
             <div class="form-group col-md-6">
-              <label *ngIf="formUsuario.get('codigo_gestion').value.length > 0" for="codigo_gestion">Nro de abonado</label>
-              <input *ngIf="formUsuario.get('codigo_gestion').value.length > 0" formControlName="codigo_gestion" name="codigo_gestion" [disabled]="cargando" type="text"
-                class="form-control" placeholder="Código de gestión">
+              <label *ngIf="formUsuario.get('codigo_gestion').value.length > 0" for="codigo_gestion">Nro de
+                abonado</label>
+              <input *ngIf="formUsuario.get('codigo_gestion').value.length > 0" formControlName="codigo_gestion"
+                name="codigo_gestion" [disabled]="cargando" type="text" class="form-control"
+                placeholder="Código de gestión">
             </div>
           </div>
           <!-- /.card-body -->
@@ -99,6 +101,8 @@
             <select class="form-control" id="marca" formControlName="marca">
               <option value="0" selected>Marca</option>
               <option value="1">Deitres</option>
+              <option value="1">Titanium</option>
+              <option value="1">Garnet</option>
             </select>
           </div>
           <div class="form-group col-md-4">
