@@ -37,6 +37,7 @@ class CuentaController extends Controller
 
         $validator = Validator::make($input, [
             'account' => 'string|required',
+            'identificador' => 'string|required',
             'descripcion' => 'string|required',
             'user_id' => 'numeric|required',
             'marca' => 'numeric'
@@ -86,6 +87,7 @@ class CuentaController extends Controller
 
         $validator = Validator::make($input, [
             'account' => 'string|required',
+            'identificador' => 'string|required',
             'descripcion' => 'string|required',
             'user_id' => 'numeric|required',
             'marca' => 'numeric'
@@ -96,6 +98,7 @@ class CuentaController extends Controller
         }
 
         $cuenta->account = $input['account'];
+        $cuenta->identificador = $input['identificador'];
         $cuenta->descripcion = $input['descripcion'];
         $cuenta->user_id = $input['user_id'];
         if (isset($input['marca'])) $cuenta->marca = $input['marca'];

@@ -13,6 +13,7 @@ class Cuenta extends Model
      */
     protected $fillable = [
         'account',
+        'identificador',
         'descripcion',
         'user_id',
         'marca'

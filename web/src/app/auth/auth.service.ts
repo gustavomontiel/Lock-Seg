@@ -200,7 +200,7 @@ export class AuthService {
     }
   }
 
-  getUserDeitresAccounts( userId: string ) {
+  getUserPannelAccounts( userId: string ) {
     const url = environment.APIEndpoint + "/cuentas/user/" + userId;
     return this.http.get(url).pipe(
       tap((resp: any) => {
@@ -209,7 +209,7 @@ export class AuthService {
     );
   }
 
-  deleteUserDeitresAccount( id: string ) {
+  deleteUserPannelAccount( id: string ) {
     const url = environment.APIEndpoint + "/cuentas/" + id;
     return this.http.delete(url).pipe(
       tap((resp: any) => {
@@ -218,7 +218,7 @@ export class AuthService {
     );
   }
 
-  updateUserDeitresAccount( account: any ) {
+  updateUserPannelAccount( account: any ) {
     const url = environment.APIEndpoint + "/cuentas/" + account.id;
     return this.http.put(url, account).pipe(
       tap((resp: any) => {
@@ -227,7 +227,7 @@ export class AuthService {
     );
   }
 
-  createUserDeitresAccount( account: any ) {
+  createUserPannelAccount( account: any ) {
     const url = environment.APIEndpoint + "/cuentas";
     return this.http.post(url, account).pipe(
       tap((resp: any) => {

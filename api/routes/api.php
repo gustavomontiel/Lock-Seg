@@ -74,7 +74,12 @@ $router->group(['prefix' => 'auth', 'as' => 'auth'], function (Router $router) {
         'as' => 'password.recover',
         'uses' => 'AuthController@recoverPassword'
     ]);
-
+    
+    $router->get('/active-status/{id}', [
+        'as' => 'users.show',
+        'uses' => 'UserController@getActiveStatus'
+    ]);
+    
     /* Protected User Endpoint */
     $router->get('/user', [
         'uses' => 'AuthController@getUser',
@@ -82,10 +87,6 @@ $router->group(['prefix' => 'auth', 'as' => 'auth'], function (Router $router) {
         'middleware' => 'auth'
     ]);
 });
-    $router->get('/active-status/{id}', [
-        'as' => 'users.show',
-        'uses' => 'UserController@getActiveStatus'
-    ]);
 
 
 /* Protected Routes */

@@ -86,12 +86,16 @@
       <i class="fas fa-th text-primary"></i>&nbsp;Paneles (Cuentas)
     </ng-template>
     <div class="card card-primary mt-2 container">
-      <form role="form" ngNativeValidate [formGroup]="formDeitresAccount" (ngSubmit)="grabarDeitresAccount()"
+      <form role="form" ngNativeValidate [formGroup]="formPannelAccount" (ngSubmit)="grabarPannelAccount()"
         method="post">
         <div class="card-body form-row">
           <div class="form-group col-md-2">
             <input formControlName="account" name="account" type="string" class="form-control" placeholder="Nro cuenta"
               required>
+          </div>
+          <div class="form-group col-md-4">
+            <input formControlName="identificador" name="identificador" type="string" class="form-control"
+              placeholder="Identificador" required>
           </div>
           <div class="form-group col-md-4">
             <input formControlName="descripcion" name="descripcion" type="string" class="form-control"
@@ -101,14 +105,14 @@
             <select class="form-control" id="marca" formControlName="marca">
               <option value="0" selected>Marca</option>
               <option value="1">Deitres</option>
-              <option value="1">Titanium</option>
-              <option value="1">Garnet</option>
+              <option value="2">Titanium</option>
+              <option value="3">Garnet</option>
             </select>
           </div>
-          <div class="form-group col-md-4">
-            <button *ngIf="!cargando" [disabled]="formDeitresAccount.pristine" type="button"
-              class="btn btn-secondary mr-2" (click)="cancelarFormDeitresAccount()">Cancelar</button>
-            <button *ngIf="!cargando" [disabled]="formDeitresAccount.invalid" type="submit"
+          <div class="form-group col-md-12 text-right" style="padding-top: 10px;">
+            <button *ngIf="!cargando" [disabled]="formPannelAccount.pristine" type="button"
+              class="btn btn-secondary mr-2" (click)="cancelarFormPannelAccount()">Cancelar</button>
+            <button *ngIf="!cargando" [disabled]="formPannelAccount.invalid" type="submit"
               class="btn btn-primary">Guardar
               Panel</button>
             <button *ngIf="cargando" [disabled]="true" class="btn btn-primary">
@@ -127,6 +131,11 @@
           <td mat-cell *matCellDef="let element"> {{element.account}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="identificador">
+          <th mat-header-cell *matHeaderCellDef> Identificador </th>
+          <td mat-cell *matCellDef="let element"> {{element.identificador}} </td>
+        </ng-container>
+
         <ng-container matColumnDef="descripcion">
           <th mat-header-cell *matHeaderCellDef> Descripción </th>
           <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
@@ -134,19 +143,20 @@
 
         <ng-container matColumnDef="marca">
           <th mat-header-cell *matHeaderCellDef> Marca </th>
-          <td mat-cell *matCellDef="let element"> {{element.marca==1 ? 'Deitres' : 'Otra'}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.marca==1 ? 'Deitres' : element.marca==2 ? 'Titanium'
+            :element.marca==3 ?'Garnet' :'Otra'}} </td>
         </ng-container>
 
         <ng-container matColumnDef="acciones">
           <th mat-header-cell *matHeaderCellDef> Acciones </th>
           <td mat-cell *matCellDef="let element">
             <div class="btn">
-              <button type="button" (click)="editarFormDeitresAccount(element)" class="btn btn-primary" placement="top"
+              <button type="button" (click)="editarFormPannelAccount(element)" class="btn btn-primary" placement="top"
                 ngbTooltip="Editar" [disabled]="cargando">
                 <i class="fas fa-pencil-alt"></i>
               </button>
               <button type="button" class="btn btn-danger ml-1" [disabled]="cargando"
-                (click)="eliminarFormDeitresAccount(element)" placement="top" ngbTooltip="Eliminar"><i
+                (click)="eliminarFormPannelAccount(element)" placement="top" ngbTooltip="Eliminar"><i
                   class="fas fa-trash-alt">
                 </i></button>
             </div>

@@ -26,11 +26,11 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
 
   formPassword: FormGroup;
 
-  formDeitresAccount: FormGroup;
-  deitresAccounts: any[] = [];
+  formPannelAccount: FormGroup;
+  pannelAccounts: any[] = [];
 
   dataSource: any;
-  displayedColumns: string[] = ['account', 'descripcion', 'marca', 'acciones'];
+  displayedColumns: string[] = ['account', 'identificador', 'descripcion', 'marca', 'acciones'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -39,7 +39,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
     public router: Router,
     public activatedRoute: ActivatedRoute,
     public store: Store<AppState>
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.subscription = this.store.select("ui").subscribe((ui) => {
@@ -58,9 +58,10 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
       password_nuevo: new FormControl(null, Validators.required),
     });
 
-    this.formDeitresAccount = new FormGroup({
+    this.formPannelAccount = new FormGroup({
       id: new FormControl(null),
       account: new FormControl(null, Validators.required),
+      identificador: new FormControl(null, Validators.required),
       descripcion: new FormControl(null, Validators.required),
       marca: new FormControl(0),
     });
@@ -68,7 +69,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
     this.activatedRoute.params.subscribe((params) => {
       const id = params.id;
       this.cargarUsuario(id);
-      this.getDeitresAccounts(id);
+      this.getPannelAccounts(id);
     });
   }
 
@@ -89,11 +90,11 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
     });
   }
 
-  getDeitresAccounts(userId: string) {
-    this.authService.getUserDeitresAccounts(userId).subscribe((deitresAccounts) => {
-      if (deitresAccounts.error === 'false') {
-        this.deitresAccounts = deitresAccounts.data.cuentas;
-        this.dataSource = new MatTableDataSource(this.deitresAccounts);
+  getPannelAccounts(userId: string) {
+    this.authService.getUserPannelAccounts(userId).subscribe((pannelAccounts) => {
+      if (pannelAccounts.error === 'false') {
+        this.pannelAccounts = pannelAccounts.data.cuentas;
+        this.dataSource = new MatTableDataSource(this.pannelAccounts);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
@@ -192,7 +193,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
     });
   }
 
-  grabarDeitresAccount() {
+  grabarPannelAccount() {
     Swal.fire({
       title: "Guardar cambios?",
       text: "Confirma los cambios?",
@@ -200,10 +201,10 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
       showCancelButton: true,
     }).then((result) => {
       if (result.value) {
-        const account = this.formDeitresAccount.value;
+        const account = this.formPannelAccount.value;
         account.user_id = this.usuario.id;
-        if ( account.id ) {
-          this.authService.updateUserDeitresAccount(account).subscribe(
+        if (account.id) {
+          this.authService.updateUserPannelAccount(account).subscribe(
             (resp) => {
               Swal.fire(
                 "Guardado!",
@@ -211,8 +212,8 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
                 "success"
               ).then(
                 res => {
-                  this.setFormDeitresAccount(null, null, null, 0);
-                  this.getDeitresAccounts(this.usuario.id.toString());
+                  this.setFormPannelAccount(null, null, null, null, 0);
+                  this.getPannelAccounts(this.usuario.id.toString());
                 }
               )
             },
@@ -222,7 +223,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
                 const validationErrors = error.error.data;
                 if (error.status === 422 || error.status === 400) {
                   Object.keys(validationErrors).forEach((prop) => {
-                    const formControl = this.formDeitresAccount.get(prop);
+                    const formControl = this.formPannelAccount.get(prop);
                     if (formControl) {
                       msg += "<br>" + validationErrors[prop];
                       formControl.setErrors({
@@ -240,7 +241,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
             }
           )
         } else {
-          this.authService.createUserDeitresAccount(account).subscribe(
+          this.authService.createUserPannelAccount(account).subscribe(
             (resp) => {
               Swal.fire(
                 "Guardado!",
@@ -248,8 +249,8 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
                 "success"
               ).then(
                 res => {
-                  this.setFormDeitresAccount(null, null, null, 0);
-                  this.getDeitresAccounts(this.usuario.id.toString());
+                  this.setFormPannelAccount(null, null, null, null, 0);
+                  this.getPannelAccounts(this.usuario.id.toString());
                 }
               )
             },
@@ -259,7 +260,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
                 const validationErrors = error.error.data;
                 if (error.status === 422 || error.status === 400) {
                   Object.keys(validationErrors).forEach((prop) => {
-                    const formControl = this.formDeitresAccount.get(prop);
+                    const formControl = this.formPannelAccount.get(prop);
                     if (formControl) {
                       msg += "<br>" + validationErrors[prop];
                       formControl.setErrors({
@@ -281,22 +282,22 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
     });
   }
 
-  cancelarFormDeitresAccount() {
-    this.setFormDeitresAccount(null, null, null, 0);
-    this.formDeitresAccount.markAsPristine();
+  cancelarFormPannelAccount() {
+    this.setFormPannelAccount(null, null, null, null, 0);
+    this.formPannelAccount.markAsPristine();
   }
 
-  setFormDeitresAccount(id, account, descripcion, marca) {
+  setFormPannelAccount(id, account, identificador, descripcion, marca) {
     marca = marca == '' || marca == null ? 0 : marca;
-    this.formDeitresAccount.setValue( { id: id, account: account, descripcion: descripcion, marca: marca } );
+    this.formPannelAccount.setValue({ id: id, account: account, identificador: identificador, descripcion: descripcion, marca: marca });
   }
 
-  editarFormDeitresAccount(account) {
-    this.setFormDeitresAccount( account.id, account.account, account.descripcion, account.marca );
-    this.formDeitresAccount.markAsDirty();
+  editarFormPannelAccount(account) {
+    this.setFormPannelAccount(account.id, account.account, account.identificador, account.descripcion, account.marca);
+    this.formPannelAccount.markAsDirty();
   }
 
-  eliminarFormDeitresAccount(account) {
+  eliminarFormPannelAccount(account) {
     const msg = 'Confirma eliminar el registro: "' + account.descripcion + '"?';
     Swal.fire({
       title: "Guardar cambios?",
@@ -305,7 +306,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
       showCancelButton: true,
     }).then((result) => {
       if (result.value) {
-        this.authService.deleteUserDeitresAccount(account.id).subscribe(
+        this.authService.deleteUserPannelAccount(account.id).subscribe(
           (resp) => {
             Swal.fire(
               "Guardado!",
@@ -313,7 +314,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
               "success"
             ).then(
               res => {
-                this.getDeitresAccounts(this.usuario.id.toString());
+                this.getPannelAccounts(this.usuario.id.toString());
               }
             )
           },
@@ -323,7 +324,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
               const validationErrors = error.error.data;
               if (error.status === 422 || error.status === 400) {
                 Object.keys(validationErrors).forEach((prop) => {
-                  const formControl = this.formDeitresAccount.get(prop);
+                  const formControl = this.formPannelAccount.get(prop);
                   if (formControl) {
                     msg += "<br>" + validationErrors[prop];
                     formControl.setErrors({
