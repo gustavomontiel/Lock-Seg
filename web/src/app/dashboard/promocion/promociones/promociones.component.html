@@ -1,51 +1,163 @@
 <div class="container-fluid">
   <h3>Promociones</h3>
-  <mat-form-field class="col-9">
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
-  </mat-form-field>
+  <mat-tab-group>
+    <mat-tab>
+      <br>
+      <div class="col-12">
+        <ng-template mat-tab-label>
+          <i class="fa fa-list"></i>&nbsp; Lista de Promociones
+        </ng-template>
+        <mat-form-field class="col-9">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+        </mat-form-field>
+        <button type="button" (click)="agregarPromocion()" class="btn btn-primary float-right col-3">Agregar
+          promoción</button>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-  <button type="button" (click)="agregarPromocion()" class="btn btn-primary float-right col-3">Agregar promoción</button>
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
 
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <ng-container matColumnDef="titulo">
+            <th mat-header-cell *matHeaderCellDef> Titulo </th>
+            <td mat-cell *matCellDef="let element"> {{element.titulo}} </td>
+          </ng-container>
 
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> Id </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
+          <ng-container matColumnDef="orden">
+            <th mat-header-cell *matHeaderCellDef> Orden </th>
+            <td mat-cell *matCellDef="let element"> {{element.orden}} </td>
+          </ng-container>
 
-    <ng-container matColumnDef="titulo">
-      <th mat-header-cell *matHeaderCellDef> Titulo </th>
-      <td mat-cell *matCellDef="let element"> {{element.titulo}} </td>
-    </ng-container>
+          <ng-container matColumnDef="categoria">
+            <th mat-header-cell *matHeaderCellDef> Categoria </th>
+            <td mat-cell *matCellDef="let element"> {{element.categoria}} </td>
+          </ng-container>
 
-    <ng-container matColumnDef="fecha_desde">
-      <th mat-header-cell *matHeaderCellDef><span class="d-none d-sm-block">Fecha desde</span> </th>
-      <td mat-cell *matCellDef="let element"><span class="d-none d-sm-block">{{element.fecha_desde}}</span> </td>
-    </ng-container>
+          <ng-container matColumnDef="fecha_desde">
+            <th mat-header-cell *matHeaderCellDef><span class="d-none d-sm-block">Fecha desde</span> </th>
+            <td mat-cell *matCellDef="let element"><span class="d-none d-sm-block">{{element.fecha_desde}}</span> </td>
+          </ng-container>
 
-    <ng-container matColumnDef="fecha_hasta">
-      <th mat-header-cell *matHeaderCellDef><span class="d-none d-sm-block"> Fecha hasta</span> </th>
-      <td mat-cell *matCellDef="let element"><span class="d-none d-sm-block">{{element.fecha_hasta}}</span> </td>
-    </ng-container>
+          <ng-container matColumnDef="fecha_hasta">
+            <th mat-header-cell *matHeaderCellDef><span class="d-none d-sm-block"> Fecha hasta</span> </th>
+            <td mat-cell *matCellDef="let element"><span class="d-none d-sm-block">{{element.fecha_hasta}}</span> </td>
+          </ng-container>
 
-    <ng-container matColumnDef="acciones">
-      <th mat-header-cell *matHeaderCellDef> Acciones </th>
-      <td mat-cell *matCellDef="let element">
-        <div class="btn">
-          <button type="button" class="btn btn-primary" placement="top" ngbTooltip="Editar"
-            [routerLink]="['/editar-promocion', element.id]">
-            <i class="fas fa-pencil-alt"></i>
-          </button>
-          <button type="button" class="btn btn-danger ml-1" placement="top" ngbTooltip="Eliminar"><i
-            class="fas fa-trash-alt" (click)="borrarParametro(element)">
-          </i></button>
-        </div>
-      </td>
-    </ng-container>
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="btn">
+                <button type="button" class="btn btn-primary" placement="top" ngbTooltip="Editar"
+                  [routerLink]="['/editar-promocion', element.id]">
+                  <i class="fas fa-pencil-alt"></i>
+                </button>
+                <button type="button" class="btn btn-danger ml-1" placement="top" ngbTooltip="Eliminar"><i
+                    class="fas fa-trash-alt" (click)="borrarParametro(element)">
+                  </i></button>
+              </div>
+            </td>
+          </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <br>
+      <div class="col-12">
+        <ng-template mat-tab-label>
+          <i class="fa fa-list"></i>&nbsp; Lista de Categorias
+        </ng-template>
+
+        <form role="form" ngNativeValidate [formGroup]="formCategoriaNueva" (ngSubmit)="agregarCategoria()"
+          method="post">
+          <div class="card-body form-row ">
+
+            <div class="form-group col-md-2">
+              <input formControlName="orden" name="orden" type="string" class="form-control" placeholder="Orden"
+                required>
+            </div>
+
+            <div class="form-group col-md-2">
+              <input formControlName="titulo" name="titulo" type="string" class="form-control" placeholder="Titulo"
+                required>
+            </div>
+
+            <div class="form-group col-md-4">
+              <input formControlName="descripcion" name="descripcion" type="string" class="form-control"
+                placeholder="Descripción" required>
+            </div>
+
+            <div class="form-group col-md-4">
+              <button *ngIf="!cargando" [disabled]="formCategoriaNueva.pristine" type="button"
+                class="btn btn-secondary mr-2 col-md-4" (click)="cancelarCategoria()">
+                Cancelar
+              </button>
+
+              <button *ngIf="!cargando" [disabled]="formCategoriaNueva.invalid" type="submit"
+                class="btn btn-primary col-md-7">
+                Guardar Categoria
+              </button>
+
+              <button *ngIf="cargando" [disabled]="true" class="btn btn-primary">
+                <i class="fa fa-spin fa-sync"></i>
+                Por favor espere...
+              </button>
+
+            </div>
+
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer row justify-content-end">
+          </div>
+        </form>
+
+        <table mat-table [dataSource]="catList" class="mat-elevation-z8">
+
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Id </th>
+            <td mat-cell *matCellDef="let element2"> {{element2.id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="orden">
+            <th mat-header-cell *matHeaderCellDef> Orden </th>
+            <td mat-cell *matCellDef="let element2"> {{element2.orden}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="titulo">
+            <th mat-header-cell *matHeaderCellDef> Titulo </th>
+            <td mat-cell *matCellDef="let element2"> {{element2.titulo}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="descripcion">
+            <th mat-header-cell *matHeaderCellDef> Descripción </th>
+            <td mat-cell *matCellDef="let element2"> {{element2.descripcion}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let element2">
+              <div class="btn">
+                <button type="button" class="btn btn-primary" placement="top" ngbTooltip="Editar"
+                  (click)="editarCategoria(element2)">
+                  <i class="fas fa-pencil-alt"></i>
+                </button>
+                <button type="button" class="btn btn-danger ml-1" placement="top" ngbTooltip="Eliminar"><i
+                    class="fas fa-trash-alt" (click)="borrarCategoria(element2)">
+                  </i></button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+        </table>
+
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <br>
   <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>
-

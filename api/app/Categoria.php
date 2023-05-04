@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Promocion extends Model
+class Categoria extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'promociones';
+    protected $table = 'categorias';
 
     /**
      * The attributes that are mass assignable.
@@ -19,12 +19,9 @@ class Promocion extends Model
      * @var array
      */
     protected $fillable = [
-        'titulo',
-        'categoria',
         'orden',
+        'titulo',
         'descripcion',
-        'imagen',
-        'fecha_desde',
-        'fecha_hasta'
+
     ];
 }

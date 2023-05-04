@@ -7,6 +7,8 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { Promocion } from '../promocion.model';
+import { Categoria } from '../categoria.model';
+import { CategoriaService } from '../categoria.service';
 
 
 @Component({
@@ -18,6 +20,7 @@ export class CrearPromocionComponent implements OnInit, OnDestroy {
 
   cargando: boolean;
   subscription: Subscription;
+  categorias: Categoria[];
 
   promocion: Promocion;
   formPromocion: FormGroup;
@@ -27,6 +30,8 @@ export class CrearPromocionComponent implements OnInit, OnDestroy {
     public router: Router,
     public promocionService: PromocionService,
     public activatedRoute: ActivatedRoute,
+    public categoriaService: CategoriaService,
+
     private cd: ChangeDetectorRef,
     public store: Store<AppState>
   ) { }
@@ -34,12 +39,15 @@ export class CrearPromocionComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.store.select('ui').subscribe(ui => {
       this.cargando = ui.isLoading;
+      this.leerCategorias();
     });
 
     this.formPromocion = new FormGroup({
       titulo: new FormControl(null, Validators.required),
+      categoria: new FormControl(null, Validators.required),
+      orden: new FormControl(null, Validators.required),
       descripcion: new FormControl(null, Validators.required),
-      fecha_desde: new FormControl(null, [Validators.required]),
+      fecha_desde: new FormControl(null, Validators.required),
       fecha_hasta: new FormControl(null, Validators.required),
       imagen: new FormControl(null, Validators.required),
     });
@@ -49,6 +57,14 @@ export class CrearPromocionComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  leerCategorias() {
+    this.categoriaService.getCategorias()
+      .subscribe(categorias => {
+        console.log(categorias);
+        this.categorias = categorias.data;
+
+      });
+  }
   crearPromocion() {
 
     Swal.fire({
@@ -63,6 +79,8 @@ export class CrearPromocionComponent implements OnInit, OnDestroy {
         const formData = new FormData();
         formData.append('titulo', this.formPromocion.get('titulo').value);
         formData.append('descripcion', this.formPromocion.get('descripcion').value);
+        formData.append('categoria', this.formPromocion.get('categoria').value);
+        formData.append('orden', this.formPromocion.get('orden').value);
         formData.append('fecha_desde', this.formPromocion.get('fecha_desde').value);
         formData.append('fecha_hasta', this.formPromocion.get('fecha_hasta').value);
         formData.append('imagen', this.formPromocion.get('imagen').value);
@@ -94,10 +112,10 @@ export class CrearPromocionComponent implements OnInit, OnDestroy {
 
   }
 
-  onFileChange( event: any, field: any ) {
+  onFileChange(event: any, field: any) {
     const reader = new FileReader();
 
-    if ( event.target.files && event.target.files.length > 0 ) {
+    if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       this.formPromocion.get(field).setValue(file);
     }

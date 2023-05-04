@@ -3,18 +3,17 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { of, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { ActivarLoadingAction, DesactivarLoadingAction } from 'src/app/shared/ui.actions';
 import Swal from 'sweetalert2';
-import { Promocion } from './promocion.model';
-
+import { Categoria } from './categoria.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PromocionService {
+export class CategoriaService {
 
   constructor(
     public http: HttpClient,
@@ -22,8 +21,7 @@ export class PromocionService {
     private store: Store<AppState>
   ) { }
 
-  getPromociones() {
-
+  getCategorias() {
     Swal.fire({
       text: 'Buscando Datos',
       onBeforeOpen: () => {
@@ -31,7 +29,7 @@ export class PromocionService {
       }
     });
 
-    const url = environment.APIEndpoint + '/promociones';
+    const url = environment.APIEndpoint + '/categorias';
 
     return this.http.get(url).pipe(
       map((resp: any) => {
@@ -41,7 +39,7 @@ export class PromocionService {
     );
   }
 
-  getPromocionById(id: string) {
+  getCategoriaById(id: string) {
     Swal.fire({
       text: 'Buscando Datos',
       onBeforeOpen: () => {
@@ -49,7 +47,7 @@ export class PromocionService {
       }
     });
 
-    const url = environment.APIEndpoint + '/promociones/' + id;
+    const url = environment.APIEndpoint + '/categorias/' + id;
     return this.http.get(url).pipe(
       map((resp: any) => {
         Swal.close();
@@ -58,10 +56,9 @@ export class PromocionService {
     );
   }
 
-  updatePromocion(promo:any) {
-    console.log(promo.get('categoria'));
+  updateCategoria(categoria: Categoria|any) {
 
-    if (promo.has('id')) {
+    if (categoria.id) {
 
       Swal.fire({
         text: 'Actualizando Datos',
@@ -72,10 +69,10 @@ export class PromocionService {
 
       this.store.dispatch(new ActivarLoadingAction());
 
-      let url = environment.APIEndpoint + '/promociones';
-      url += '/' + promo.get('id');
+      let url = environment.APIEndpoint + '/categorias';
+      url += '/' + categoria.id;
 
-      return this.http.post(url, promo)
+      return this.http.put(url, categoria)
       .pipe(
         map((resp: any) => {
           Swal.close();
@@ -94,7 +91,7 @@ export class PromocionService {
     }
   }
 
-  deletePromocion(promo: Promocion) {
+  deleteCategoria(categoria: Categoria) {
 
     Swal.fire({
       text: 'Procesando solicitud',
@@ -103,7 +100,7 @@ export class PromocionService {
       }
     });
 
-    const url = environment.APIEndpoint + '/promociones/' + promo.id;
+    const url = environment.APIEndpoint + '/categorias/' + categoria.id;
     return this.http.delete(url)
       .pipe(
         map((resp: any) => {
@@ -114,7 +111,7 @@ export class PromocionService {
 
   }
 
-  crearPromocion(promo: Promocion|any) {
+  crearPromocion(categoria: Categoria|any) {
 
     this.store.dispatch(new ActivarLoadingAction());
 
@@ -125,9 +122,9 @@ export class PromocionService {
       }
     });
 
-    const url = environment.APIEndpoint + '/promociones';
+    const url = environment.APIEndpoint + '/categorias';
 
-    return this.http.post(url, promo)
+    return this.http.post(url, categoria)
       .pipe(
         map((resp: any) => {
           this.store.dispatch(new DesactivarLoadingAction());

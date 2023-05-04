@@ -271,5 +271,32 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
             'as' => 'cuentas.destroy',
             'uses' => 'CuentaController@destroy'
         ]);
+
+        /* Categorias Routes */
+        $router->get('/categorias', [
+            'as' => 'categorias.index',
+            'uses' => 'CategoriaController@index'
+        ]);
+
+        $router->post('/categorias', [
+            'as' => 'categorias.store',
+            'uses' => 'CategoriaController@store'
+        ]);
+
+        $router->get('/categorias/{id}', [
+            'as' => 'categorias.show',
+            'uses' => 'CategoriaController@show'
+        ]);
+
+        $router->put('/categorias/{id}', [
+            'as' => 'categorias.update',
+            'uses' => 'CategoriaController@update'
+        ]);
+
+        $router->delete('/categorias/{id}', [
+            'as' => 'categorias.destroy',
+            'uses' => 'CategoriaController@destroy'
+        ]);        
     });
+    
 });

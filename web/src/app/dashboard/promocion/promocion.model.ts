@@ -10,5 +10,7 @@ export class Promocion {
   public created_at?: Date;
   // tslint:disable-next-line: variable-name
   public updated_at?: Date;
-  public id?: string;
+  public id?: any;
+  categoria: any;
+  orden: any;
 }

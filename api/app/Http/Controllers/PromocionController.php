@@ -37,6 +37,8 @@ class PromocionController extends Controller
 
         $validator = Validator::make($input, [
             'titulo' => 'required|string|max:100',
+            'categoria' => 'required|string|max:100',
+            'orden' => 'required|string',
             'descripcion' => 'required|string|max:1000',
             'fecha_desde' => 'required|date',
             'fecha_hasta' => 'required|date'
@@ -88,6 +90,8 @@ class PromocionController extends Controller
 
         $validator = Validator::make($input, [
             'titulo' => 'string|max:100',
+            'categoria' => 'string|max:100',
+            'orden' => 'string',
             'descripcion' => 'string|max:1000',
             'fecha_desde' => 'date',
             'fecha_hasta' => 'date'
@@ -97,16 +101,18 @@ class PromocionController extends Controller
             return response()->json(['error' => 'true', 'data' => $validator->errors(), 'message' => 'Error en la validación de datos.'], 400);
         }
 
-        if (isset($input['titulo'])) $promocion->titulo = $input['titulo'];
-        if (isset($input['descripcion'])) $promocion->descripcion = $input['descripcion'];
-        if (isset($input['fecha_desde'])) $promocion->fecha_desde = $input['fecha_desde'];
-        if (isset($input['fecha_hasta'])) $promocion->fecha_hasta = $input['fecha_hasta'];
+        if (isset($input['titulo']))        $promocion->titulo = $input['titulo'];
+        if (isset($input['categoria']))     $promocion->categoria = $input['categoria'];
+        if (isset($input['orden']))         $promocion->orden = $input['orden'];
+        if (isset($input['descripcion']))   $promocion->descripcion = $input['descripcion'];
+        if (isset($input['fecha_desde']))   $promocion->fecha_desde = $input['fecha_desde'];
+        if (isset($input['fecha_hasta']))   $promocion->fecha_hasta = $input['fecha_hasta'];
 
         $promocion->save();
 
         $this->uploadImages($promocion, $request);
 
-        return response()->json(['error' => 'false', 'data' => $promocion, 'message' => 'Promoción actualizada correctamente.']);
+        return response()->json(['error' => 'false', 'data' => $input, 'message' => 'Promoción actualizada correctamente.']);
     }
 
     /**
