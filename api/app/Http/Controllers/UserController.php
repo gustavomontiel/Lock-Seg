@@ -96,6 +96,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email,' . $user->id,
             'telefono' => 'string',
             'codigo_gestion' => 'string',
+            'activo' =>'boolean'
         ]);
 
         if ($validator->fails()) {
@@ -106,6 +107,7 @@ class UserController extends Controller
         $user->email = $input['email'];
         $user->telefono = $input['telefono'];
         $user->codigo_gestion = $input['codigo_gestion'];
+        $user->activo = $input['activo'];
 
         $user->save();
 

@@ -12,6 +12,7 @@ export class User {
   public id?: number;
   // tslint:disable-next-line: variable-name
   public codigo_gestion?: string;
+  public activo?: boolean;
 
   constructor(
     obj: DataObj

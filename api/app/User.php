@@ -28,7 +28,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'password',
         'telefono',
         'codigo_gestion',
-        'verified'
+        'verified',
+        'activo'
     ];
 
     /**

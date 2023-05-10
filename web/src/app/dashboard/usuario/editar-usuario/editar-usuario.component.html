@@ -25,12 +25,21 @@
               <input formControlName="telefono" name="telefono" type="text" class="form-control" placeholder="Teléfono"
                 required>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6 ">
               <label for="rol">Rol</label>
               <select class="form-control" id="roleNames" formControlName="roleNames" multiple>
                 <option *ngFor="let rol of roleNames" [value]="rol">{{ rol }}</option>
               </select>
             </div>
+            <div class="form-group col-md-6 ">
+              <label for="rol">Estado de Actividad</label>
+              <br>
+              <mat-slide-toggle [(ngModel)]="isChecked" formControlName="activo" name="activo" >
+                El usuario está: {{ (isChecked==true)? 'Activo':'Inactivo' }}
+              </mat-slide-toggle>
+
+            </div>
+
             <div class="form-group col-md-6">
               <label *ngIf="formUsuario.get('codigo_gestion').value.length > 0" for="codigo_gestion">Nro de
                 abonado</label>

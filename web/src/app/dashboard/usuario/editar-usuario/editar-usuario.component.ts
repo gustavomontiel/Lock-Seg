@@ -9,7 +9,7 @@ import { User } from "src/app/auth/user.model";
 import { AuthService } from "src/app/auth/auth.service";
 import { roleNames } from "src/app/shared/guards/roleNames.data";
 import { HttpErrorResponse } from "@angular/common/http";
-import { MatPaginator, MatSort, MatTableDataSource } from "@angular/material";
+import { MatPaginator, MatSort, MatTableDataSource, MatSlideToggleModule } from "@angular/material";
 
 @Component({
   selector: "app-editar-usuario",
@@ -21,6 +21,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   usuario: User;
+  isChecked: boolean;
   formUsuario: FormGroup;
   roleNames = roleNames;
 
@@ -28,6 +29,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
 
   formPannelAccount: FormGroup;
   pannelAccounts: any[] = [];
+
 
   dataSource: any;
   displayedColumns: string[] = ['account', 'identificador', 'descripcion', 'marca', 'acciones'];
@@ -51,6 +53,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
       email: new FormControl(null, [Validators.required, Validators.email]),
       telefono: new FormControl("", Validators.required),
       roleNames: new FormControl([], [Validators.required]),
+      activo: new FormControl([], [Validators.required]),
       codigo_gestion: new FormControl(""),
     });
 
@@ -86,6 +89,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
         telefono: this.usuario.telefono,
         roleNames: this.usuario.roleNames ? this.usuario.roleNames : "",
         codigo_gestion: this.usuario.codigo_gestion,
+        activo: this.usuario.activo
       });
     });
   }
