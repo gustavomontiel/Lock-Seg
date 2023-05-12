@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Promocion;
+/* use App\Categoria; */
 use Illuminate\Http\Request;
 use Validator;
 use GrahamCampbell\Flysystem\Facades\Flysystem;
@@ -17,6 +18,7 @@ class PromocionController extends Controller
     public function index()
     {
         $promociones = Promocion::all();
+        /* $categoria = Categoria::all(); */
 
         if (count($promociones) == 0) {
             return response()->json(['error' => 'true', 'message' => 'No existen promociones en el sistema.']);

@@ -10,6 +10,7 @@ import { AuthService } from "src/app/auth/auth.service";
 import { roleNames } from "src/app/shared/guards/roleNames.data";
 import { HttpErrorResponse } from "@angular/common/http";
 import { MatPaginator, MatSort, MatTableDataSource, MatSlideToggleModule } from "@angular/material";
+import { PanelService } from "./panel.service";
 
 @Component({
   selector: "app-editar-usuario",
@@ -29,6 +30,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
 
   formPannelAccount: FormGroup;
   pannelAccounts: any[] = [];
+  pannelBrands : any[];
 
 
   dataSource: any;
@@ -40,7 +42,8 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
     public authService: AuthService,
     public router: Router,
     public activatedRoute: ActivatedRoute,
-    public store: Store<AppState>
+    public store: Store<AppState>,
+    public panelService: PanelService
   ) { }
 
   ngOnInit() {
@@ -74,6 +77,8 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
       this.cargarUsuario(id);
       this.getPannelAccounts(id);
     });
+
+    this.getPannelBrands();
   }
 
   ngOnDestroy() {
@@ -92,6 +97,12 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
         activo: this.usuario.activo
       });
     });
+  }
+
+  getPannelBrands() {
+    this.panelService.getPanelBrands().subscribe((pannels) => {
+      this.pannelBrands = pannels.data
+    })
   }
 
   getPannelAccounts(userId: string) {

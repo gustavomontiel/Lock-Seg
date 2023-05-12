@@ -273,6 +273,7 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         ]);
 
         /* Categorias Routes */
+
         $router->get('/categorias', [
             'as' => 'categorias.index',
             'uses' => 'CategoriaController@index'
@@ -296,7 +297,36 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         $router->delete('/categorias/{id}', [
             'as' => 'categorias.destroy',
             'uses' => 'CategoriaController@destroy'
-        ]);        
+        ]);  
+
+        /* Paneles Routes */
+
+        $router->get('/paneles', [
+            'as' => 'paneles.index',
+            'uses' => 'PanelController@index'
+        ]);
+
+        $router->post('/paneles', [
+            'as' => 'paneles.store',
+            'uses' => 'PanelController@store'
+        ]);
+
+        $router->get('/paneles/{id}', [
+            'as' => 'paneles.show',
+            'uses' => 'PanelController@show'
+        ]);
+
+        $router->put('/paneles/{id}', [
+            'as' => 'paneles.update',
+            'uses' => 'PanelController@update'
+        ]);
+
+        $router->delete('/paneles/{id}', [
+            'as' => 'paneles.destroy',
+            'uses' => 'PanelController@destroy'
+        ]);  
+        
+        
     });
     
 });
