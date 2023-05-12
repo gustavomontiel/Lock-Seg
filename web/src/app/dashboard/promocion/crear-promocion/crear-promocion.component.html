@@ -18,7 +18,7 @@
           <label for="descripcion">Categoria</label>
           <select class="form-control " aria-label="Default select example" formControlName="categoria" name="categoria">
             <option selected>Elija una categoria</option>
-            <option *ngFor="let categoria of categorias" [value]="categoria.titulo" >{{categoria.titulo}}</option>
+            <option *ngFor="let categoria of categorias" [value]="categoria.id" >{{categoria.titulo}}</option>
           </select>
         </div>
 

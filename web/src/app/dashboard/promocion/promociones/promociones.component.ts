@@ -301,4 +301,13 @@ export class PromocionesComponent implements OnInit {
     this.formCategoriaNueva.markAsDirty();
   }
 
+  findCategoryName(id){
+    console.log(id);
+
+    const cat = this.categorias.find(cate =>cate.id == id)
+    console.log(cat);
+
+    return cat.titulo
+  }
+
 }
