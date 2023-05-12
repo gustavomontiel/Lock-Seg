@@ -13,11 +13,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   cargando: boolean;
   subscription: Subscription;
+  password: string;
+  showPassword: boolean;
 
   constructor(
     public authService: AuthService,
     public store: Store<AppState>
-  ) { }
+  ) { this.showPassword = false; }
 
   ngOnInit() {
     this.subscription = this.store.select('ui').subscribe(ui => {
@@ -33,4 +35,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authService.login(data.email, data.password );
   }
 
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+    console.log('show pass');
+
+  }
 }
