@@ -13,6 +13,10 @@ import { DeitresService } from '../services/deitres.service';
 import { actionSheetController } from '@ionic/core';
 import { Router } from '@angular/router';
 import { Plugins } from '@capacitor/core';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, throwError } from "rxjs";
+import { map, catchError } from "rxjs/operators";
 
 @Component({
   selector: 'app-home',
@@ -24,6 +28,7 @@ export class HomePage implements OnInit {
   url: any;
   parametro: any;
   loading: any;
+  isActive: any
 
   constructor(
     private authService: AuthService,
@@ -37,13 +42,34 @@ export class HomePage implements OnInit {
     public platform: Platform,
     public iabOptionService: InappBrowserOptionService,
     private deitresService: DeitresService,
-    public router: Router
-  ) {}
+    public router: Router,
+    private http: HttpClient,
 
-  ngOnInit() {}
+  ) { }
+
+  ngOnInit() { this.isActiveUser(); }
 
   logoutUser() {
     this.authService.logout();
+  }
+
+  isActiveUser() {
+    this.storageService.get('USER_INFO').then((response) => {
+      if (response) {
+        const user_info = typeof response === 'string' ? JSON.parse(response) : response;
+
+        const url = environment.APIEndpoint + "/active-status/" + user_info.data.user.id;
+        this.http.get(url).subscribe(resp => {
+          const respuesta = typeof resp === 'string' ? JSON.parse(resp) : resp;
+          if (respuesta.activo === 1) {
+            console.log('activo')
+          } else {
+            console.log('inactivo');
+            this.logoutUser()
+          }
+        })
+      }
+    })
   }
 
   insertarContacto(account) {
@@ -52,7 +78,7 @@ export class HomePage implements OnInit {
         const user_info =
           typeof response === 'string' ? JSON.parse(response) : response;
 
-          const { email, nombre, telefono } = user_info;
+        const { email, nombre, telefono } = user_info;
         const msg = `Llamada urgente ${account} ${nombre} ${email} ${telefono}`
 
         const body = {
@@ -101,24 +127,25 @@ export class HomePage implements OnInit {
 
     const alert = await this.alertController.create({
       header: 'Botón de pánico',
+      cssClass: "panicAlert",
       message: msg,
-      cssClass: 'alertConfirmacion',
       buttons: [
         {
           text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {},
+          cssClass: 'boton1',
+          handler: () => { },
         },
         {
-          text: 'Ok',
-          cssClass: 'secondary',
+          text: '¡Sí, Ayúda!',
+          cssClass: 'boton2',
           handler: () => {
             this.insertarContacto(nombreCuenta);
           },
+
         },
       ],
     });
+
 
     await alert.present();
   }
@@ -135,14 +162,14 @@ export class HomePage implements OnInit {
     // );
 
     const target = (device.platform === 'ios') ? '_system' : '_blank';
-    const browser = this.iab.create( this.url, target, this.iabOptionService.inappbrowserOption );
+    const browser = this.iab.create(this.url, target, this.iabOptionService.inappbrowserOption);
   }
 
   async verGps() {
 
     const { Device } = Plugins;
     let device = await Device.getInfo();
-    
+
     this.url = this.urlsService.getParametro('gps');
     // const browser = this.iab.create(
     //   this.url,
@@ -150,7 +177,7 @@ export class HomePage implements OnInit {
     //   this.iabOptionService.inappbrowserOption
     // );
     const target = (device.platform === 'ios') ? '_system' : '_blank';
-    const browser = this.iab.create( this.url, target, this.iabOptionService.inappbrowserOption );
+    const browser = this.iab.create(this.url, target, this.iabOptionService.inappbrowserOption);
 
   }
 
@@ -225,4 +252,18 @@ export class HomePage implements OnInit {
 
     toast.present();
   }
+
+  async verFacturas() {
+
+    const { Device } = Plugins;
+    let device = await Device.getInfo();
+
+    const url = this.urlsService.getParametro('ver-facturas');
+    // Si es ios se abre en el navegador del sistema operativo
+    const target = (device.platform === 'ios') ? '_system' : '_blank';
+    const browser = this.iab.create(url, target, this.iabOptionService.inappbrowserOption);
+
+  }
+
+
 }

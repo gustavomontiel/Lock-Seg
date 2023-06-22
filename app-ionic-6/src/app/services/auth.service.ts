@@ -2,10 +2,12 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Platform } from "@ionic/angular";
 import { BehaviorSubject, throwError } from "rxjs";
-import { HttpClient } from "@angular/common/http";
 import { map, catchError } from "rxjs/operators";
+import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { StorageService } from "./storage.service";
+import { ToastController } from '@ionic/angular';
+
 
 @Injectable({
   providedIn: "root",
@@ -17,7 +19,8 @@ export class AuthService {
     private router: Router,
     private storageService: StorageService,
     private platform: Platform,
-    private http: HttpClient
+    private http: HttpClient,
+    private toastController: ToastController
   ) {
     this.platform.ready().then(() => {
       this.isLoggedIn();
@@ -26,9 +29,9 @@ export class AuthService {
 
   isLoggedIn() {
     this.storageService.get("USER_INFO").then((response) => {
-      
+
       if (response) {
-        
+
         if (response === '[object Object]') {
           this.logout();
         } else {
@@ -43,7 +46,7 @@ export class AuthService {
       } else {
         this.authState.next(false);
       }
-      
+
     });
   }
 
@@ -58,23 +61,42 @@ export class AuthService {
     };
 
     const url = environment.APIEndpoint + "/auth/login";
-
     return this.http.post(url, usuario).pipe(
       map((resp: any) => {
         this.usuario = resp;
-        const user_info = typeof resp === 'object' ? JSON.stringify(resp) : resp;
-        this.storageService.set("USER_INFO", user_info).then((response) => {
-          this.storageService.set("EMAIL", resp.data.user.email).then((email) => {
-            this.authState.next(true);
-            this.router.navigate(["home"], { replaceUrl: true });
-            return email;
+        console.log(this.usuario);
+
+        // Verifica si el usuario esta activo antes de almacenar los datos del usuario
+        if (this.usuario.data.user.activo === 1) {
+          console.log('usuario activo');
+          const user_info = typeof resp === 'object' ? JSON.stringify(resp) : resp;
+          this.storageService.set("USER_INFO", user_info).then((response) => {
+            this.storageService.set("EMAIL", resp.data.user.email).then((email) => {
+              this.authState.next(true);
+              this.router.navigate(["home"], { replaceUrl: true });
+              return email;
+            });
           });
-        });
-      }),
+        }else {
+          this.presentToast( 'Usuario Inactivo. Por favor contacte un administrador.', 2000)
+        }
+      }
+      ),
       catchError((err) => {
         return throwError(err);
       })
     );
+  }
+
+  async presentToast(message: string, duration: number = 2000) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: duration,
+      position: 'bottom',
+      color: "danger"
+
+    });
+    toast.present();
   }
 
   loginEmail(email: string) {
@@ -137,8 +159,8 @@ export class AuthService {
   }
 
   getCuentasPanel(){
-   
-    const url = environment.APIEndpoint + "cuentas/user/" + this.usuario.data.user.id;
+
+    const url = environment.APIEndpoint + "/cuentas/user/" + this.usuario.data.user.id;
 
     return this.http.get(url).pipe(
       map((resp: any) => {
