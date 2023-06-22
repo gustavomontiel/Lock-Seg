@@ -19,6 +19,8 @@ export class LoginPage implements OnInit {
   public mensaje: string;
   signInWithAppleAvailable = false;
   iosVersion: number;
+  showPassword: boolean;
+
 
   constructor(
     private authService: AuthService,
@@ -68,7 +70,7 @@ export class LoginPage implements OnInit {
     },
       error => {
         console.log(JSON.stringify(error));
-        
+
         let msg = error.error ? error.error.message : undefined;
         msg = typeof msg === 'string' ? msg : 'Error al intentar ingresar al sistema';
         this.mensaje = msg;
@@ -82,10 +84,10 @@ export class LoginPage implements OnInit {
     SignInWithApple.Authorize()
       .then(async (res) => {
         if (res.response && res.response.identityToken) {
-          
+
           this.loginEmail(res.response.email)
         } else {
-          
+
           this.mensaje = JSON.stringify(res);
         }
       })
@@ -98,7 +100,7 @@ export class LoginPage implements OnInit {
   }
 
   openAppleSignIn2() {
-    
+
     this.signInWithApple.signin({
       requestedScopes: [
         ASAuthorizationAppleIDRequest.ASAuthorizationScopeFullName,
@@ -119,9 +121,15 @@ export class LoginPage implements OnInit {
       this.login.setValue({ usuario: '', password: '' });
     },
       error => {
-        
+
         this.mensaje = error.error.message || 'Error al intentar identificarse' ;
       });
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+    console.log('show pass');
+
   }
 
 }

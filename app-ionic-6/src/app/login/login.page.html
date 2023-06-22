@@ -7,17 +7,19 @@
     <ion-grid class="ion-padding">
       <ion-row>
         <ion-col>
-          
+
           <ion-list>
             <ion-item>
               <ion-label class="lock-label" position="stacked">Usuario</ion-label>
               <ion-input class="lock-input" type="email" formControlName="usuario" autocomplete="on"></ion-input>
             </ion-item>
+
             <ion-item>
               <ion-label class="lock-label" position="stacked">Contraseña</ion-label>
-              <ion-input type="password" formControlName="password" autocomplete="on"></ion-input>
+              <ion-input  [type]="showPassword ? 'text' : 'password'" class="form-control" formControlName="password" autocomplete="on"></ion-input>
+              <ion-icon class="passwordEye" [name]="showPassword? 'eye-off' : 'eye-outline' " slot="end" (click)="togglePasswordVisibility()"></ion-icon>
             </ion-item>
-        
+
           </ion-list>
         </ion-col>
       </ion-row>
