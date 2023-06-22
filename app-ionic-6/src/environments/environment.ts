@@ -4,7 +4,7 @@
 export const environment = {
   production: false,
   // APIEndpoint: 'https://api.guazuseguridad.com/',
-  APIEndpoint: 'https://lock-api.grupo-sim.com.ar/',
+  APIEndpoint: 'http://dev-api.guazuseguridad.com',
 };
 /*
  * For easier debugging in development mode, you can import the following file

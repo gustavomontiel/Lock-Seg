@@ -127,9 +127,8 @@ ion-item ion-label.lock-label{
 }
 
 .sombra{
-    box-shadow: 0px 4px 8px 0px #009fdb !important;
-    -webkit-box-shadow: 0px 4px 8px 0px #009fdb;
-    -moz-box-shadow: 0px 4px 8px 0px #009fdb;
+    box-shadow: 0px 2px 8px 2px #009fdb !important;
+
 }
 
 ion-input{
@@ -140,13 +139,13 @@ ion-input{
 
 
 ion-input input:-webkit-autofill,
-ion-input input:-webkit-autofill:hover, 
-ion-input input:-webkit-autofill:focus, 
+ion-input input:-webkit-autofill:hover,
+ion-input input:-webkit-autofill:focus,
 ion-input input:-webkit-autofill:active  {
     transition: background-color 5000s ease-in-out 0s;
     -webkit-text-fill-color: white !important;
     height: 0px;
-    
+
 }
 
 
@@ -184,7 +183,7 @@ h2 {
     --border-color: #000;
     margin:4px auto;
  }
- 
+
  ion-item.panico.item-label.item{
     --background: #009fdb !important;
  }
@@ -193,18 +192,22 @@ iframe {
     border: none;
 }
 
-ion-card{
+.ion-card-holder{
     margin-bottom: 50px !important;
-    background-color: #1c1c1c !important;
+    background-color: #302d2d !important;
 }
+.ion-card{
+    margin-top: 20px !important;
 
+}
+/*
 ion-card-content{
     background-color: #1c1c1c;
 }
 
 .card-content-md{
     background-color: #1c1c1c;
-}
+} */
 
 ion-item > ion-img {
     width:17%;
@@ -218,19 +221,19 @@ ion-item > ion-img {
     background-color: #1c1c1c;
 }
 
-.alertConfirmacion {
+/* .alertConfirmacion {
     --background: #000000 ;
 }
 
  .alertConfirmacion .alert-message {
     color: #ffffff ;
- }
+ } */
 
  ion-spinner{
      --color: #ffffff;
  }
 
- 
+
 
 
 .loading-wrapper {
@@ -259,7 +262,7 @@ ion-item > ion-img {
 
 .modalCss ion-text {
     color:#ffffff;
-    font-size: 20px; 
+    font-size: 20px;
 }
 
 .modalCss div {
@@ -284,13 +287,13 @@ ion-item > ion-img {
 }
 
 .action-sheet-title {
-    background: rgb(39, 39, 41) !important;   
+    background: rgb(39, 39, 41) !important;
 }
 
 
 
 ion-col > button{
-    background: #53535B !important;   
+    background: #53535B !important;
 }
 
 ion-col > button > ion-icon{
@@ -323,4 +326,29 @@ h3{
 
 #principal > app-deitres-panel > ion-content > ion-card > ion-card-content > ion-item > ion-row > ion-col > button > ion-icon > div.icon-inner{
     color: white !important;
+}
+
+.panicAlert {
+  align-content: center;
+  justify-content: center;
+
+}
+
+.panicAlert .boton1 {
+  align-self: center;
+  color: #ffffff;
+  padding-right: 20px;
+}
+
+.panicAlert .boton2 {
+  background-color: #ff0000;
+  color: #ffffff;
+  padding: 25px;
+  margin-left: 10px;
+  width: fit-content;
+
+}
+
+.passwordEye{
+  align-self: center;
 }

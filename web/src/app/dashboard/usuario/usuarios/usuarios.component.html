@@ -9,17 +9,17 @@
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <ng-container matColumnDef="codigo_gestion">
-      <th mat-header-cell *matHeaderCellDef> Nro de abonado </th>
+      <th mat-header-cell *matHeaderCellDef>Nro de abonado</th>
       <td mat-cell *matCellDef="let element"> {{element.codigo_gestion}} </td>
     </ng-container>
 
     <ng-container matColumnDef="activo">
-      <th mat-header-cell *matHeaderCellDef> Nro de abonado </th>
+      <th mat-header-cell *matHeaderCellDef>Estado de Actividad</th>
       <td mat-cell *matCellDef="let element"> {{ (element.activo == 1)? 'Activo': 'Inactivo' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="nombre">
-      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <th mat-header-cell *matHeaderCellDef>Nombre</th>
       <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
     </ng-container>
 

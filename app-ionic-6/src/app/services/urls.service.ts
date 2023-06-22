@@ -15,12 +15,12 @@ export class UrlsService {
     private http: HttpClient,
     public loadingController: LoadingController
   ) {
-    this.getParametros();  
+    this.getParametros();
   }
 
   getParametros() {
     if (this.parametros.length === 0) {
-      const url = environment.APIEndpoint + "parametros";
+      const url = environment.APIEndpoint + "/parametros";
 
       this.http.get(url).subscribe(
         (respuesta: any) => {
@@ -36,7 +36,7 @@ export class UrlsService {
   }
   getUrl(descripcion: string) {
     const url =
-      environment.APIEndpoint + "parametros/descripcion/" + descripcion;
+      environment.APIEndpoint + "/parametros/descripcion/" + descripcion;
     return this.http.get(url).pipe(map((parametro) => parametro));
   }
 
