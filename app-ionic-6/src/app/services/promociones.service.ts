@@ -24,4 +24,18 @@ export class PromocionesService {
 
     );
   }
+  getCategoriasAPI() {
+
+    const url = environment.APIEndpoint + '/categorias';
+
+    return this.http.get(url).pipe(
+      map((respuesta: any) => {
+        return respuesta;
+      }),
+
+    );
+  }
+
+
+
 }

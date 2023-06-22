@@ -1,21 +1,103 @@
 <app-header [verTitulo]="false"></app-header>
 
-<ion-content class="ion-padding-start ion-padding-end">
+<ion-content class="ion-padding-start ion-padding-end ">
 
   <ion-img class="ion-align-self-center ion-margin-horizontal" src="/assets/imagenes/logo_g.png"></ion-img>
 
-  <div *ngFor="let promocion of promociones">
-    <ion-card class="sombra">
-      <img [src]="urlImagenes +'/'+promocion.imagen" />
-      <ion-card-header>
-        <ion-card-title style="color:#ffffff;">{{promocion.titulo}}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content style="color:#ffffff;">
-        {{promocion.descripcion}}
-      </ion-card-content>
-    </ion-card>
+  <ion-grid>
+    <ion-row>
+
+      <ion-col size="8">
+        <ion-searchbar (ionChange)="buscarPromocion($event)" placeholder="Buscar Promociones"></ion-searchbar>
+      </ion-col>
+
+      <ion-col size="4">
+
+        <ion-select  color="white" (ionChange)="handleChange($event)" placeholder="Categorias">
+          <ion-select-option value="todas">Todas</ion-select-option>
+          <ion-select-option *ngFor="let categoria of categorias"
+            value="{{categoria.id}}">{{categoria.titulo}}</ion-select-option>
+        </ion-select>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div *ngIf="!buscar">
+
+    <div *ngFor="let categoria of categorias">
+
+      <ion-card class="sombra ion-card-holder"  *ngIf="categoriaSeleccionada===categoria.id.toString() || categoriaSeleccionada === 'todas' ">
+
+        <ion-card-header>
+          <ion-card-title>{{categoria.titulo}}</ion-card-title>
+          <ion-card-subtitle>{{categoria.descripcion}}</ion-card-subtitle>
+
+        </ion-card-header>
+
+        <ion-card-content >
+          <div *ngFor="let promocion of promociones">
+            <ion-card class="ion-card" *ngIf="promocion.categoria===categoria.id.toString() ">
+
+              <img [src]="urlImagenes +'/'+promocion.imagen" />
+              <ion-card-header>
+                <ion-card-subtitle> Promoción N° {{promocion.id}}</ion-card-subtitle>
+                <ion-card-title >
+                  {{promocion.titulo}}
+                </ion-card-title>
+              </ion-card-header>
+
+              <ion-card-content>
+                {{promocion.descripcion}}
+              </ion-card-content>
+
+            </ion-card>
+          </div>
+
+        </ion-card-content>
+
+      </ion-card>
+    </div>
+
   </div>
 
+  <div *ngIf="buscar">
+
+
+
+      <ion-card class="sombra ion-card-holder" >
+
+        <ion-card-header>
+          <ion-card-title> Resultados:</ion-card-title>
+
+        </ion-card-header>
+
+        <ion-card-content >
+          <div *ngFor="let promocion of promosFiltradas">
+            <ion-card class="ion-card" >
+
+              <img [src]="urlImagenes +'/'+promocion.imagen" />
+              <ion-card-header>
+                <ion-card-subtitle> Promoción N° {{promocion.id}}</ion-card-subtitle>
+                <ion-card-title >
+                  {{promocion.titulo}}
+                </ion-card-title>
+              </ion-card-header>
+
+              <ion-card-content>
+                {{promocion.descripcion}}
+              </ion-card-content>
+
+            </ion-card>
+          </div>
+
+        </ion-card-content>
+
+      </ion-card>
+
+
+
+  </div>
 
 </ion-content>
 
