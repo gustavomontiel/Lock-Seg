@@ -14,21 +14,23 @@
       <ion-label class="" color="danger"> {{ mensaje }} </ion-label>
     </ion-item>
   </ion-list>
-  
+
   <form [formGroup]="cambiarPass" ngNativeValidate (submit)="cambiarPassword()" class="ion-padding pt-0">
     <ion-grid class="ion-padding pb-0">
       <ion-row>
         <ion-col>
           <ion-list>
             <ion-item>
-              <ion-label class="lock-label" position="floating">Contraseña actual</ion-label>
+              <ion-label class="lock-label" position="stacked">Contraseña actual</ion-label>
+              <div class="space"></div>
               <ion-input [type]="inputPasswordType" formControlName="password"></ion-input>
               <ion-button (click)="toggleInputPasswordType()" slot="end" class="btn_eye_icon">
                 <ion-icon [name]="passwordIcon"></ion-icon>
               </ion-button>
             </ion-item>
             <ion-item>
-              <ion-label class="lock-label" position="floating">Nueva Contraseña</ion-label>
+              <ion-label class="lock-label" position="stacked">Nueva Contraseña</ion-label>
+              <div class="space"></div>
               <ion-input [type]="inputNewPasswordType" formControlName="passwordDos"></ion-input>
               <ion-button (click)="toggleInputNewPasswordType()" slot="end" class="btn_eye_icon">
                 <ion-icon [name]="newPasswordIcon"></ion-icon>
