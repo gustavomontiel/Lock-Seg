@@ -15,7 +15,7 @@ export class ToastService {
       message: msg,
       position: 'bottom',
       color: color,
-      duration: 2000
+      duration: 3000
     });
     toast.present();
   }

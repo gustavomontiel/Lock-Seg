@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { PromocionesService } from '../services/promociones.service';
 import { environment } from 'src/environments/environment';
+import { StorageService } from '../services/storage.service';
+import { HttpClient } from '@angular/common/http';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -13,6 +18,8 @@ export class PromocionesPage implements OnInit {
   promociones: any;
   promos: any;
   promosFiltradas:any;
+  showPromoFS: boolean;
+  promoSeleccionada: any
 
   public urlImagenes = '';
 
@@ -24,24 +31,28 @@ export class PromocionesPage implements OnInit {
 
   constructor(
     private promocionesService: PromocionesService,
+    private storageService: StorageService,
+    private http: HttpClient,
+    public alertController: AlertController,
+    public router: Router,
+
 
   ) { this.categoriaSeleccionada= 'todas';
-      this.buscar = false
+      this.buscar = false;
+      this.showPromoFS = false;
     }
 
   ngOnInit() {
     this.urlImagenes = environment.APIEndpoint;
     this.getPromociones();
     this.getCategorias();
-
   }
 
   private getPromociones() {
     this.promocionesService.getPromocionesAPI()
       .subscribe(promos => {
         this.promociones = this.ordenarItems(promos.data);
-        console.log(this.promociones);
-
+        this.promosFiltradas = this.ordenarItems(promos.data);
       });
   };
 
@@ -50,17 +61,22 @@ export class PromocionesPage implements OnInit {
     this.promocionesService.getCategoriasAPI()
       .subscribe(categorias => {
         this.categorias = this.ordenarItems(categorias.data);
-        console.log(this.categorias);
       });
-
   }
 
   /* obtiene la categoria seleccionada actual y setea el valor nuevo*/
-  handleChange(e) {
+  cambiarCategoria(e) {
     this.categoriaSeleccionada = e.detail.value
-    console.log('ionChange fired with value: ' + e.detail.value);
-  }
+    if (this.categoriaSeleccionada != "todas") {
+      this.promosFiltradas = this.promociones.filter(promocion => {
+        return promocion.categoria.toString() === e.detail.value.toString();
+      });
+    }else{
+      this.promosFiltradas = this.promociones
+      console.log('no hay filtro de categoria activo');
 
+    }
+  }
 
   /* obtiene un array y ordena */
   ordenarItems(array) {
@@ -75,8 +91,6 @@ export class PromocionesPage implements OnInit {
       else
           return 0;
   });
-
-  console.log(ordered);
   return ordered;
   }
 
@@ -86,12 +100,9 @@ export class PromocionesPage implements OnInit {
    if (query.detail.value) {
     this.buscar = true
     console.log('Buscador encendido');
-
     this.promosFiltradas = this.promociones.filter(promocion => {
       return promocion.titulo.toLowerCase().includes(query.detail.value.toLowerCase()) || promocion.descripcion.toLowerCase().includes(query.detail.value.toLowerCase())
     });
-    console.log( this.promosFiltradas );
-
   }else {
     this.buscar = false
     console.log('Buscador desactivado');
@@ -99,5 +110,19 @@ export class PromocionesPage implements OnInit {
 
   }
 
+  showPromo(promo){
+    this.buscar= false
+    this.storageService.get('USER_INFO').then((response) => {
+      if (response) {
+        this.showPromoFS = true;
+        this.promoSeleccionada = promo;
+      }
+    })
+  }
+
+  goBack(){
+    this.showPromoFS = false
+    this.getPromociones();
+  }
 
 }

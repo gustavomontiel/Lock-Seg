@@ -115,28 +115,30 @@ export class HomePage implements OnInit {
   async presentAlertConfirm() {
     const account = await this.seleccionarCuenta(false);
 
-    let msg = 'Está a punto de confimar el envío de una moto';
+    /* let msg = 'Está a punto de confimar el envío de una moto'; */
+    let msg = '';
     let nombreCuenta = '';
 
     if (account) {
       nombreCuenta += account
         ? account.descripcion + ' (' + account.account + ')'
         : '';
-      msg += nombreCuenta ? ' a ' + nombreCuenta : '';
+      /* msg += nombreCuenta ? ' a ' + nombreCuenta : ''; */
     }
 
     const alert = await this.alertController.create({
       header: 'Botón de pánico',
+      mode:'md',
       cssClass: "panicAlert",
       message: msg,
       buttons: [
         {
-          text: 'Cancelar',
+          text: '',
           cssClass: 'boton1',
           handler: () => { },
         },
         {
-          text: '¡Sí, Ayúda!',
+          text: '',
           cssClass: 'boton2',
           handler: () => {
             this.insertarContacto(nombreCuenta);

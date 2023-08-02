@@ -328,26 +328,7 @@ h3{
     color: white !important;
 }
 
-.panicAlert {
-  align-content: center;
-  justify-content: center;
 
-}
-
-.panicAlert .boton1 {
-  align-self: center;
-  color: #ffffff;
-  padding-right: 20px;
-}
-
-.panicAlert .boton2 {
-  background-color: #ff0000;
-  color: #ffffff;
-  padding: 25px;
-  margin-left: 10px;
-  width: fit-content;
-
-}
 
 .passwordEye{
   align-self: center;
@@ -356,3 +337,77 @@ h3{
 .space{
   padding: 1px;
 }
+
+.panicAlert {
+  text-align: center;
+
+}
+
+/* ion-alert.panicAlert{
+  background: rgb(0,0,0,10);
+}
+ */
+
+.panicAlert .alert-wrapper {
+   background:  rgb(0,0,0,.9);
+   .alert-button-group {
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.panicAlert .boton1 {
+  background-image: url('../resources/white-cross.png');
+  width: 40px;
+  height: 40px;
+  background-repeat: no-repeat;
+  background-size:contain;
+  background-position: center;
+  background-color: #2b2d2e;
+  margin-top: 10px;
+}
+
+
+.panicAlert .boton2 {
+  /* background-color: #ff0000;
+  color: #ffffff;
+  padding: 25px;
+  margin-left: 10px;
+  width: fit-content; */
+  margin: 20px;
+
+  background-image: url('../resources/red-button3.png');
+  width: 200px;
+  height: 200px;
+  background-repeat: no-repeat;
+  background-size:contain;
+  background-position: center;
+
+}
+
+/* .promoImagen{
+
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cuadroImagen {
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  width: 100%;
+  height: 80%;
+  overflow: hidden;
+}
+
+.promoFullScreen{
+  align-content: space-evenly;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+} */
