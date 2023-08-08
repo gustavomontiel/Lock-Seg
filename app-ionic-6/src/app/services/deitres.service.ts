@@ -36,7 +36,11 @@ export class DeitresService {
       : this.lastTime;
 
     this.lastTime = new Date().getTime();
-    return this.lastTime > lastTime + 1000 * 60 * 60;
+
+    const result = this.lastTime > lastTime + 1000 * 60 * 60;
+    console.log(result, 'prueba');
+
+    return result
   }
 
   getHttpAuthParams() {
@@ -80,7 +84,7 @@ export class DeitresService {
       });
 
       const url = ' https://auth.deitres.com/oauth/token';
-      
+
       await this.httpClient
         .post(url, params, { headers: headers })
         .pipe(
@@ -102,7 +106,7 @@ export class DeitresService {
     const i = await this.getToken();
 
     if (this.deitresAccessToken) {
-      
+
       const url = `https://api.citymesh.deitres.com/int/partition?account=${account}&userCode=${userCode}`;
       const headers = this.getHttpHeader();
       this.loadingService.present();
@@ -145,7 +149,7 @@ export class DeitresService {
           .then((data: any) => {
             data = JSON.parse(data.data);
             if (!data.success) {
-              this.toastService.presentToast(data.reason, 'danger');
+              this.toastService.presentToast(data.errorMessage, 'danger');
             } else {
               let color = 'success';
               let msg = data.message ? data.message : '';
@@ -154,15 +158,13 @@ export class DeitresService {
                 msg += data.message ? data.message : 'Panel armado';
               } else {
                 color = 'danger';
-                msg += data.message
-                  ? data.message
+                console.log(data);
+                msg += data.errorMessage
+                  ? data.errorMessage + data.openZones.join()
                   : 'No se pudo armar el manel';
               }
 
-              msg +=
-                data.openZones && data.openZones[0]
-                  ? ': ' + data.openZones.join()
-                  : '';
+
               this.toastService.presentToast(msg, color);
             }
             return data;

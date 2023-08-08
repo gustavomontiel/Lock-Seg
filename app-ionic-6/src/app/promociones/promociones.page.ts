@@ -16,10 +16,13 @@ import { Router } from '@angular/router';
 export class PromocionesPage implements OnInit {
 
   promociones: any;
-  promos: any;
   promosFiltradas:any;
+  promosBuscadas:any;
   showPromoFS: boolean;
   promoSeleccionada: any
+
+  isActive: any;
+  userName: any;
 
   public urlImagenes = '';
 
@@ -67,12 +70,13 @@ export class PromocionesPage implements OnInit {
   /* obtiene la categoria seleccionada actual y setea el valor nuevo*/
   cambiarCategoria(e) {
     this.categoriaSeleccionada = e.detail.value
+
     if (this.categoriaSeleccionada != "todas") {
       this.promosFiltradas = this.promociones.filter(promocion => {
         return promocion.categoria.toString() === e.detail.value.toString();
       });
     }else{
-      this.promosFiltradas = this.promociones
+      this.getPromociones();
       console.log('no hay filtro de categoria activo');
 
     }
@@ -100,7 +104,7 @@ export class PromocionesPage implements OnInit {
    if (query.detail.value) {
     this.buscar = true
     console.log('Buscador encendido');
-    this.promosFiltradas = this.promociones.filter(promocion => {
+    this.promosBuscadas = this.promociones.filter(promocion => {
       return promocion.titulo.toLowerCase().includes(query.detail.value.toLowerCase()) || promocion.descripcion.toLowerCase().includes(query.detail.value.toLowerCase())
     });
   }else {
@@ -118,11 +122,32 @@ export class PromocionesPage implements OnInit {
         this.promoSeleccionada = promo;
       }
     })
+
+    this.storageService.get('USER_INFO').then((response) => {
+      if (response) {
+        const user_info = typeof response === 'string' ? JSON.parse(response) : response;
+        this.userName = user_info.data.user.nombre
+        const url = environment.APIEndpoint + "/active-status/" + user_info.data.user.id;
+        this.http.get(url).subscribe(resp => {
+          const respuesta = typeof resp === 'string' ? JSON.parse(resp) : resp;
+          if (respuesta.activo === 1) {
+           this.isActive = "Activo"
+          }else{
+            this.isActive = "Inactivo"
+          }
+        })
+      }
+    })
+
+
   }
 
   goBack(){
     this.showPromoFS = false
     this.getPromociones();
   }
+
+
+
 
 }

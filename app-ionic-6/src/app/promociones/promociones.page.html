@@ -8,7 +8,7 @@
         <ion-searchbar (ionChange)="buscarPromocion($event)" placeholder="Buscar Promociones"></ion-searchbar>
       </ion-col>
       <ion-col size="4">
-        <ion-select  interface="action-sheet" (ionChange)="cambiarCategoria($event)" placeholder="Categorias">
+        <ion-select interface="action-sheet" (ionChange)="cambiarCategoria($event)" placeholder="Categorias">
           <ion-select-option value="todas">Todas</ion-select-option>
           <ion-select-option *ngFor="let categoria of categorias"
             value="{{categoria.id}}">{{categoria.titulo}}</ion-select-option>
@@ -19,72 +19,82 @@
 
   <!-- Cards de Promociones default -->
   <div *ngIf="!buscar && !showPromoFS">
-    <ion-card class="sombra ion-card-holder">
-      <ion-card-header>
-        <ion-card-title> Promociones:  </ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <div *ngFor="let promocion of promosFiltradas">
-          <ion-card class="ion-card"  >
-            <div (click)="showPromo(promocion)">
-              <img [src]="urlImagenes +'/'+promocion.imagen" />
-              <ion-card-header>
-                <!-- <ion-card-subtitle> Promoción N° {{promocion.id}}</ion-card-subtitle> -->
-                <ion-card-title>
-                  {{promocion.titulo}}
-                </ion-card-title>
-              </ion-card-header>
-            </div>
-          </ion-card>
+    <h3>
+      Promociones:
+    </h3>
+    <div *ngFor="let promocion of promosFiltradas">
+      <ion-card class="ion-card">
+        <div (click)="showPromo(promocion)">
+          <img [src]="urlImagenes +'/'+promocion.imagen" />
+          <ion-card-header>
+            <!-- <ion-card-subtitle> Promoción N° {{promocion.id}}</ion-card-subtitle> -->
+            <ion-card-title>
+              {{promocion.titulo}}
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            {{promocion.descripcion}}
+          </ion-card-content>
         </div>
-      </ion-card-content>
-    </ion-card>
+      </ion-card>
+    </div>
+
   </div>
 
   <!-- Cards de Promociones al activar el buscador -->
   <div *ngIf="buscar ">
-    <ion-card class="sombra ion-card-holder">
-      <ion-card-header>
-        <ion-card-title> Resultados:</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <div *ngFor="let promocion of promosFiltradas">
-          <ion-card class="ion-card"  >
-            <div (click)="showPromo(promocion)">
-              <img [src]="urlImagenes +'/'+promocion.imagen" />
-              <ion-card-header>
-                <!-- <ion-card-subtitle> Promoción N° {{promocion.id}}</ion-card-subtitle> -->
-                <ion-card-title>
-                  {{promocion.titulo}}
-                </ion-card-title>
-              </ion-card-header>
-            </div>
-          </ion-card>
+    <h3>
+      Promociones:
+    </h3>
+    <div *ngFor="let promocion of promosBuscadas">
+      <ion-card class="ion-card">
+        <div (click)="showPromo(promocion)">
+          <img [src]="urlImagenes +'/'+promocion.imagen" />
+          <ion-card-header>
+            <!-- <ion-card-subtitle> Promoción N° {{promocion.id}}</ion-card-subtitle> -->
+            <ion-card-title>
+              {{promocion.titulo}}
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            {{promocion.descripcion}}
+          </ion-card-content>
         </div>
-      </ion-card-content>
-    </ion-card>
+      </ion-card>
+    </div>
   </div>
 
-<!-- Promo en Pantalla completa -->
+  <!-- Promo en Pantalla completa -->
   <div *ngIf="showPromoFS">
+
     <ion-grid class="promoFullScreen">
-      <ion-row size="10">
+      <ion-row>
         <ion-col>
+
           <ion-card class="ion-card">
-            <!-- <ion-card-header>
+          </ion-card>
+          <div class="activeUser" >
+            Usuario: <b>{{userName}}</b> <br>
+            Estado: <b>{{isActive}}</b>
+
+          </div>
+          <ion-card class="ion-card">
+            <ion-card-header>
               <ion-card-title>
                 {{this.promoSeleccionada.titulo}}
               </ion-card-title>
-            </ion-card-header> -->
+            </ion-card-header>
             <div>
               <img class="promoImagen" [src]="urlImagenes +'/'+this.promoSeleccionada.imagen"
                 alt="Descripción de la imagen">
             </div>
             <ion-card-content>
               {{this.promoSeleccionada.descripcion}}
-              <ion-button expand="block" (click)="goBack()">Volver</ion-button>
             </ion-card-content>
           </ion-card>
+
+          <ion-button expand="block" (click)="goBack()">Volver</ion-button>
+
         </ion-col>
       </ion-row>
     </ion-grid>

@@ -77,9 +77,8 @@ export class HomePage implements OnInit {
       if (response) {
         const user_info =
           typeof response === 'string' ? JSON.parse(response) : response;
-
-        const { email, nombre, telefono } = user_info;
-        const msg = `Llamada urgente ${account} ${nombre} ${email} ${telefono}`
+        /* const { email, nombre, telefono } = user_info; */
+        const msg = `Llamada urgente ${account} ${user_info.data.user.nombre} ${user_info.data.user.email} ${user_info.data.user.telefono}`
 
         const body = {
           tipo: 'panico',
@@ -114,42 +113,44 @@ export class HomePage implements OnInit {
 
   async presentAlertConfirm() {
     const account = await this.seleccionarCuenta(false);
-
     /* let msg = 'Está a punto de confimar el envío de una moto'; */
     let msg = '';
     let nombreCuenta = '';
 
     if (account) {
       nombreCuenta += account
-        ? account.descripcion + ' (' + account.account + ')'
+        ? account.descripcion + ' (' +' Cuenta N°: '+ account.account +' Identificador: '+ account.identificador + ')'
         : '';
+        console.log(account);
+
       /* msg += nombreCuenta ? ' a ' + nombreCuenta : ''; */
+
+      const alert = await this.alertController.create({
+        header: 'Pulsar',
+        mode: 'md',
+        cssClass: "panicAlert",
+        message: msg,
+        buttons: [
+          {
+            text: 'Cancelar',
+            cssClass: 'boton1',
+            handler: () => { },
+          },
+          {
+            text: '',
+            cssClass: 'boton2',
+            handler: () => {
+              this.insertarContacto(nombreCuenta);
+            },
+
+          },
+        ],
+      });
+      await alert.present();
+
     }
 
-    const alert = await this.alertController.create({
-      header: 'Botón de pánico',
-      mode:'md',
-      cssClass: "panicAlert",
-      message: msg,
-      buttons: [
-        {
-          text: '',
-          cssClass: 'boton1',
-          handler: () => { },
-        },
-        {
-          text: '',
-          cssClass: 'boton2',
-          handler: () => {
-            this.insertarContacto(nombreCuenta);
-          },
 
-        },
-      ],
-    });
-
-
-    await alert.present();
   }
 
   async verAlarma() {
@@ -200,7 +201,7 @@ export class HomePage implements OnInit {
 
     if (cuentas.length === 1) {
       this.deitresService.panelSeleccionado = cuentas[0].account;
-      return cuentas[0].account;
+      return cuentas[0];
     }
 
     const buttons = [];
@@ -222,12 +223,12 @@ export class HomePage implements OnInit {
 
     const { role: account } = await actionSheet.onDidDismiss();
     if (account !== 'cancel') {
-      cuenta = account;
-      this.deitresService.panelSeleccionado = cuentas.find(
+
+      cuenta = this.deitresService.panelSeleccionado = cuentas.find(
         (item) => item.account == account
       );
+      return cuenta;
     }
-    return cuenta;
   }
 
   async abrirPanelDeitres() {
