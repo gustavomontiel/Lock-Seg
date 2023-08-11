@@ -78,7 +78,7 @@ export class HomePage implements OnInit {
         const user_info =
           typeof response === 'string' ? JSON.parse(response) : response;
         /* const { email, nombre, telefono } = user_info; */
-        const msg = `Llamada urgente ${account} ${user_info.data.user.nombre} ${user_info.data.user.email} ${user_info.data.user.telefono}`
+        const msg = `Llamada urgente a ${account} ${user_info.data.user.nombre} ${user_info.data.user.email} ${user_info.data.user.telefono}`
 
         const body = {
           tipo: 'panico',
@@ -121,7 +121,6 @@ export class HomePage implements OnInit {
       nombreCuenta += account
         ? account.descripcion + ' (' +' Cuenta N°: '+ account.account +' Identificador: '+ account.identificador + ')'
         : '';
-        console.log(account);
 
       /* msg += nombreCuenta ? ' a ' + nombreCuenta : ''; */
 
@@ -204,6 +203,7 @@ export class HomePage implements OnInit {
       return cuentas[0];
     }
 
+
     const buttons = [];
     cuentas.forEach((item) => {
       buttons.push({
@@ -224,24 +224,31 @@ export class HomePage implements OnInit {
     const { role: account } = await actionSheet.onDidDismiss();
     if (account !== 'cancel') {
 
-      cuenta = this.deitresService.panelSeleccionado = cuentas.find(
-        (item) => item.account == account
+      cuenta = cuentas.find(
+        (item) => item.account === account
+      );
+
+      this.deitresService.panelSeleccionado = cuentas.find(
+        (item) => item.account === account
       );
       return cuenta;
     }
+
+
   }
 
   async abrirPanelDeitres() {
-    const account = await this.seleccionarCuenta(true);
+    const account = await this.seleccionarCuenta();
+
     if (account) {
-      this.router.navigate(['deitres-panel', account, '01']);
+      this.router.navigate(['deitres-panel', account.account, '0'+account.identificador]);
     }
   }
 
   async presentToastSinCuenta() {
     const toast = await this.toastController.create({
       message: 'No tiene cuenta para realizar la acción.',
-      duration: 30000,
+      duration: 10000,
       position: 'bottom',
       color: 'danger',
       buttons: [

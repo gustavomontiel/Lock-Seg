@@ -21,19 +21,22 @@ export class DeitresPanelPage implements OnInit {
     activatedRoute.params.subscribe((params) => {
       this.account = params.account;
       this.userCode = params.userCode;
-      this.getPanelStatus();      
+      this.getPanelStatus();
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { console.log(this.account, this.userCode);
+  }
 
   getPanelStatus() {
     console.log('getPanelStatus', this.deitresService.panelSeleccionado);
-    
+
     if (this.account) {
       this.deitresService
         .consultaPanel(this.account, this.userCode)
         .then((res) => {
+          console.log(res);
+
           res.subscribe((res2) => {
             console.log('this.panel getPanelStatus', res2);
             this.panel = res2;
@@ -91,14 +94,14 @@ export class DeitresPanelPage implements OnInit {
             console.log(err);
           });
       });
-      
+
     }
   }
 
   setearIncluidos() {
     this.panel.excludedZones && this.panel.excludedZones.forEach( zoneID => {
       console.log(zoneID);
-      
+
       const zona = this.zonas.find(x => x.zoneID === zoneID)
       zona && (zona.excluded = true);
     });
