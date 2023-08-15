@@ -34,6 +34,7 @@ import { AuthGuard } from './services/auth-guard.service';
 import { LoadingInterceptor } from './services/loading.interceptor';
 import { ErrorInterceptor } from './services/error.interceptor';
 import { HTTP } from '@ionic-native/http/ngx';
+import { PantallaCompletaPage } from './pantalla-completa/pantalla-completa.page';
 
 @NgModule({
   declarations: [

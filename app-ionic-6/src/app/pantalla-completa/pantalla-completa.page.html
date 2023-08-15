@@ -1,0 +1,37 @@
+<app-header [verTitulo]="false"></app-header>
+<ion-content class="ion-padding-start ion-padding-end  ">
+  <ion-img class="ion-align-self-center ion-margin-horizontal" src="/assets/imagenes/logo_g.png"></ion-img>
+
+  <!-- Promo en Pantalla completa -->
+  <div *ngIf="datosDisponibles">
+    <ion-grid class="promoFullScreen">
+      <ion-row>
+        <ion-col>
+          <div class="activeUser" >
+          El usuario: <br>
+          <b>{{userName}}</b> <br>
+          se encuentra: <b>{{isActive}}</b>
+         </div>
+        <ion-card class="ion-card sombra">
+            <ion-card-header>
+              <ion-card-title>
+                {{this.selectedPromo.titulo}}
+              </ion-card-title>
+            </ion-card-header>
+          <div>
+            <img class="promoImagen " [src]="urlImagenes+'/'+this.selectedPromo.imagen"
+            alt="Descripción de la imagen">
+          </div>
+          <ion-card-content>
+            {{this.selectedPromo.descripcion}}
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+
+</ion-content>
+
+<!-- <app-footer></app-footer> -->

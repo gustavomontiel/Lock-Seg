@@ -18,7 +18,6 @@ export class PromocionesPage implements OnInit {
   promociones: any;
   promosFiltradas:any;
   promosBuscadas:any;
-  showPromoFS: boolean;
   promoSeleccionada: any
 
   isActive: any;
@@ -42,7 +41,6 @@ export class PromocionesPage implements OnInit {
 
   ) { this.categoriaSeleccionada= 'todas';
       this.buscar = false;
-      this.showPromoFS = false;
     }
 
   ngOnInit() {
@@ -114,40 +112,11 @@ export class PromocionesPage implements OnInit {
 
   }
 
+  /* Navega hasta el componente donde se muestra la promocion en pantalla completa */
   showPromo(promo){
-    this.buscar= false
-    this.storageService.get('USER_INFO').then((response) => {
-      if (response) {
-        this.showPromoFS = true;
-        this.promoSeleccionada = promo;
-      }
-    })
-
-    this.storageService.get('USER_INFO').then((response) => {
-      if (response) {
-        const user_info = typeof response === 'string' ? JSON.parse(response) : response;
-        this.userName = user_info.data.user.nombre
-        const url = environment.APIEndpoint + "/active-status/" + user_info.data.user.id;
-        this.http.get(url).subscribe(resp => {
-          const respuesta = typeof resp === 'string' ? JSON.parse(resp) : resp;
-          if (respuesta.activo === 1) {
-           this.isActive = "Activo"
-          }else{
-            this.isActive = "Inactivo"
-          }
-        })
-      }
-    })
-
-
+    if (promo) {
+      this.router.navigate(['pantalla-completa', promo.id]);
+    }
   }
-
-  goBack(){
-    this.showPromoFS = false
-    this.getPromociones();
-  }
-
-
-
 
 }

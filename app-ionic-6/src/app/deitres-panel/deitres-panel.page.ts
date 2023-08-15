@@ -25,18 +25,15 @@ export class DeitresPanelPage implements OnInit {
     });
   }
 
-  ngOnInit() { console.log(this.account, this.userCode);
-  }
+  ngOnInit() {  }
 
   getPanelStatus() {
     console.log('getPanelStatus', this.deitresService.panelSeleccionado);
 
     if (this.account) {
-      this.deitresService
-        .consultaPanel(this.account, this.userCode)
+      this.deitresService.consultaPanel(this.account, this.userCode)
         .then((res) => {
           console.log(res);
-
           res.subscribe((res2) => {
             console.log('this.panel getPanelStatus', res2);
             this.panel = res2;

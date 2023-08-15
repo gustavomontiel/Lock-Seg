@@ -37,10 +37,7 @@ export class DeitresService {
 
     this.lastTime = new Date().getTime();
 
-    const result = this.lastTime > lastTime + 1000 * 60 * 60;
-    console.log(result, 'prueba');
-
-    return result
+    return this.lastTime > lastTime + 1000 * 60 * 60;
   }
 
   getHttpAuthParams() {
@@ -131,6 +128,7 @@ export class DeitresService {
             this.loadingService.dismiss();
           })
       );
+
     }
   }
 

@@ -14,6 +14,7 @@ import { ChatPage } from './chat/chat.page';
 import { DebitoPage } from './debito/debito.page';
 import { CambiarPassPage } from './cambiar-pass/cambiar-pass.page';
 import { AuthGuard } from './services/auth-guard.service';
+import { PantallaCompletaPage } from './pantalla-completa/pantalla-completa.page';
 
 const routes: Routes = [
 
@@ -30,15 +31,19 @@ const routes: Routes = [
   { path: 'login', component: LoginPage },
   { path: 'cambiar-password', component: CambiarPassPage, canActivate: [AuthGuard] },
   {
+    path: 'pantalla-completa',
+    loadChildren: () => import('./pantalla-completa/pantalla-completa.module').then(m => m.PantallaCompletaModule)
+  },
+  {
     path: 'deitres-panel',
     loadChildren: () => import('./deitres-panel/deitres-panel.module').then( m => m.DeitresPanelPageModule)
   },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', component: AppComponent },
   {
     path: 'deitres-zonas-panel',
     loadChildren: () => import('./deitres-zonas-panel/deitres-zonas-panel.module').then( m => m.DeitresZonasPanelPageModule)
   },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', component: AppComponent },
 
 
 ];

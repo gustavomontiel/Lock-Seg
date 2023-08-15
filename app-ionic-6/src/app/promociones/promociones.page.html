@@ -18,12 +18,12 @@
   </ion-grid>
 
   <!-- Cards de Promociones default -->
-  <div *ngIf="!buscar && !showPromoFS">
+  <div *ngIf="!buscar">
     <h3>
       Promociones:
     </h3>
     <div *ngFor="let promocion of promosFiltradas">
-      <ion-card class="ion-card">
+      <ion-card class="ion-card sombra">
         <div (click)="showPromo(promocion)">
           <img [src]="urlImagenes +'/'+promocion.imagen" />
           <ion-card-header>
@@ -47,7 +47,7 @@
       Resultados:
     </h3>
     <div *ngFor="let promocion of promosBuscadas">
-      <ion-card class="ion-card">
+      <ion-card class="ion-card sombra">
         <div (click)="showPromo(promocion)">
           <img [src]="urlImagenes +'/'+promocion.imagen" />
           <ion-card-header>
@@ -64,41 +64,7 @@
     </div>
   </div>
 
-  <!-- Promo en Pantalla completa -->
-  <div *ngIf="showPromoFS">
 
-    <ion-grid class="promoFullScreen">
-      <ion-row>
-        <ion-col>
-
-          <ion-card class="ion-card">
-          </ion-card>
-          <div class="activeUser" >
-            Usuario: <b>{{userName}}</b> <br>
-            Estado: <b>{{isActive}}</b>
-
-          </div>
-          <ion-card class="ion-card">
-            <ion-card-header>
-              <ion-card-title>
-                {{this.promoSeleccionada.titulo}}
-              </ion-card-title>
-            </ion-card-header>
-            <div>
-              <img class="promoImagen" [src]="urlImagenes +'/'+this.promoSeleccionada.imagen"
-                alt="Descripción de la imagen">
-            </div>
-            <ion-card-content>
-              {{this.promoSeleccionada.descripcion}}
-            </ion-card-content>
-          </ion-card>
-
-          <ion-button expand="block" (click)="goBack()">Volver</ion-button>
-
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
 
 </ion-content>
 

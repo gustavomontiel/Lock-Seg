@@ -75,8 +75,7 @@ export class HomePage implements OnInit {
   insertarContacto(account) {
     this.storageService.get('USER_INFO').then((response) => {
       if (response) {
-        const user_info =
-          typeof response === 'string' ? JSON.parse(response) : response;
+        const user_info =typeof response === 'string' ? JSON.parse(response) : response;
         /* const { email, nombre, telefono } = user_info; */
         const msg = `Llamada urgente a ${account} ${user_info.data.user.nombre} ${user_info.data.user.email} ${user_info.data.user.telefono}`
 
@@ -198,10 +197,11 @@ export class HomePage implements OnInit {
       return cuenta;
     }
 
-    if (cuentas.length === 1) {
-      this.deitresService.panelSeleccionado = cuentas[0].account;
+    /* if (cuentas.length === 1) {
+      this.deitresService.panelSeleccionado = cuentas[0];
+
       return cuentas[0];
-    }
+    } */
 
 
     const buttons = [];
@@ -231,6 +231,7 @@ export class HomePage implements OnInit {
       this.deitresService.panelSeleccionado = cuentas.find(
         (item) => item.account === account
       );
+
       return cuenta;
     }
 
@@ -241,7 +242,7 @@ export class HomePage implements OnInit {
     const account = await this.seleccionarCuenta();
 
     if (account) {
-      this.router.navigate(['deitres-panel', account.account, '0'+account.identificador]);
+      this.router.navigate(['deitres-panel', account.account, account.identificador]);
     }
   }
 
