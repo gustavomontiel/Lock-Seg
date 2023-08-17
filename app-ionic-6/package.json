@@ -38,7 +38,6 @@
     "@ionic/angular": "^5.5.2",
     "@ionic/storage-angular": "^3.0.6",
     "cordova-plugin-advanced-http": "^3.2.2",
-    "cordova-plugin-exitapp": "^1.0.0",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-inappbrowser": "^5.0.0",
     "cordova-plugin-sign-in-with-apple": "^0.1.2",

@@ -147,13 +147,7 @@ export class DeitresService {
           .then((data: any) => {
             data = JSON.parse(data.data);
             if (!data.success) {
-
-              if (data.openZones.length >= 1) {
-                this.toastService.presentToast(data.errorMessage +' Zona : ' + data.openZones.join(), 'danger');
-              } else {
-                this.toastService.presentToast(data.errorMessage, 'danger');
-              }
-
+              this.toastService.presentToast(data.errorMessage, 'danger');
             } else {
               let color = 'success';
               let msg = data.message ? data.message : '';

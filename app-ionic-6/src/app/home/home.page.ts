@@ -17,7 +17,6 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, throwError } from "rxjs";
 import { map, catchError } from "rxjs/operators";
-const { App } = Plugins;
 
 @Component({
   selector: 'app-home',
@@ -25,9 +24,6 @@ const { App } = Plugins;
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  private lastBackTime = 0;
-  private readonly doubleBackToExitThreshold = 2000; // 2 segundos
-
   contacto: any;
   url: any;
   parametro: any;
@@ -49,23 +45,9 @@ export class HomePage implements OnInit {
     public router: Router,
     private http: HttpClient,
 
-  ) {
-    this.platform.backButton.subscribeWithPriority(10, () => {
-      this.handleBackButton();
-    });
-  }
+  ) { }
 
   ngOnInit() { this.isActiveUser(); }
-
-  private handleBackButton() {
-    const currentTime = new Date().getTime();
-
-    if (currentTime - this.lastBackTime < this.doubleBackToExitThreshold) {
-      App.exitApp();
-    } else {
-      this.lastBackTime = currentTime;
-    }
-  }
 
   logoutUser() {
     this.authService.logout();
