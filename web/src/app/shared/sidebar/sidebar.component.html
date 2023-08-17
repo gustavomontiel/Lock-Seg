@@ -25,6 +25,9 @@
           <i class="menu-icon fas fa-bell text-danger"></i>
           <span class="menu-title">Botón de Pánico</span>
           <span *ngIf="contactoService.cantContactos.panico > 0" class="badge badge-danger right">{{ contactoService.cantContactos.panico }}</span>
+          <audio *ngIf="contactoService.cantContactos.panico > 0" autoplay loop="loop">
+            <source src="../../../assets/sounds/alarm.mp3" type="audio/mpeg">
+          </audio>
         </a>
       </li>
 
