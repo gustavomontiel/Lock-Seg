@@ -1,8 +1,8 @@
 <div class="container-fluid">
     <h3>Botón de pánico</h3>
-    <audio *ngIf="activarAlarma" autoplay loop="loop">
+    <!-- <audio *ngIf="activarAlarma" autoplay loop="loop">
       <source src="../../../assets/sounds/alarm.mp3" type="audio/mpeg">
-    </audio>
+    </audio> -->
     <button type="button" class="btn btn-danger btn-lg btn-block" *ngIf="activarAlarma" (click)="pararAlarma()">
         <i class="fas fa-bell-slash"></i> Silenciar Alarma -> <b>{{ contactoAlarma.user.codigo_gestion }} - {{ contactoAlarma.user.nombre }}, {{ contactoAlarma.descripcion }}</b>
     </button>
