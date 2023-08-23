@@ -3,34 +3,35 @@
   <ion-img class="ion-align-self-center ion-margin-horizontal" src="/assets/imagenes/logo_g.png"></ion-img>
 
   <!-- Promo en Pantalla completa -->
-  <div *ngIf="datosDisponibles">
-    <ion-grid class="promoFullScreen">
-      <ion-row>
-        <ion-col>
-          <div class="activeUser" >
-          El usuario: <br>
-          <b>{{userName}}</b> <br>
-          se encuentra: <b>{{isActive}}</b>
-         </div>
-        <ion-card class="ion-card sombra">
-            <ion-card-header>
-              <ion-card-title>
-                {{this.selectedPromo.titulo}}
-              </ion-card-title>
-            </ion-card-header>
-          <div>
-            <img class="promoImagen " [src]="urlImagenes+'/'+this.selectedPromo.imagen"
-            alt="Descripción de la imagen">
-          </div>
-          <ion-card-content>
-            {{this.selectedPromo.descripcion}}
-          </ion-card-content>
-        </ion-card>
+  <div *ngIf="datosDisponibles" class="centrar">
 
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</div>
+    <div class="activeUser" *ngIf="isActive==='Activo'">
+      <b class="verificacion-text">Usuario Activo </b>
+      <ion-img class="verificacion" src="/assets/imagenes/checkmark.png"></ion-img>
+    </div>
+    <div class="inactiveUser" *ngIf="isActive==='Activo'">
+      <b class="verificacion-text">Usuario Inactivo</b>
+      <ion-img class="verificacion2 " src="/assets/imagenes/yellowx.png"></ion-img>
+    </div>
+
+
+    <ion-card class="ion-card sombra">
+      <ion-card-header>
+        <ion-card-title>
+          {{this.selectedPromo.titulo}}
+        </ion-card-title>
+      </ion-card-header>
+      <div>
+        <img class="promoImagen " [src]="urlImagenes+'/'+this.selectedPromo.imagen"
+          alt="Descripción de la imagen">
+      </div>
+      <ion-card-content>
+        {{this.selectedPromo.descripcion}}
+      </ion-card-content>
+    </ion-card>
+
+
+  </div>
 
 </ion-content>
 
