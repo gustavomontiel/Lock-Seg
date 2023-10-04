@@ -111,6 +111,7 @@ ion-item{
     color: white !important;
 }
 
+
 /*hover color item*/
 .item-complex .item-content, .item{
     background-color: #009fdb !important;
@@ -340,66 +341,46 @@ h3{
 
 .panicAlert {
   text-align: center;
-
 }
 
 ion-alert.panicAlert{
   background: rgb(0,0,0,.75);
+  text-align: center; /* Centra el contenido horizontalmente */
 }
 
 
-.panicAlert .alert-wrapper {
+.panicAlert .alert-wrapper
    .alert-button-group {
-    align-content: center;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
+    display: block;
+    width: max-content;
+
+}
+.alert-wrapper {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .panicAlert .boton1 {
-  color: white;
-  background-color:#53535B;
-}
-
+  background-image: url('../resources/Íconos\ guazú\ app-03.png');
+  width: 200px;
+  height: 100px;
+  background-repeat: no-repeat;
+  background-size:contain;
+  background-position: center;}
 
 .panicAlert .boton2 {
-  /* background-color: #ff0000;
   color: #ffffff;
-  padding: 25px;
-  margin-left: 10px;
-  width: fit-content; */
-  margin-top: -40px;
-  background-image: url('../resources/red-button3.png');
+  background-image: url('../resources/Íconos\ guazú\ app-01.png');
   width: 200px;
   height: 200px;
   background-repeat: no-repeat;
   background-size:contain;
   background-position: center;
-
 }
 
 .activeUser{
-  width:250px;
-  border-radius: 0.25rem;
-  padding:3px;
-  border: 3px solid transparent;
-  background-color: #164500;
-   display: flex;
-  justify-content:center;
-  align-items: center; /* Centra verticalmente */
-  text-align: center;
-}
-.inactiveUser{
-  width:250px;
-  border-radius: 0.25rem;
-  padding:3px;
-  border: 3px solid transparent;
-  background-color: #870000;
-  display: flex;
-  justify-content:center;
-  align-items: center; /* Centra verticalmente */
-  text-align: center;
+ height:50px;
 }
 
 .verificacion{
@@ -425,4 +406,16 @@ ion-alert.panicAlert{
 }
 .color{
   color: #ffffff;
+}
+.problemas{
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: left;
+}
+.iconoProblemas{
+  margin-right: 5px;
+}
+.registroProblemasFrame{
+  border-radius: 10px;
 }

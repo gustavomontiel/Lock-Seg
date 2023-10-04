@@ -16,7 +16,10 @@ class Cuenta extends Model
         'identificador',
         'descripcion',
         'user_id',
-        'marca'
+        'marca',
+        'zonas_cableadas',
+        'zonas_inhalambricas',
+        'particiones_disponibles'
     ];
 
     /**

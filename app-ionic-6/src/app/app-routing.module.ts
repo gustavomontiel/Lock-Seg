@@ -14,7 +14,6 @@ import { ChatPage } from './chat/chat.page';
 import { DebitoPage } from './debito/debito.page';
 import { CambiarPassPage } from './cambiar-pass/cambiar-pass.page';
 import { AuthGuard } from './services/auth-guard.service';
-import { PantallaCompletaPage } from './pantalla-completa/pantalla-completa.page';
 
 const routes: Routes = [
 
@@ -35,8 +34,8 @@ const routes: Routes = [
     loadChildren: () => import('./pantalla-completa/pantalla-completa.module').then(m => m.PantallaCompletaModule)
   },
   {
-    path: 'deitres-panel',
-    loadChildren: () => import('./deitres-panel/deitres-panel.module').then( m => m.DeitresPanelPageModule)
+    path: 'panel',
+    loadChildren: () => import('./paneles/paneles.module').then( m => m.PanelesModule)
   },
   {
     path: 'deitres-zonas-panel',

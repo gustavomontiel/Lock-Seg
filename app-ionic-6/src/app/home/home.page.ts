@@ -124,16 +124,11 @@ export class HomePage implements OnInit {
       /* msg += nombreCuenta ? ' a ' + nombreCuenta : ''; */
 
       const alert = await this.alertController.create({
-        header: 'Pulsar',
+        header: '',
         mode: 'md',
         cssClass: "panicAlert",
         message: msg,
         buttons: [
-          {
-            text: 'Cancelar',
-            cssClass: 'boton1',
-            handler: () => { },
-          },
           {
             text: '',
             cssClass: 'boton2',
@@ -141,6 +136,11 @@ export class HomePage implements OnInit {
               this.insertarContacto(nombreCuenta);
             },
 
+          },
+          {
+            text: '',
+            cssClass: 'boton1',
+            handler: () => { },
           },
         ],
       });
@@ -240,9 +240,30 @@ export class HomePage implements OnInit {
 
   async abrirPanelDeitres() {
     const account = await this.seleccionarCuenta();
+     console.log(account);
 
-    if (account) {
-      this.router.navigate(['deitres-panel', account.account, account.identificador]);
+    /* if (account) {
+      this.router.navigate(['deitres-panel',account.marca, account.account, account.identificador]);
+    } */
+
+    switch (account.marca) {
+      case 1:
+        console.log('panel deitress');
+        this.router.navigate(['panel/deitres', account.account, account.identificador]);
+        break;
+
+      case 2:
+        console.log('panel titanium');
+        this.router.navigate(['panel/titanium', account.account, account.identificador, account.zonas_cableadas, account.zonas_inhalambricas, account.particiones_disponibles]);
+        break;
+
+      /* case 3:
+      console.log('panel garnet');
+      this.router.navigate(['panel/garnet', account.account, account.identificador, account.zonas_disponibles, account.particiones_disponibles]);
+      break; */
+
+      default:
+        break;
     }
   }
 

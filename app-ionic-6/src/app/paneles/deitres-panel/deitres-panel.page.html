@@ -1,0 +1,83 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>deitresPanel</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+<app-header [verTitulo]="true"></app-header>
+<ion-content>
+  <ion-card>
+    <ion-item>
+      <ion-avatar slot="start">
+        <ion-icon name="apps-outline" size="large"></ion-icon>
+      </ion-avatar>
+      <ion-label *ngIf="panel">
+        <ion-text color="{{ panel.success ? (panel.triggered ? 'danger' : '') : 'danger'}}">
+          <h3>Panel: {{ deitresService.panelSeleccionado.descripcion }} {{ panel.success ? (panel.triggered ? 'DISPARADA!' : '') : '(NO ENCONTRADO)'}}</h3>
+          <p>{{ panel.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p>
+        </ion-text>
+      </ion-label>
+      <ion-avatar slot="end" *ngIf="panel">
+        <ion-icon *ngIf="panel.triggered" name="volume-high-outline" color="danger" size="large"></ion-icon>
+        <!-- <ion-icon *ngIf="!panel.triggered" name="volume-mute-outline" size="large"></ion-icon> -->
+      </ion-avatar>
+    </ion-item>
+
+    <!-- <img *ngIf="panel && panel.triggered" src="/assets/imagenes/panel-triggered.png" alt="ion">
+    <img *ngIf="panel && !panel.triggered" src="/assets/imagenes/panel.png" alt="ion"> -->
+    <!-- <ion-card-header>
+      <ion-card-title *ngIf="panel"></ion-card-title>
+    </ion-card-header> -->
+    <ion-card-content>
+      <ion-item>
+        <ion-row *ngIf="panel">
+          <ion-col class="col_panel">
+            <button class="bpanel">
+              <ion-icon color="success" *ngIf="panel && panel.success && panel.armed" name="shield-checkmark-outline" size="large"></ion-icon>
+              <ion-icon color="warning" *ngIf="panel && panel.success && !panel.armed" name="shield-half-outline" size="large"></ion-icon>
+              <ion-icon color="danger" name="close-outline" *ngIf="!panel || !panel.success" size="large"></ion-icon>
+              <div class="plabel"> Panel {{ panel ? (panel.armed ? 'Armado' : 'No Armado') : 'Sin conexión'}}</div>
+            </button>
+          </ion-col>
+          <ion-col class="">
+            <button class="bpanel">
+              <ion-icon name="checkbox-outline" size="large"></ion-icon>
+              <div class="plabel">{{ this.panel.armedZones ? this.panel.armedZones.length : '' }} Zonas Armadas</div>
+            </button>
+          </ion-col>
+          <ion-col class="">
+            <button class="bpanel">
+              <ion-icon name="close-circle-outline" size="large"></ion-icon>
+              <div class="plabel">{{ this.panel.excludedZones ? this.panel.excludedZones.length : '' }} Zonas Excluidas</div>
+            </button>
+          </ion-col>
+
+        </ion-row>
+      </ion-item>
+    </ion-card-content>
+
+    <ion-footer>
+      <ion-button expand="block" [disabled]="!panel.success" *ngIf="panel && panel.armed" (click)="desarmarPanel()">Desarmar Panel</ion-button>
+      <ion-button expand="block" [disabled]="!panel.success" *ngIf="panel && !panel.armed" (click)="armarPanel()">Armar Panel</ion-button>
+    </ion-footer>
+
+    <ion-list *ngIf="panel">
+      <ion-list-header>
+        Zonas:
+      </ion-list-header>
+
+      <ion-item *ngFor="let zona of zonas">
+        <ion-avatar slot="start">
+          <ion-icon name="grid-outline" size="large"></ion-icon>
+        </ion-avatar>
+        <ion-label>
+          <ion-text>
+            <h3>{{ zona.zoneID }} - {{ zona.name }}</h3>
+          </ion-text>
+        </ion-label>
+        <ion-button expand="block" [disabled]="!panel.success || !zona.enabled" *ngIf="zona.excludable && !zona.excluded" (click)="excluirZona(zona.zoneID)" color="success">Excluir</ion-button>
+        <ion-button expand="block" [disabled]="!panel.success || !zona.enabled" *ngIf="zona.excludable && zona.excluded" (click)="incluirZona(zona.zoneID)" color="danger">Incluir</ion-button>
+      </ion-item>
+
+    </ion-list>
+  </ion-card>
+  </ion-content>

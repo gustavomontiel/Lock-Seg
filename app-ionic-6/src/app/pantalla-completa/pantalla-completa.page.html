@@ -5,13 +5,12 @@
   <!-- Promo en Pantalla completa -->
   <div *ngIf="datosDisponibles" class="centrar">
 
-    <div class="activeUser" *ngIf="isActive==='Activo'">
-      <b class="verificacion-text">Usuario Activo </b>
-      <ion-img class="verificacion" src="/assets/imagenes/checkmark.png"></ion-img>
+    <div *ngIf="isActive==='Activo'">
+      <ion-img class="" src="/assets/imagenes/activo.png"></ion-img>
     </div>
-    <div class="inactiveUser" *ngIf="isActive==='Activo'">
-      <b class="verificacion-text">Usuario Inactivo</b>
-      <ion-img class="verificacion2 " src="/assets/imagenes/yellowx.png"></ion-img>
+
+    <div *ngIf="isActive==='Inactivo'">
+      <ion-img class="activeUser" src="/assets/imagenes/inactivo.png"></ion-img>
     </div>
 
 

@@ -102,15 +102,27 @@
             <input formControlName="account" name="account" type="string" class="form-control" placeholder="Nro cuenta"
               required>
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-2">
             <input formControlName="identificador" name="identificador" type="string" class="form-control"
               placeholder="Identificador" required>
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-2">
             <input formControlName="descripcion" name="descripcion" type="string" class="form-control"
               placeholder="Descripción" required>
           </div>
           <div class="form-group col-md-2">
+            <input formControlName="zonas_cableadas" name="zonas_cableadas" type="string" class="form-control"
+              placeholder="Zonas Cableadas" required>
+          </div>
+          <div class="form-group col-md-2">
+            <input formControlName="zonas_inhalambricas" name="zonas_inhalambricas" type="string" class="form-control"
+              placeholder="Zonas Inhalambricas" required>
+          </div>
+          <div class="form-group col-md-2">
+            <input formControlName="particiones_disponibles" name="particiones_disponibles" type="string" class="form-control"
+              placeholder="Particiones Disp." required>
+          </div>
+          <div class="form-group col-md-12">
             <select class="form-control" id="marca" formControlName="marca">
               <option value="0" selected>Marca</option>
               <option *ngFor="let pannelBrand of pannelBrands" [value]="pannelBrand.id">{{pannelBrand.marca}}</option>
@@ -147,6 +159,21 @@
         <ng-container matColumnDef="descripcion">
           <th mat-header-cell *matHeaderCellDef> Descripción </th>
           <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="zonas_cableadas">
+          <th mat-header-cell *matHeaderCellDef> Zonas Cableadas </th>
+          <td mat-cell *matCellDef="let element"> {{element.zonas_cableadas}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="zonas_inhalambricas">
+          <th mat-header-cell *matHeaderCellDef> Zonas Inhalambricas </th>
+          <td mat-cell *matCellDef="let element"> {{element.zonas_inhalambricas}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="particiones_disponibles">
+          <th mat-header-cell *matHeaderCellDef> Particiones Disp </th>
+          <td mat-cell *matCellDef="let element"> {{element.particiones_disponibles}} </td>
         </ng-container>
 
         <ng-container matColumnDef="marca">

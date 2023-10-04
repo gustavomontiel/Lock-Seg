@@ -34,9 +34,9 @@ export class LoadingService {
       } else {
         setTimeout(() => {
           this.loading.dismiss();
-        }, 2500);
+        }, 5000);
       }
-    } 
+    }
   }
 
 }

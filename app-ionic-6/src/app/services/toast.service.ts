@@ -15,7 +15,13 @@ export class ToastService {
       message: msg,
       position: 'bottom',
       color: color,
-      duration: 3000
+      duration: 10000,
+      buttons: [
+        {
+          text: 'Cerrar',
+          role: 'cancel', // Define el rol como "cancel" para cerrar el Toast
+        },
+      ],
     });
     toast.present();
   }

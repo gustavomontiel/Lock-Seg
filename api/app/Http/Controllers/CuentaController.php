@@ -40,7 +40,10 @@ class CuentaController extends Controller
             'identificador' => 'string|required',
             'descripcion' => 'string|required',
             'user_id' => 'numeric|required',
-            'marca' => 'numeric'
+            'marca' => 'numeric',
+            'zonas_cableadas' => 'string|required',
+            'zonas_inhalambricas' => 'string|required',
+            'particiones_disponibles' => 'string|required'
         ]);
 
         if ($validator->fails()) {
@@ -90,7 +93,10 @@ class CuentaController extends Controller
             'identificador' => 'string|required',
             'descripcion' => 'string|required',
             'user_id' => 'numeric|required',
-            'marca' => 'numeric'
+            'marca' => 'numeric',
+            'zonas_cableadas' => 'string|required',
+            'zonas_inhalambricas' => 'string|required',
+            'particiones_disponibles' => 'string|required'
         ]);
 
         if ($validator->fails()) {
@@ -102,6 +108,9 @@ class CuentaController extends Controller
         $cuenta->descripcion = $input['descripcion'];
         $cuenta->user_id = $input['user_id'];
         if (isset($input['marca'])) $cuenta->marca = $input['marca'];
+        $cuenta->zonas_cableadas = $input['zonas_cableadas'];
+        $cuenta->zonas_inhalambricas = $input['zonas_inhalambricas'];
+        $cuenta->particiones_disponibles = $input['particiones_disponibles'];
 
         $cuenta->save();
 
