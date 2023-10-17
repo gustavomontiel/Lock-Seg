@@ -25,7 +25,7 @@ export class TitaniumService {
     private urlsService: UrlsService,
     private toastService: ToastService,
     private loadingService: LoadingService
-  ) {   }
+  ) { }
 
   getHeaders(token = false) {
     if (token) {
@@ -96,8 +96,8 @@ export class TitaniumService {
     const regProblemas = (this.hexaBinario(estado.panelStatus.slice(1, 3))
       + this.hexaBinario(estado.panelStatus.slice(3, 5))).split('');
 
-    const estadoParticiones = ((this.hexaBinario(estado.panelStatus.slice(5, 7))).split('')).slice(0,4).reverse();
-    const particionesListas = ((this.hexaBinario(estado.panelStatus.slice(5, 7))).split('')).slice(4,8).reverse();
+    const estadoParticiones = ((this.hexaBinario(estado.panelStatus.slice(5, 7))).split('')).slice(0, 4).reverse();
+    const particionesListas = ((this.hexaBinario(estado.panelStatus.slice(5, 7))).split('')).slice(4, 8).reverse();
 
     const estadoSalidas = (this.hexaBinario(estado.panelStatus.slice(7, 9))).split('');
 
@@ -148,7 +148,7 @@ export class TitaniumService {
               this.loadingService.dismiss();
             })
         );
-      }else{
+      } else {
         console.log('No se pudo obtener el estado del Panel');
       }
     }
@@ -223,6 +223,7 @@ export class TitaniumService {
   async incluirZona(numeroSistema: string, zoneID: string, seq: string) {    /*Desinhibe una zona */
     const token = await this.getToken();
     if (this.accessToken) {
+      this.loadingService.present();
       const url = `${this.titaniumURL}/panel_commands/unbypass/${zoneID + 1}?numeroSistema=${numeroSistema}&seq=${seq}`;
       const headers = {
         "x-access-token": this.accessToken,
@@ -233,6 +234,7 @@ export class TitaniumService {
           .post(url, {}, headers)
           .then((data: any) => {
             data = JSON.parse(data.data)
+            this.loadingService.dismiss();
             if (data.result === 'OK') {
               this.toastService.presentToast('Zona incluida', 'success');
             } else {
@@ -247,6 +249,8 @@ export class TitaniumService {
   async excluirZona(numeroSistema: string, zoneID: string, seq: string) {    /*Inhibe una zona */
     const token = await this.getToken();
     if (this.accessToken) {
+      this.loadingService.present();
+
       const url = `${this.titaniumURL}/panel_commands/bypass/${zoneID + 1}?numeroSistema=${numeroSistema}&seq=${seq}`;
       const headers = {
         "x-access-token": this.accessToken,
@@ -257,6 +261,7 @@ export class TitaniumService {
           .post(url, {}, headers)
           .then((data: any) => {
             data = JSON.parse(data.data)
+            this.loadingService.dismiss();
             if (data.result === 'OK') {
               this.toastService.presentToast('Zona Excluida', 'success');
             } else {

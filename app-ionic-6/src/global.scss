@@ -362,7 +362,7 @@ ion-alert.panicAlert{
 }
 
 .panicAlert .boton1 {
-  background-image: url('../resources/Íconos\ guazú\ app-03.png');
+  background-image: url('../resources/cancelar.svg');
   width: 200px;
   height: 100px;
   background-repeat: no-repeat;
@@ -371,7 +371,7 @@ ion-alert.panicAlert{
 
 .panicAlert .boton2 {
   color: #ffffff;
-  background-image: url('../resources/Íconos\ guazú\ app-01.png');
+  background-image: url('../resources/panico.svg');
   width: 200px;
   height: 200px;
   background-repeat: no-repeat;
@@ -408,14 +408,11 @@ ion-alert.panicAlert{
   color: #ffffff;
 }
 .problemas{
-  display: flex;
-  /* flex-direction: column; */
-  align-items: center;
   justify-content: left;
 }
-.iconoProblemas{
+/* .iconoProblemas{
   margin-right: 5px;
 }
 .registroProblemasFrame{
   border-radius: 10px;
-}
+} */

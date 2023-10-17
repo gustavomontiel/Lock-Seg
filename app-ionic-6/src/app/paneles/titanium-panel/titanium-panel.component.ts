@@ -20,7 +20,8 @@ export class TitaniumPanelComponent implements OnInit {
   partiDisp: any;
   seq: any;
   mostrarProblemas:boolean = false;
-  mostrarAlarma:boolean = false;
+  /*
+  mostrarAlarma:boolean = false; */
 
   selectedPartition: any = 0;
   wirelessZonesStartsFrom: any;
@@ -46,7 +47,7 @@ export class TitaniumPanelComponent implements OnInit {
     this.wirelessZonesStartsFrom = parseInt(this.titaniumService.getWirelessZonesIdStartsFrom());
   }
 
-  ngOnInit() {  }
+  ngOnInit() { }
 
   seqCounter() {
     const i = this.seq++
@@ -65,18 +66,26 @@ export class TitaniumPanelComponent implements OnInit {
     this.titaniumService.consultaPanel(this.numeroSistema, this.seqCounter())
       .then((res) => {
         console.log(res);
-        res.subscribe((res2) => {
-          this.currentStatus = res2;
-          this.mostrarAlarma = false;
-          this.showProblemas(res2);
-          console.log(res2);
-        });
+        res.subscribe({
+          next:
+            (res2) => {
+              this.mostrarProblemas = false;
+              this.currentStatus = res2;
+              /* this.mostrarAlarma = false; */
+              console.log(res2);
+            },
+            error: (error) => {
+              this.mostrarProblemas = true;
+              console.log(error);
+            }
+        })
+          ;
       })
   }
 
   armarPanel() {
     if (this.numeroSistema) {
-      this.titaniumService.armarPanel(this.numeroSistema, this.seqCounter(), this.userCode, (parseInt(this.selectedPartition)+1).toString())
+      this.titaniumService.armarPanel(this.numeroSistema, this.seqCounter(), this.userCode, (parseInt(this.selectedPartition) + 1).toString())
         .then((res) => {
           res.subscribe((res2) => {
             this.currentStatus = this.titaniumService.descifrarEstado(res2)
@@ -87,7 +96,7 @@ export class TitaniumPanelComponent implements OnInit {
 
   desarmarPanel() {
     if (this.numeroSistema) {
-      this.titaniumService.desarmarPanel(this.numeroSistema, this.seqCounter(), this.userCode, (parseInt(this.selectedPartition)+1).toString())
+      this.titaniumService.desarmarPanel(this.numeroSistema, this.seqCounter(), this.userCode, (parseInt(this.selectedPartition) + 1).toString())
         .then((res) => {
           res.subscribe((res2) => {
             this.currentStatus = this.titaniumService.descifrarEstado(res2)
@@ -124,7 +133,7 @@ export class TitaniumPanelComponent implements OnInit {
     return suma;
   }
 
-  showProblemas(estado : any){
+  /* showProblemas(estado : any){
     estado.regProblemas.forEach(problema => {
       if (problema == 1) {
         this.mostrarProblemas = true;
@@ -140,7 +149,5 @@ export class TitaniumPanelComponent implements OnInit {
         });
       }
     });
-  }
-
-
+  } */
 }

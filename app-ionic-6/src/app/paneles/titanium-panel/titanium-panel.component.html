@@ -4,7 +4,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-item *ngIf="mostrarProblemas || mostrarAlarma" >
+  <!-- <ion-item *ngIf="mostrarProblemas || mostrarAlarma" >
     <ion-label>
       <h3>Registro de Problemas</h3>
       <br>
@@ -25,16 +25,28 @@
         ¡Alarma activada!
       </p>
     </ion-label>
-  </ion-item>
-
+  </ion-item> -->
   <ion-card>
+    <ion-item *ngIf="mostrarProblemas">
+      <ion-label>
+        <h3>Error de conexión</h3>
+        <p class="problemas">
+          No se ha podido conectar al panel.
+        </p>
+        <p class="problemas">
+          Verfique la conexión a la red e intentelo denuevo.
+        </p>
+      </ion-label>
+    </ion-item>
 
+  </ion-card>
 
+  <ion-card *ngIf="currentStatus">
     <ion-card-header>
       <ion-segment [(ngModel)]="selectedPartition">
         <ion-segment-button value=0 *ngIf="partiDisp >= 1">
           Part.1
-        </ion-segment-button >
+        </ion-segment-button>
         <ion-segment-button value=1 *ngIf="partiDisp >= 2">
           Part.2
         </ion-segment-button>
@@ -72,26 +84,30 @@
         <ion-row *ngIf="currentStatus">
           <ion-col class="col_panel">
             <button class="bpanel">
-              <ion-icon color="success" *ngIf="currentStatus && currentStatus.estadoParticiones[selectedPartition] == 1" name="shield-checkmark-outline"
-                size="large"></ion-icon>
+              <ion-icon color="success" *ngIf="currentStatus && currentStatus.estadoParticiones[selectedPartition] == 1"
+                name="shield-checkmark-outline" size="large"></ion-icon>
               <!-- <ion-icon color="warning" *ngIf="currentStatus && currentStatus.estadoParticiones[selectedPartition -1] == 0" name="shield-half-outline"
                 size="large"></ion-icon> -->
-              <ion-icon color="danger" name="close-outline" *ngIf="currentStatus && currentStatus.estadoParticiones[selectedPartition] == 0" size="large">
+              <ion-icon color="danger" name="close-outline"
+                *ngIf="currentStatus && currentStatus.estadoParticiones[selectedPartition] == 0" size="large">
               </ion-icon>
 
-              <div class="plabel"> Partición {{ currentStatus ? (currentStatus.estadoParticiones[selectedPartition] == 1 ? 'Armada' : 'No Armada') : 'Sin conexión'}}</div>
+              <div class="plabel"> Partición {{ currentStatus ? (currentStatus.estadoParticiones[selectedPartition] == 1
+                ? 'Armada' : 'No Armada') : 'Sin conexión'}}</div>
             </button>
           </ion-col>
           <ion-col class="">
             <button class="bpanel">
               <ion-icon name="alert-circle-outline" size="large" color="warning"></ion-icon>
-              <div class="plabel">{{ currentStatus.zonaAbierta ? sumaArray(currentStatus.zonaAbierta,0,currentStatus.zonaAbierta.length) : '' }} Zonas Abiertas</div>
+              <div class="plabel">{{ currentStatus.zonaAbierta ?
+                sumaArray(currentStatus.zonaAbierta,0,currentStatus.zonaAbierta.length) : '' }} Zonas Abiertas</div>
             </button>
           </ion-col>
           <ion-col class="">
             <button class="bpanel">
-              <ion-icon name="close-circle-outline" size="large"  color="danger"></ion-icon>
-              <div class="plabel">{{ currentStatus.zonaInhibida ? sumaArray(currentStatus.zonaInhibida,0,currentStatus.zonaInhibida.length ) : '' }} Zonas Excluidas
+              <ion-icon name="close-circle-outline" size="large" color="danger"></ion-icon>
+              <div class="plabel">{{ currentStatus.zonaInhibida ?
+                sumaArray(currentStatus.zonaInhibida,0,currentStatus.zonaInhibida.length ) : '' }} Zonas Excluidas
               </div>
             </button>
           </ion-col>
@@ -101,10 +117,11 @@
     </ion-card-content>
 
     <ion-footer>
-      <ion-button expand="block"  *ngIf="currentStatus && currentStatus.estadoParticiones[selectedPartition] == 1"
+      <ion-button expand="block" *ngIf="currentStatus && currentStatus.estadoParticiones[selectedPartition] == 1"
         (click)="desarmarPanel()">Desarmar Partición</ion-button>
-      <ion-button expand="block" [disabled]="currentStatus.particionesListas[selectedPartition] == 0" *ngIf="currentStatus && currentStatus.estadoParticiones[selectedPartition] == 0"
-        (click)="armarPanel()">Armar Partición</ion-button>
+      <ion-button expand="block" [disabled]="currentStatus.particionesListas[selectedPartition] == 0"
+        *ngIf="currentStatus && currentStatus.estadoParticiones[selectedPartition] == 0" (click)="armarPanel()">Armar
+        Partición</ion-button>
     </ion-footer>
 
     <ion-list *ngIf="currentStatus">
@@ -115,8 +132,10 @@
       <div *ngFor="let zona of currentStatus.zonaAlarma; let i = index">
         <ion-item *ngIf="i+1 <= zonasCable">
           <ion-avatar slot="start">
-            <ion-icon color="success" *ngIf="currentStatus.zonaAbierta[i] == 0" name="checkmark-circle-outline" size="large"></ion-icon>
-            <ion-icon color="danger" *ngIf="currentStatus.zonaAbierta[i] == 1" name="alert-circle-outline" size="large"></ion-icon>
+            <ion-icon color="success" *ngIf="currentStatus.zonaAbierta[i] == 0" name="checkmark-circle-outline"
+              size="large"></ion-icon>
+            <ion-icon color="danger" *ngIf="currentStatus.zonaAbierta[i] == 1" name="alert-circle-outline"
+              size="large"></ion-icon>
           </ion-avatar>
           <ion-label>
             <ion-text>
@@ -133,18 +152,20 @@
       <div *ngFor="let zona of currentStatus.zonaAlarma; let i = index">
         <ion-item *ngIf="i+1 <= zonasInha">
           <ion-avatar slot="start">
-            <ion-icon color="success" *ngIf="currentStatus.zonaAbierta[i+wirelessZonesStartsFrom] == 0" name="checkmark-circle-outline" size="large"></ion-icon>
-            <ion-icon color="danger" *ngIf="currentStatus.zonaAbierta[i+wirelessZonesStartsFrom] == 1" name="alert-circle-outline" size="large"></ion-icon>
+            <ion-icon color="success" *ngIf="currentStatus.zonaAbierta[i+wirelessZonesStartsFrom] == 0"
+              name="checkmark-circle-outline" size="large"></ion-icon>
+            <ion-icon color="danger" *ngIf="currentStatus.zonaAbierta[i+wirelessZonesStartsFrom] == 1"
+              name="alert-circle-outline" size="large"></ion-icon>
           </ion-avatar>
           <ion-label>
             <ion-text>
               <h3>Zona N°: <b>{{i+1+wirelessZonesStartsFrom}}</b> </h3>
             </ion-text>
           </ion-label>
-          <ion-button *ngIf="currentStatus.zonaInhibida[i+wirelessZonesStartsFrom] == 0" (click)="excluirZona(i+wirelessZonesStartsFrom)"
-            color="danger">Excluir</ion-button>
-          <ion-button *ngIf="currentStatus.zonaInhibida[i+wirelessZonesStartsFrom] == 1" (click)="incluirZona(i+wirelessZonesStartsFrom)"
-            color="success">Incluir</ion-button>
+          <ion-button *ngIf="currentStatus.zonaInhibida[i+wirelessZonesStartsFrom] == 0"
+            (click)="excluirZona(i+wirelessZonesStartsFrom)" color="danger">Excluir</ion-button>
+          <ion-button *ngIf="currentStatus.zonaInhibida[i+wirelessZonesStartsFrom] == 1"
+            (click)="incluirZona(i+wirelessZonesStartsFrom)" color="success">Incluir</ion-button>
         </ion-item>
       </div>
 
