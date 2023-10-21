@@ -105,7 +105,7 @@ export class TitaniumPanelComponent implements OnInit {
     }
   }
 
-  incluirZona(zoneID: string) {
+  incluirZona(zoneID: any) {
     this.titaniumService.incluirZona(this.numeroSistema, zoneID, this.seqCounter())
       .then((res) => {
         res.subscribe((res2) => {
@@ -115,7 +115,7 @@ export class TitaniumPanelComponent implements OnInit {
       })
   }
 
-  excluirZona(zoneID: string) {
+  excluirZona(zoneID: any) {
     this.titaniumService.excluirZona(this.numeroSistema, zoneID, this.seqCounter())
       .then((res) => {
         res.subscribe((res2) => {
