@@ -19,7 +19,8 @@ class Cuenta extends Model
         'marca',
         'zonas_cableadas',
         'zonas_inhalambricas',
-        'particiones_disponibles'
+        'particiones_disponibles',
+        'tiempo'
     ];
 
     /**

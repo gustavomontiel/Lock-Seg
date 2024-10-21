@@ -97,6 +97,7 @@ class CuentaController extends Controller
             'zonas_cableadas' => 'string|required',
             'zonas_inhalambricas' => 'string|required',
             'particiones_disponibles' => 'string|required'
+            'tiempo' => 'string|required'
         ]);
 
         if ($validator->fails()) {
@@ -111,6 +112,7 @@ class CuentaController extends Controller
         $cuenta->zonas_cableadas = $input['zonas_cableadas'];
         $cuenta->zonas_inhalambricas = $input['zonas_inhalambricas'];
         $cuenta->particiones_disponibles = $input['particiones_disponibles'];
+        $cuenta->tiempo = $input['tiempo'];
 
         $cuenta->save();
 
