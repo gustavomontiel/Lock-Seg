@@ -24,7 +24,7 @@
     "@ngrx/store": "^8.3.0",
     "@ngrx/store-devtools": "^8.3.0",
     "bootstrap": "^4.3.1",
-    "npm": "^7.24.2",
+    "npm": "^8.11.0",
     "rxjs": "~6.4.0",
     "sweetalert2": "^8.17.1",
     "tslib": "^1.9.0",
