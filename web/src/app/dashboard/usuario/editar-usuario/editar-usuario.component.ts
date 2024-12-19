@@ -34,7 +34,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
 
 
   dataSource: any;
-  displayedColumns: string[] = ['account', 'identificador', 'descripcion', 'marca', 'zonas_cableadas', 'zonas_inhalambricas', 'particiones_disponibles', 'acciones'];
+  displayedColumns: string[] = ['account', 'identificador', 'descripcion', 'marca', 'zonas_cableadas', 'zonas_inhalambricas', 'particiones_disponibles', 'tiempo', 'acciones'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -72,7 +72,8 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
       zonas_cableadas: new FormControl(null, Validators.required),
       zonas_inhalambricas: new FormControl(null, Validators.required),
       particiones_disponibles: new FormControl(null, Validators.required),
-      marca: new FormControl(0),
+      tiempo: new FormControl(null, Validators.required),
+      marca: new FormControl(0,Validators.required),
     });
 
     this.activatedRoute.params.subscribe((params) => {
@@ -230,7 +231,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
                 "success"
               ).then(
                 res => {
-                  this.setFormPannelAccount(null, null, null, null, null, null, null, 0);
+                  this.setFormPannelAccount(null, null, null, null, null, null, null, null, 0);
                   this.getPannelAccounts(this.usuario.id.toString());
                 }
               )
@@ -267,7 +268,7 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
                 "success"
               ).then(
                 res => {
-                  this.setFormPannelAccount(null, null, null, null, null, null, null, 0);
+                  this.setFormPannelAccount(null, null, null, null, null, null, null, null, 0);
                   this.getPannelAccounts(this.usuario.id.toString());
                 }
               )
@@ -301,18 +302,21 @@ export class EditarUsuarioComponent implements OnInit, OnDestroy {
   }
 
   cancelarFormPannelAccount() {
-    this.setFormPannelAccount(null, null, null, null, null, null, null, 0);
+    this.setFormPannelAccount(null, null, null, null, null, null, null, null, 0);
     this.formPannelAccount.markAsPristine();
   }
 
-  setFormPannelAccount(id, account, identificador, descripcion, marca, zonas_cableadas, zonas_inhalambricas, particiones_disponibles) {
-    marca = marca == '' || marca == null ? 0 : marca;
-    this.formPannelAccount.setValue({ id: id, account: account, identificador: identificador, descripcion: descripcion, marca: marca
-      , zonas_cableadas: zonas_cableadas, zonas_inhalambricas: zonas_inhalambricas, particiones_disponibles: particiones_disponibles });
+  setFormPannelAccount(id, account, identificador, descripcion, zonas_cableadas, zonas_inhalambricas, particiones_disponibles, tiempo, marca) {
+    /* marca = marca == '' || marca == null ? 0 : marca; */
+    this.formPannelAccount.setValue({
+      id: id, account: account, identificador: identificador, descripcion: descripcion, marca: marca,
+      zonas_cableadas: zonas_cableadas, zonas_inhalambricas: zonas_inhalambricas, particiones_disponibles: particiones_disponibles, tiempo: tiempo
+    });
   }
 
   editarFormPannelAccount(account) {
-    this.setFormPannelAccount(account.id, account.account, account.identificador, account.descripcion, account.marca, account.zonas_cableadas, account.zonas_inhalambricas, account.particiones_disponibles);
+    this.setFormPannelAccount(account.id, account.account, account.identificador, account.descripcion, account.zonas_cableadas, account.zonas_inhalambricas,
+      account.particiones_disponibles, account.tiempo, account.marca);
     this.formPannelAccount.markAsDirty();
   }
 

@@ -43,7 +43,8 @@ class CuentaController extends Controller
             'marca' => 'numeric',
             'zonas_cableadas' => 'string|required',
             'zonas_inhalambricas' => 'string|required',
-            'particiones_disponibles' => 'string|required'
+            'particiones_disponibles' => 'string|required',
+            'tiempo' => 'string|required'
         ]);
 
         if ($validator->fails()) {
@@ -96,7 +97,7 @@ class CuentaController extends Controller
             'marca' => 'numeric',
             'zonas_cableadas' => 'string|required',
             'zonas_inhalambricas' => 'string|required',
-            'particiones_disponibles' => 'string|required'
+            'particiones_disponibles' => 'string|required',
             'tiempo' => 'string|required'
         ]);
 

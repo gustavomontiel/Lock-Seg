@@ -7,7 +7,7 @@ export const environment = {
   /* APIEndpoint: 'http://lock-api.grupo-sim.com.ar', */
   /* APIEndpoint: 'https://api.guazuseguridad.com/', */
   /* APIEndpoint: 'http://localhost:8000', */
-    APIEndpoint: 'http://dev-api.guazuseguridad.com',
+    APIEndpoint: 'https://api.guazuseguridad.com',
 };
 
 /*
