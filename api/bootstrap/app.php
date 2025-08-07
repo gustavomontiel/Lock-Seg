@@ -100,6 +100,8 @@ $app->register(\Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 $app->register(Clockwork\Support\Lumen\ClockworkServiceProvider::class);
 $app->register(\Illuminate\Mail\MailServiceProvider::class);
 $app->register(Spatie\Permission\PermissionServiceProvider::class);
+$app->register(Laravel\Lumen\Console\ConsoleServiceProvider::class);
+
 
 if ($app->environment() !== 'production') {
     $app->register(\Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class);
@@ -110,6 +112,9 @@ $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(GrahamCampbell\Flysystem\FlysystemServiceProvider::class);
 
+$app->register(Illuminate\View\ViewServiceProvider::class);
+
+$app->configure('view');
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
@@ -128,3 +133,7 @@ $app->router->group([
 });
 
 return $app;
+$app->singleton(
+    Illuminate\Contracts\Console\Kernel::class,
+    App\Console\Kernel::class
+);

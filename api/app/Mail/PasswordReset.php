@@ -11,31 +11,23 @@ class PasswordReset extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * @var User
-     */
     private $user;
+    private $token;
 
-    /**
-     * PasswordReset constructor.
-     * @param User $user
-     * @param $token
-     */
-    public function __construct(User $user)
+    public function __construct(User $user, string $token)
     {
         $this->user = $user;
+        $this->token = $token;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
         return $this
             ->subject(trans('messages.password_reset_subject'))
             ->view('emails.password-reset')
-            ->with(['name' => $this->user->name, 'token' => $this->user->createPasswordRecoveryToken()]);
+            ->with([
+                'name' => $this->user->nombre ?? $this->user->name,
+                'token' => $this->token,
+            ]);
     }
 }

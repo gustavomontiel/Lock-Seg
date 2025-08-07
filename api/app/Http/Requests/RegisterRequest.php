@@ -12,7 +12,6 @@ class RegisterRequest extends RequestAbstract
     protected function prepareForValidation()
     {
         $this->merge(['email' => strtoLower($this->input('email'))]);
-        $this->merge(['username' => strtoLower($this->input('username'))]);
     }
 
     /**
@@ -36,7 +35,6 @@ class RegisterRequest extends RequestAbstract
             'email' => 'required|unique:users,email',
             'password' => 'required',
             'name' => 'string',
-            'username' => 'required|unique:users,username'
         ];
     }
 

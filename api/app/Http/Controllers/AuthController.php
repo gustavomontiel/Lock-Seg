@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 use Validator;
-
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Class AuthController
@@ -96,19 +96,32 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-        $nombre = $request->input('nombre');
-        $username = $request->input('username');
-        $email = $request->input('email');
-        $password = $request->input('password');
-        $idCliente = $request->input('id_cliente');
+        $input = $request->all();
 
-        $user = User::createFromValues($nombre, $username, $email, $password);
+        $validator = Validator::make($input, [
+            'nombre' => 'string|required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required',
+            'telefono' => 'string',
+            'codigo_gestion' => 'string',
+        ]);
 
-        $user->cliente()->attach($idCliente);
+        if ($validator->fails()) {
+            return response()->json(['error' => 'true', 'data' => $validator->errors(), 'message' => 'Error en la validación de datos.'], 400);
+        }
 
-        Mail::to($user)->send(new Welcome($user));
+        $roles = $input['roleNames'];
+        unset($input['roleNames']);
+        $input['password'] = Hash::make($input['password']);
+        $input['verified'] = 1;
+        $user = User::create($input);
 
-        return response()->json(['data' => ['message' => 'Cuenta creada correctamente. Por favor revise su email para activar el usuario.']]);
+        foreach ($roles as $key => $value) {
+            $rol = $value;
+            $user->assignRole($rol);
+        }
+
+        return response()->json(['error' => 'false', 'data' => $user, 'message' => 'Usuario creado correctamente.']);
     }
 
     /**
@@ -142,20 +155,26 @@ class AuthController extends Controller
     public function forgotPassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|exists:users,email'
+            'email' => 'required|email|exists:users,email',
         ]);
 
-        if ($validator->passes()) {
-            $user = User::byEmail($request->input('email'));
-
-            Mail::to($user)->send(new PasswordReset($user));
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'El correo ingresado no pertenece a ningun usuario registrado'                
+            ], 422);
         }
 
-        return response()->json(['data' => ['message' => 'Por favor revise su email para restaurar su contraseña.']]);
+        $user = User::byEmail($request->input('email'));
+
+        $token = $user->createPasswordRecoveryToken();
+
+        Mail::to($user)->send(new PasswordReset($user, $token));
+
+        return response()->json(['message' => 'Por favor revise su email para restaurar su contraseña.']);
     }
 
     /**
-     * Create new P assword
+     * Create new Password
      *
      * @bodyParam password string required The new password
      *
@@ -173,9 +192,9 @@ class AuthController extends Controller
         $user = User::newPasswordByResetToken($token, $request->input('password'));
 
         if ($user) {
-            return response()->json(['data' => ['message' => 'La contraseña ha sido restaurada correctamente.']]);
+            return response()->json( ['message' => 'La contraseña ha sido restaurada correctamente.']);
         } else {
-            return response()->json(['data' => ['message' => 'Token de restauración de contraseña incorrecto.']], 400);
+            return response()->json( ['message' => 'Token de restauración de contraseña incorrecto.'], 400);
         }
     }
 }

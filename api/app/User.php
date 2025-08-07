@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Lumen\Auth\Authorizable;
 use Spatie\Permission\Traits\HasRoles;
+use Carbon\Carbon;
+use App\Notifications\CustomResetPasswordNotification;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
@@ -23,7 +25,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      */
     protected $fillable = [
         'nombre',
-        'username',
         'email',
         'password',
         'telefono',
@@ -94,16 +95,16 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * Create a user
      *
      * @param $name
-     * @param $username
      * @param $email
      * @param $password
      * @return User|bool
      */
-    public static function createFromValues($nombre, $email, $password)
+    public static function createFromValues($nombre, $email, $password, $telefono)
     {
         $user = new static;
 
         $user->nombre = $nombre;
+        $user->telefono = $telefono;
         $user->email = $email;
         $user->password = Hash::make($password);
         $user->verification_token = Str::random(64);
@@ -158,17 +159,23 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     /**
      * Create password recovery token
      */
+    
     public function createPasswordRecoveryToken()
     {
-        $token = Str::random(64);
+        $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
 
-        $created = DB::table('password_resets')->updateOrInsert(
+        DB::table('password_resets')->updateOrInsert(
             ['email' => $this->email],
-            ['email' => $this->email, 'token' => $token]
+            [
+                'email' => $this->email,
+                'token' => $code,
+                'created_at' => Carbon::now() // usa Carbon::now()
+            ]
         );
 
-        return $created ? $token : false;
+        return $code;
     }
+
 
     /**
      * Restore password by token
@@ -177,21 +184,36 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @param $password
      * @return false|User
      */
-    public static function newPasswordByResetToken($token, $password)
+    
+    public static function newPasswordByResetToken($code, $password)
     {
-        $query = DB::table('password_resets')->where(compact('token'));
-        $record = $query->first();
+        $record = DB::table('password_resets')->where('token', $code)->first();
 
         if (!$record) {
             return false;
         }
 
+        // Validar expiración del token
+        $expiresAt = Carbon::parse($record->created_at)->addMinutes(15);
+        if (Carbon::now()->greaterThan($expiresAt)) {
+            DB::table('password_resets')->where('token', $code)->delete();
+            return false;
+        }
+
+        // Obtener usuario asociado
         $user = self::byEmail($record->email);
+        if (!$user) {
+            DB::table('password_resets')->where('token', $code)->delete();
+            return false;
+        }
 
-        $query->delete();
+        // Eliminar token usado
+        DB::table('password_resets')->where('token', $code)->delete();
 
-        return $user->setPassword($password);
+        // Actualizar contraseña
+        return $user->setPassword($password) ? $user : false;
     }
+
 
     /**
      * Persist a new password for the user
@@ -199,9 +221,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @param $password
      * @return bool
      */
-    public function setPassword($password)
+   public function setPassword($password)
     {
         $this->password = Hash::make($password);
         return $this->save();
     }
+
+
 }

@@ -6,6 +6,14 @@ use Laravel\Lumen\Routing\Router;
 
 /* Public Routes */
 
+use Illuminate\Contracts\Console\Kernel as Artisan;
+
+$router->get('/refresh-config', function () use ($router) {
+    $artisan = $router->app->make(Artisan::class);
+    $artisan->call('cache:clear');
+    return 'Cache cleared!';
+});
+
 $router->get('/', function () {
     return response()->json(['message' => 'Bienvenidos a la API del sistema de GUAZÚ Seguridad.']);
 });
@@ -75,13 +83,14 @@ $router->group(['prefix' => 'auth', 'as' => 'auth'], function (Router $router) {
         'as' => 'password.forgot',
         'uses' => 'AuthController@forgotPassword'
     ]);
+
     $router->post('/password/recover/{token}', [
         'as' => 'password.recover',
         'uses' => 'AuthController@recoverPassword'
     ]);
     
     
-    /* Protected User Endpoint */
+    /* Protec ted User Endpoint */
     $router->get('/user', [
         'uses' => 'AuthController@getUser',
         'as' => 'user',
@@ -245,6 +254,11 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
                 'uses' => 'CategoriaController@destroy'
             ]);  
 
+            $router->post('/cuentas', [
+                'as' => 'cuentas.store',
+                'uses' => 'CuentaController@store'
+            ]);
+
     /* Admin Routes */
     $router->group(['middleware' => 'role:administrador'], function (Router $router) {
 
@@ -278,12 +292,7 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         $router->get('/cuentas', [
             'as' => 'cuentas.index',
             'uses' => 'CuentaController@index'
-        ]);
-
-        $router->post('/cuentas', [
-            'as' => 'cuentas.store',
-            'uses' => 'CuentaController@store'
-        ]);
+        ]);       
 
         $router->get('/cuentas/{id}', [
             'as' => 'cuentas.show',
