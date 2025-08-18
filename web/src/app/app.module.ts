@@ -37,7 +37,6 @@ import { EditarPromocionComponent } from './dashboard/promocion/editar-promocion
 import { PromocionesComponent } from './dashboard/promocion/promociones/promociones.component';
 import { EliminarUsuarioComponent } from './dashboard/usuario/eliminar-usuario/eliminar-usuario.component';
 import { DebitoAutomaticoComponent } from './dashboard/contacto/debito-automatico/debito-automatico.component';
-import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -67,7 +66,6 @@ import { RouterModule } from '@angular/router';
 
   ],
   imports: [
-    RouterModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
