@@ -7,6 +7,9 @@ use App\User;
 use Illuminate\Http\Request;
 use Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactoCreado;
+
 
 class ContactoController extends Controller
 {
@@ -35,21 +38,29 @@ class ContactoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $input = $request->all();
+{
+    $validator = Validator::make($request->all(), [
+        'tipo' => 'required|string|max:50',
+        'titulo' => 'nullable|string|max:100',
+        'descripcion' => 'nullable|string|max:1000',
+        'user_id' => 'required|numeric|exists:users,id',
+        'mail' => 'required|email|max:255',
+    ]);
 
-        $validator = Validator::make($input, [
-            'tipo' => 'string|required|max:50',
-            'titulo' => 'string|max:100',
-            'descripcion' => 'string|max:1000',
-            'user_id' => 'numeric|required',
-        ]);
+    if ($validator->fails()) {
+        return response()->json([
+            'error' => true,
+            'data' => $validator->errors(),
+            'message' => 'Error en la validación de datos.'
+        ], 400);
+    }
 
-        if ($validator->fails()) {
-            return response()->json(['error' => 'true', 'data' => $validator->errors(), 'message' => 'Error en la validación de datos.'], 400);
-        }
+    $datosValidados = $validator->validated();
 
-        $contacto = Contacto::create($input);
+    $contacto = Contacto::create($datosValidados);
+
+    // Enviar el mail al correo ingresado
+    Mail::to($datosValidados['mail'])->send(new ContactoCreado($datosValidados));
 
         return response()->json(['error' => 'false', 'data' => $contacto, 'message' => 'Contacto creado correctamente.']);
     }
