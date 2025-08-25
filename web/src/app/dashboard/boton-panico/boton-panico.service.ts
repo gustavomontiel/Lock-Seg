@@ -47,6 +47,8 @@ export class BotonPanicoService {
   }
 
   desactivarGuardia() {
+    console.log('guardiadesactivada');
+
     this.subscription.unsubscribe();
   }
 

@@ -3,16 +3,10 @@
 /** @var Router $router */
 
 use Laravel\Lumen\Routing\Router;
+use Illuminate\Contracts\Console\Kernel as Artisan;
 
 /* Public Routes */
 
-use Illuminate\Contracts\Console\Kernel as Artisan;
-
-$router->get('/refresh-config', function () use ($router) {
-    $artisan = $router->app->make(Artisan::class);
-    $artisan->call('cache:clear');
-    return 'Cache cleared!';
-});
 
 $router->get('/', function () {
     return response()->json(['message' => 'Bienvenidos a la API del sistema de GUAZÚ Seguridad.']);

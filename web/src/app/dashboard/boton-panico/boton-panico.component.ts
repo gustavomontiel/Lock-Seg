@@ -38,13 +38,19 @@ export class BotonPanicoComponent implements OnInit, OnDestroy {
 
     this.botonPanicoService.getPanico();
     this.botonPanicoService.activarGuardia();
+    if ('Notification' in window) {
+      Notification.requestPermission().then(permission => {
+        console.log('Permiso de notificaciones:', permission);
+      });
+    }
     this.subscription = this.botonPanicoService.contactoAlarmaObs.subscribe((contacto) => {
-      if ( contacto && this.activarAlarma === false ) {
+      if (contacto && this.activarAlarma === false) {
         this.contactoAlarma = contacto;
-        this.titleService.setTitle( this.tituloAnt + ' - ALARMA!');
+        this.titleService.setTitle(this.tituloAnt + ' - ALARMA!');
         this.activarAlarma = true;
+        this.emitirNotificacion()
       } else {
-        this.titleService.setTitle( this.tituloAnt);
+        this.titleService.setTitle(this.tituloAnt);
       }
     });
   }
@@ -52,6 +58,21 @@ export class BotonPanicoComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.botonPanicoService.desactivarGuardia();
+  }
+
+  emitirNotificacion() {
+    if (Notification.permission === 'granted') {
+      const notification = new Notification('¡Alerta Botón de Pánico!', {
+        body: 'Se ha notificado un contacto. Verifique la página por favor',
+      });
+
+      notification.onclick = () => {
+        window.focus(); // Trae la pestaña al frente si se hace clic
+        notification.close();
+      };
+    } else {
+      console.log('No hay permiso para notificaciones');
+    }
   }
 
   leerContactos() {
